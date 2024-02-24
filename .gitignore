@@ -1,0 +1,34 @@
+# 缓存文件
+.cache 
+# serveless缓存
+.s 
+# 编译产物
+build 
+# 编译产物
+build_* 
+# 编译产物
+dist 
+# 第三方包
+node_modules 
+# yarn版本锁定
+yarn.lock 
+# pnpm版本锁定
+pnpm-lock.yaml 
+# package版本锁定
+package-lock.json 
+# 生成的文档
+swagger.yaml 
+# 后端配置文件
+.env 
+# 后端配置文件
+.env.* 
+# 日志文件
+npm-debug.log*
+# 日志文件
+pnpm-debug.log*
+# 日志文件
+yarn-debug.log*
+# 日志文件
+yarn-error.log*
+# mac特有
+.DS_Store
