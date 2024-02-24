@@ -2,7 +2,8 @@ import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import viteCompression from 'vite-plugin-compression';
 
-// https://vitejs.dev/config/
+// [vite](https://vitejs.dev/config/)
+// [rollup](https://rollupjs.org/configuration-options/)
 export default defineConfig({
 	plugins: [
     preact(),
