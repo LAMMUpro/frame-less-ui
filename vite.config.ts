@@ -22,7 +22,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: [
-        './index.ts',
         ...(
           fs.readdirSync('./src/components')
           .filter(item => /^wc-[a-z].*?\.tsx$/.test(item))

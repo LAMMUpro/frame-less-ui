@@ -1,6 +1,6 @@
 import { render } from 'preact';
 import './style.css';
-import { defineWcCounter } from './components';
+import { define as defineWcCounter } from '../components/wc-counter';
 
 defineWcCounter();
 
