@@ -21,15 +21,19 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
-      input: [
-        ...(
-          fs.readdirSync('./src/components')
-            .filter(item => /^wc-[a-z].*?$/.test(item))
-            .map(filename => path.resolve('./src/components', filename, './index.tsx'))
-        )
-      ],
+      /** 动态入口, 动态名称!!! */
+      input: Object.fromEntries(
+        fs.readdirSync('./src/components')
+          .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
+          .map(componentName => [
+            `${componentName}/index`,
+            `./src/components/${componentName}/index.tsx`
+          ])
+      ),
       output: {
         dir: 'dist',
+        entryFileNames: "[name].[hash].js",
+        chunkFileNames: "deps/[name].[hash].js",
         assetFileNames: 'assets/[name]-[hash][extname]',
         /** 分包配置 */
         manualChunks: {
