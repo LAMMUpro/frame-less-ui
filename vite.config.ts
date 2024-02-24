@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import viteCompression from 'vite-plugin-compression';
+import * as fs from 'fs';
+import path from "path";
 
 // [vite](https://vitejs.dev/config/)
 // [rollup](https://rollupjs.org/configuration-options/)
@@ -19,7 +21,17 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
+      input: [
+        './index.ts',
+        ...(
+          fs.readdirSync('./src/components')
+          .filter(item => /^wc-[a-z].*?\.tsx$/.test(item))
+          .map(filename => path.resolve('./src/components', filename))
+        )
+      ],
       output: {
+        dir: 'dist',
+        assetFileNames: 'assets/[name]-[hash][extname]',
         /** 分包配置 */
         manualChunks: {
           'preact': ['preact'], // 将 preact 相关库打包成单独的 chunk 中

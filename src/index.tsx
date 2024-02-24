@@ -1,10 +1,13 @@
 import { render } from 'preact';
-
 import './style.css';
+import { defineWcCounter } from './components';
+
+defineWcCounter();
 
 export function App() {
 	return (
 		<div>
+      <wc-counter vvv="324"></wc-counter>
 			<a href="https://preactjs.com" target="_blank">
         a link
 			</a>
