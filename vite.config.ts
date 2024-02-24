@@ -24,8 +24,8 @@ export default defineConfig({
       input: [
         ...(
           fs.readdirSync('./src/components')
-          .filter(item => /^wc-[a-z].*?\.tsx$/.test(item))
-          .map(filename => path.resolve('./src/components', filename))
+            .filter(item => /^wc-[a-z].*?$/.test(item))
+            .map(filename => path.resolve('./src/components', filename, './index.tsx'))
         )
       ],
       output: {
