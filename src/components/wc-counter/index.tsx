@@ -1,5 +1,6 @@
 import register from "preact-custom-element";
 import { Component } from "preact";
+import styleInline from './index.scss?inline';
 
 export interface PropsType {
   vvv: number
@@ -28,11 +29,12 @@ class WcCounter extends Component<PropsType, StateType> {
   render(props: PropsType, state: StateType, context: any) {
     return (
       <>
-        <button onClick={this.dec}>
+        <style>{styleInline}</style>
+        <button onClick={this.dec} className="button">
           -
         </button>
         <span>{state.count}</span>
-        <button onClick={this.inc}>
+        <button onClick={this.inc} className="button">
           +
         </button>
       </>
