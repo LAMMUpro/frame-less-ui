@@ -42,6 +42,8 @@ class WcCounter extends Component<PropsType, StateType> {
   }
 }
 
-export function define() {
+export async function define() {
+  /** 定义过了则退出 */
+  if (customElements.get('wc-counter')) return;
   register(WcCounter, "wc-counter", ["vvv"], { shadow: true });
 }
