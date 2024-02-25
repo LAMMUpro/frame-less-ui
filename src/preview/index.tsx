@@ -1,13 +1,22 @@
 import { render } from 'preact';
 import './style.css';
-import { define as defineWcCounter } from '../components/wc-counter';
+import { define as defineWcCounter, PropsType } from '../components/wc-counter';
+
+/** 组件ts类型全局声明 */
+declare module "preact" {
+  namespace JSX {
+    interface IntrinsicElements {
+      "wc-counter": PropsType;
+    }
+  }
+}
 
 defineWcCounter();
 
 export function App() {
 	return (
 		<div>
-      <wc-counter vvv="324"></wc-counter>
+      <wc-counter vvv={324}></wc-counter>
 			<a href="https://preactjs.com" target="_blank">
         a link
 			</a>
