@@ -10,12 +10,21 @@ export interface StateType {
   count: number
 }
 
-class WcCounter extends Component<PropsType, StateType> {
+export class WcCounter extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
     this.setState({
       count: +props.vvv,
     })
+    
+    /** 插入constructed stylesheet */
+    setTimeout(() => {
+      const styleSheet = new CSSStyleSheet();
+      styleSheet.replaceSync(styleInline);
+      if ((this as unknown as WcComponentPrivate).__P?.adoptedStyleSheets) {
+        (this as unknown as WcComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
+      }
+    });
   }
 
   inc = () => {
@@ -29,7 +38,6 @@ class WcCounter extends Component<PropsType, StateType> {
   render(props: PropsType, state: StateType, context: any) {
     return (
       <>
-        <style>{styleInline}</style>
         <button onClick={this.dec} className="button">
           -
         </button>
