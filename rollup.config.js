@@ -20,7 +20,7 @@ export default [
     output: {
       dir: "dist",
       format: "esm",
-      entryFileNames: "components/[name].js",
+      entryFileNames: "cp/[name].js",
       chunkFileNames: "chunks/chunk.[hash].js",
       manualChunks: {
         /** 需要分包 */

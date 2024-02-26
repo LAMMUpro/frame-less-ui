@@ -1,22 +1,21 @@
 import register from "preact-custom-element";
 import { Component } from "preact";
 import styleInline from './index.scss?inline';
-import { throttle } from '@/utils';
 
 export interface PropsType {
-  vvv: number
+  text: number
 }
 
 export interface StateType {
   count: number
 }
 
-export class WcCounter extends Component<PropsType, StateType> {
+export class WcButton extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
-    this.setState({
-      count: +props.vvv,
-    })
+    // this.setState({
+    //   count: +props.vvv,
+    // })
     
     /** 插入constructed stylesheet */
     setTimeout(() => {
@@ -28,26 +27,12 @@ export class WcCounter extends Component<PropsType, StateType> {
     });
   }
 
-  inc = throttle(() => {
-    this.setState((state) => ({ count: state.count + 1 }));
-  }, 1000);
-
-  dec = () => {
-    this.setState((state) => ({ count: state.count - 1 }));
-  };
+  
 
   render(props: PropsType, state: StateType, context: any) {
     return (
       <>
-        <button onClick={this.dec} className="button">
-          -
-        </button>
-        
-        <span>{state.count}</span>
-        
-        <button onClick={this.inc} className="button">
-          防抖+
-        </button>
+        <button> 按钮 {props.text}</button>
       </>
     );
   }
@@ -55,8 +40,8 @@ export class WcCounter extends Component<PropsType, StateType> {
 
 export async function define() {
   /** 定义过了则退出 */
-  if (customElements.get('wc-counter')) return;
-  register(WcCounter, "wc-counter", ["vvv"], { shadow: true });
+  if (customElements.get('wc-button')) return;
+  register(WcButton, "wc-button", ["vvv"], { shadow: true });
 }
 
 define();

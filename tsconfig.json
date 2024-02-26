@@ -18,5 +18,5 @@
 			"react-dom": ["./node_modules/preact/compat/"]
 		}
 	},
-	"include": ["node_modules/vite/client.d.ts", "src", "demo/**/*.tsx"]
+	"include": ["node_modules/vite/client.d.ts", "src"]
 }
