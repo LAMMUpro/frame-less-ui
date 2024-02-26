@@ -7,7 +7,7 @@ import { createFilter } from 'vite';
 * @param {*} options 
 * @returns 
 */
-export function inlineScssPlugin(options = {}) {
+export function InlineScssPlugin(options = {}) {
  /** 文件筛选 */
  const filter = createFilter(options.include, options.exclude);
  /**  */

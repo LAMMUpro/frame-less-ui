@@ -3,7 +3,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import cleanup from "rollup-plugin-cleanup";
-import { inlineScssPlugin } from './inlineScssPlugin.js';
+import { InlineScssPlugin } from './InlineScssPlugin.js';
 
 export default [
   {
@@ -21,7 +21,7 @@ export default [
       },
     },
     plugins: [
-      inlineScssPlugin({
+      InlineScssPlugin({
         include: /\.tsx$/,
         exclude: /node_modules/,
       }),
