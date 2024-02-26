@@ -34,3 +34,48 @@ export function throttle(fn: Function, delay: number = 500) {
     }
   }
 }
+
+const hasOwn = {}.hasOwnProperty;
+
+function classNames(...args: any[]) {
+  const classes = [];
+  for (let i = 0; i < arguments.length; i++) {
+      const arg: any[] = arguments[i];
+      if (!arg) continue;
+
+      const argType = typeof arg;
+
+      if (argType === 'string' || argType === 'number') {
+          classes.push(arg);
+      } else if (Array.isArray(arg) && arg.length) {
+          // @ts-ignore
+          const inner: any = classNames.apply(null, arg);
+          if (inner) {
+              classes.push(inner);
+          }
+      } else if (argType === 'object') {
+          for (const key in arg) {
+              if (hasOwn.call(arg, key) && arg[key]) {
+                  classes.push(key);
+              }
+          }
+      }
+  }
+
+  return classes.join(' ');
+}
+
+export function extractClass(a: any, b: any, c: any) {
+  const [ props, ...args ] = Array.prototype.slice.call(arguments, 0);
+  if (props.class) {
+      args.unshift(props.class);
+      delete props.class;
+  } else if (props.className) {
+      args.unshift(props.className);
+      delete props.className;
+  }
+  if (args.length > 0) {
+      return { class: classNames.apply(null, args) };
+  }
+  return { class: '' };
+}
