@@ -4,17 +4,24 @@ import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import cleanup from "rollup-plugin-cleanup";
 import { InlineScssPlugin } from './InlineScssPlugin.js';
+import * as fs from 'fs';
+import path from "path";
 
 export default [
   {
-    input: {
-      "wc-counter": "./src/components/wc-counter/index.tsx",
-    },
+    input: Object.fromEntries(
+      fs.readdirSync('./src/components')
+        .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
+        .map(componentName => [
+          `${componentName}`,
+          `./src/components/${componentName}/index.tsx`
+        ])
+    ), // { "wc-counter": "./src/components/wc-counter/index.tsx" },
     output: {
       dir: "dist",
       format: "esm",
       entryFileNames: "components/[name].js",
-      chunkFileNames: "chunks/chunk.[hash].esm.js",
+      chunkFileNames: "chunks/chunk.[hash].js",
       manualChunks: {
         /** 需要分包 */
         preact: ["preact"], // 将 preact 相关库打包成单独的 chunk 中
