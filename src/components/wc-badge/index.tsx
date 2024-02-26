@@ -3,6 +3,9 @@ import { Component } from "preact";
 import styleInline from "./index.scss?inline";
 import { extractClass } from "@/utils";
 
+const styleSheet = new CSSStyleSheet();
+styleSheet.replaceSync(styleInline);
+
 export interface PropsType {
   /** 显示值 */
   value: string | number;
@@ -28,8 +31,6 @@ export class WcBadge extends Component<PropsType, StateType> {
 
     /** 插入constructed stylesheet */
     setTimeout(() => {
-      const styleSheet = new CSSStyleSheet();
-      styleSheet.replaceSync(styleInline);
       if ((this as unknown as WcComponentPrivate).__P?.adoptedStyleSheets) {
         (this as unknown as WcComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
       }
