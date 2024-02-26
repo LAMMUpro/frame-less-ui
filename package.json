@@ -13,7 +13,7 @@
     "dev": "vite",
     "build": "rollup -c",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6008",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -60,5 +60,8 @@
       "t",
       "plugin:storybook/recommended"
     ]
+  },
+  "resolutions": {
+    "jackspeak": "2.1.1"
   }
 }
