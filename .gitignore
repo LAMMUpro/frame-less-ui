@@ -32,3 +32,9 @@ yarn-debug.log*
 yarn-error.log*
 # mac特有
 .DS_Store
+# storybook缓存
+.storybook
+# storybook日志文件
+storybook.log
+# storybook编译产物
+storybook-static
