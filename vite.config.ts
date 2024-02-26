@@ -7,6 +7,11 @@ import path from "path";
 // [vite](https://vitejs.dev/config/)
 // [rollup](https://rollupjs.org/configuration-options/)
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  },
 	plugins: [
     preact(),
     /** Gzip配置 */

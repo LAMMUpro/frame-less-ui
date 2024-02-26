@@ -55,3 +55,5 @@ export async function define() {
   if (customElements.get('wc-counter')) return;
   register(WcCounter, "wc-counter", ["vvv"], { shadow: true });
 }
+
+define();
