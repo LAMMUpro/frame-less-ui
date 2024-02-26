@@ -1,8 +1,6 @@
 import register from "preact-custom-element";
 import { Component } from "preact";
-// import styleInline from './index.scss?inline';
-const styleInline = '';
-//TODO ?inline无法打包
+import styleInline from './index.scss?inline';
 
 export interface PropsType {
   vvv: number
