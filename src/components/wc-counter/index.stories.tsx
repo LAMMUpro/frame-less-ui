@@ -1,7 +1,7 @@
 import './index';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
-// Meta<typeof WcCounter>
+// Meta<typeof Counter>
 const meta: Meta = {
   // title: 'Example/Counter', // 不写可推导出来
   component: 'wc-counter', // webcomponent组件注册后直接用string

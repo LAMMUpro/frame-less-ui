@@ -42,7 +42,7 @@ export default defineConfig({
         fs.readdirSync('./src/components')
           .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
           .map(componentName => [
-            `components/${componentName.slice(3,'wc-counter'.length)}`,
+            `components/${componentName.slice(3, componentName.length)}`,
             `./src/components/${componentName}/index.tsx`
           ])
       ),

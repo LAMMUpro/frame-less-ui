@@ -1,4 +1,4 @@
-interface WcComponentPrivate {
+interface ComponentPrivate {
   __?: any
   /** wc组件根节点 */
   __P: ShadowRoot

@@ -33,8 +33,8 @@ export interface StateType {
   count: number
 }
 
-@WebComponentDefine('wc-button')
-class WcButton extends Component<PropsType, StateType> {
+@WebComponentDefine('button')
+class Button extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
     // this.setState({
@@ -47,8 +47,8 @@ class WcButton extends Component<PropsType, StateType> {
         import('./index.scss?inline').then((styleInline: any) => {
           const styleSheet = new CSSStyleSheet();
           styleSheet.replaceSync(styleInline.default);
-          if ((this as unknown as WcComponentPrivate).__P?.adoptedStyleSheets) {
-            (this as unknown as WcComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
+          if ((this as unknown as ComponentPrivate).__P?.adoptedStyleSheets) {
+            (this as unknown as ComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
           }
         })
         // import styleInline from './index.scss?inline';

@@ -33,8 +33,8 @@ export interface StateType {
   show: boolean;
 }
 
-@WebComponentDefine('wc-dialog', ['visible'])
-export class WcDialog extends Component<PropsType, StateType> {
+@WebComponentDefine('dialog', ['visible'])
+class Dialog extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
     this.setState({
@@ -45,8 +45,8 @@ export class WcDialog extends Component<PropsType, StateType> {
     setTimeout(() => {
       const styleSheet = new CSSStyleSheet();
       styleSheet.replaceSync(styleInline);
-      if ((this as unknown as WcComponentPrivate).__P?.adoptedStyleSheets) {
-        (this as unknown as WcComponentPrivate).__P.adoptedStyleSheets = [
+      if ((this as unknown as ComponentPrivate).__P?.adoptedStyleSheets) {
+        (this as unknown as ComponentPrivate).__P.adoptedStyleSheets = [
           styleSheet,
         ];
       }
@@ -64,13 +64,13 @@ export class WcDialog extends Component<PropsType, StateType> {
       })
       setTimeout(() => {
         const dom: any = (
-          this as unknown as WcComponentPrivate
+          this as unknown as ComponentPrivate
         ).__P.querySelector("wu-plus-transition");
         dom.enter?.();
       }, 0);
     } else {
       const dom: any = (
-        this as unknown as WcComponentPrivate
+        this as unknown as ComponentPrivate
       ).__P.querySelector("wu-plus-transition");
       dom.leave?.();
       this.props.lockScroll && this.enableScroll();

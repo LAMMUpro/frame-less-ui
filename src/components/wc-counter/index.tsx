@@ -11,8 +11,8 @@ export interface StateType {
   count: number
 }
 
-@WebComponentDefine('wc-counter', ['vvv'])
-export class WcCounter extends Component<PropsType, StateType> {
+@WebComponentDefine('counter', ['vvv'])
+class Counter extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
     this.setState({
@@ -23,8 +23,8 @@ export class WcCounter extends Component<PropsType, StateType> {
     setTimeout(() => {
       const styleSheet = new CSSStyleSheet();
       styleSheet.replaceSync(styleInline);
-      if ((this as unknown as WcComponentPrivate).__P?.adoptedStyleSheets) {
-        (this as unknown as WcComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
+      if ((this as unknown as ComponentPrivate).__P?.adoptedStyleSheets) {
+        (this as unknown as ComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
       }
     });
   }

@@ -25,15 +25,15 @@ export interface StateType {
   count: number;
 }
 
-@WebComponentDefine('wc-badge', ['value'])
-export class WcBadge extends Component<PropsType, StateType> {
+@WebComponentDefine('badge', ['value'])
+export class Badge extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
 
     /** 插入constructed stylesheet */
     setTimeout(() => {
-      if ((this as unknown as WcComponentPrivate).__P?.adoptedStyleSheets) {
-        (this as unknown as WcComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
+      if ((this as unknown as ComponentPrivate).__P?.adoptedStyleSheets) {
+        (this as unknown as ComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
       }
     });
   }
