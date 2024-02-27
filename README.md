@@ -17,3 +17,7 @@ InlineScssPlugin.js # rollup插件，处理.scss?inline导入
 rollup.config.js # rollup配置，打包用rollup，本地预览用vite
 vite.config.ts # vite配置
 ```
+
+## 开发规范
+
+- 文件名不要有空格！！！
