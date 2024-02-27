@@ -1,5 +1,6 @@
 ## web component & shadow dom
 > [html标准](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_components)，不兼容ie
+> 标准提出2011年、浏览器支持2018年
 
 input、video就类似web component
 
@@ -72,7 +73,7 @@ vue3 => react (需要导入vue3的runtime)
 
 #### 加载优化
 
-web component未加载/定义时，自定义组件将被当无效元素，但是嵌套的元素仍会显示(无样式)，之后加载后会更新视图（其中会有一个闪动） => 未加载前显示
+web component未加载/定义时，自定义组件将被当无效元素，但是嵌套的元素仍会显示(无样式)，之后加载后会更新视图（其中会有一个闪动） => 未加载前显示`骨架屏`
 
 #### seo
 shadow dom特性：元素隔离
