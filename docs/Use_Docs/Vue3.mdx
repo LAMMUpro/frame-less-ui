@@ -1,0 +1,44 @@
+
+## 安装
+
+```yarn
+yarn add wcui
+```
+
+## 使用
+
+**composition api**
+
+```tsx
+<template>
+  <wc-input v-model="name"></wc-input>
+</template>
+
+<srcipt>
+import "wcui/components/input";
+import ref from 'vue';
+
+const name = ref('');
+
+</srcipt>
+```
+
+## 全局配置(可选操作)
+
+**新建setWebComponentConfig.ts,配置以下内容**
+```tsx
+import { GlobalConfig } from 'wcui';
+GlobalConfig.useShadow = false; /** 不使用shadow dom隔离元素(默认为true) */
+GlobalConfig.componentPrefix = 'iu'; /** 全局设置组件前缀(默认为wc) */
+```
+
+**如果修改了默认配置,则需要在项目初始化时导入上述文件(setWebComponentConfig.ts)**
+```tsx
+import 'setWebComponentConfig'; // 此文件必需运行在import组件前, 一般和项目路由初始化放在一起导入, 导入即可, 无需执行
+```
+
+### 自定义组件前缀后需要配置一下组件typescript类型
+
+```tsx
+// TODO
+```
