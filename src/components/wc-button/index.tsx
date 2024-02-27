@@ -27,8 +27,6 @@ export class WcButton extends Component<PropsType, StateType> {
     });
   }
 
-  
-
   render(props: PropsType, state: StateType, context: any) {
     return (
       <>

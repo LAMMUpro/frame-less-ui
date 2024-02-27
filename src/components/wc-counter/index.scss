@@ -1,7 +1,10 @@
 :host {
-  border: 1px solid gray;
+  border: 10px solid transparent;
   .button {
     font-size: 20px;
-    color: blue;
+    color: gray;
+  }
+  .content {
+    padding: 10px;
   }
 }

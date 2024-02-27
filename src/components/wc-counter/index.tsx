@@ -30,7 +30,7 @@ export class WcCounter extends Component<PropsType, StateType> {
 
   inc = throttle(() => {
     this.setState((state) => ({ count: state.count + 1 }));
-  }, 1000);
+  }, 100);
 
   dec = () => {
     this.setState((state) => ({ count: state.count - 1 }));
@@ -43,10 +43,10 @@ export class WcCounter extends Component<PropsType, StateType> {
           -
         </button>
         
-        <span>{state.count}</span>
+        <span className="content">{state.count}</span>
         
         <button onClick={this.inc} className="button">
-          防抖+
+          +
         </button>
       </>
     );
