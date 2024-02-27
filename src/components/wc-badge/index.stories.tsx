@@ -1,3 +1,4 @@
+import { useState } from 'preact/hooks';
 import { define as defineWcBadge } from './index';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
@@ -25,13 +26,27 @@ export default meta;
 // 实例1
 export const Primary = {
   args: {
-    primary: true,
-    label: 'Button',
-    vvv: 12,
+    value: 20,
+    max: 99,
+    dot: false,
+    type: "success",
+    children: "变更历史"
   },
 };
 
 // 实例2
 export const Secondary: StoryObj = {
-  render: () => (<wc-counter vvv={222}></wc-counter>),
+  render: () => {
+    const [value, setValue] = useState(20);
+    return (
+      <wc-badge 
+        value={value} 
+        max={100}
+        dot={false}
+        type="danger"
+      >
+        <button onClick={ () => setValue(value + 1)}>徽标</button>
+      </wc-badge>
+    )
+  },
 };
