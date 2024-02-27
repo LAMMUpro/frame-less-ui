@@ -19,7 +19,7 @@ export function WebComponentDefine(tagName: string, watchProps: string[] = [], o
     register(WcComponentClass, tagName, watchProps, {
       shadow: options?.useShadow || GlobalConfig.useShadow,
     });
-    console.info(`自定义组件${tagName}已注册，useShadow=${options?.useShadow || GlobalConfig.useShadow}`);
+    console.info(`>>> 自定义组件${tagName}注册成功，useShadow=${options?.useShadow || GlobalConfig.useShadow}`);
   }
 }
 
