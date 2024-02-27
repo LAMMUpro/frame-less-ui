@@ -16,17 +16,19 @@ web component支持我们自定义像video这样的组件，无需编译，命�
 ![webcomponent](/docs/Use_Docs/webcomponent.jpg)
 
 在线访问
+
 http://172.16.10.180:5173/src/components/wc-button/index.test.html
+
 http://172.16.10.180:6008/?path=/docs/use-docs-shared--docs
 
-### 传统封装组件
+## 传统封装组件
 选框架 => 原生js用着没那么便捷（数据驱动视图）
 
 vue3 => vue2 (冲突)
 
 vue3 => react (需要导入vue3的runtime)
 
-### web component
+## web component
 1. 纯js编写
 
   web component 配套了 `shadow dom`、`template`、`slot`, 但是缺少`数据驱动视图`
@@ -37,7 +39,7 @@ vue3 => react (需要导入vue3的runtime)
 
   [运行时依赖对比](https://webcomponents.dev/blog/all-the-ways-to-make-a-web-component/)
 
-### 目前比较成熟的web component组件库
+## 目前比较成熟的web component组件库
 
 [shoelace](https://shoelace.style/components/dialog) `start: 11.6k` `lit`
 
@@ -47,7 +49,7 @@ vue3 => react (需要导入vue3的runtime)
 
 [quarkd](https://vue-quarkd.hellobike.com/#/zh-CN/component/button) `1.8k` `vue`
 
-### 框架选用分析
+## 框架选用分析
 
 1. vue(50kb)
 
@@ -65,23 +67,51 @@ vue3 => react (需要导入vue3的runtime)
 
   preact，运行时小，学习成本低，与vue3/vue2/react不冲突
 
-### 框架搭建
+## 应用场景
+
+> preact开发组件，在vue2/vue3项目中共同使用
+
+## 如何引入
+
+=> vue3
+```tsx
+
+
+<template>
+  
+  <wc-input type="primary" v-model="value"></wc-input>
+
+</template>
+
+<script setup>
+import 'wcui/cp/wc-input'; // 导入组件
+
+import ref from 'vue';
+const value = ref('默认值');
+</script>
+```
+
+## 如何在业务上继承/使用
+
+
+
+## 框架搭建
 
 1. vite调试
 
 2. storybook组件文档
 
-### 框架待改进
+## 框架待改进
 
-#### 按需加载
+### 按需加载
 
 ![按需加载](/docs/Use_Docs/axload.jpg)
 
-#### 加载优化
+### 加载优化
 
 web component未加载/定义时，自定义组件将被当无效元素，但是嵌套的元素仍会显示(无样式)，之后加载后会更新视图（其中会有一个闪动） => 未加载前显示`骨架屏`
 
-#### seo
+### seo
 shadow dom特性：元素隔离
 
 seo不会读取shadow root下面的元素
@@ -90,7 +120,7 @@ seo不会读取shadow root下面的元素
 
 2. [lit貌似解决了shadow dom的seo](https://lit.dev/docs/ssr/overview/)
 
-#### 组件自动化测试工具
+### 组件自动化测试工具
 目的：兼容不同环境下使用web component
 
 `react` - 开发调试直接是在preact下调试的✅
@@ -100,3 +130,4 @@ seo不会读取shadow root下面的元素
 `vue3`
 
 `vue2`
+
