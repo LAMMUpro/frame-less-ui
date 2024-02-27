@@ -35,13 +35,13 @@ export default defineConfig({
         fs.readdirSync('./src/components')
           .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
           .map(componentName => [
-            `${componentName}/index`,
+            `components/${componentName.slice(3,'wc-counter'.length)}`,
             `./src/components/${componentName}/index.tsx`
           ])
       ),
       output: {
         dir: 'dist',
-        entryFileNames: "[name].[hash].js",
+        entryFileNames: "[name].js",
         chunkFileNames: "deps/[name].[hash].js",
         assetFileNames: 'assets/[name]-[hash][extname]',
         /** 分包配置 */
