@@ -12,6 +12,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src')
     }
   },
+  server: {
+    /** 允许127.0.0.1 或者 ipv4访问 */
+    host: '0.0.0.0',
+  },
 	plugins: [
     preact(),
     /** Gzip配置 */
