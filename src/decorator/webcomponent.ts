@@ -1,3 +1,4 @@
+import { GlobalConfig } from '@/config';
 import register from "@/utils/preact-custom-element";
 
 /**
@@ -16,8 +17,9 @@ export function WebComponentDefine(tagName: string, watchProps: string[] = [], o
     if (customElements.get(tagName))
       return console.warn(`custom element <${tagName}> is used!`);
     register(WcComponentClass, tagName, watchProps, {
-      shadow: options?.useShadow || true,
+      shadow: options?.useShadow || GlobalConfig.useShadow,
     });
+    console.info(`自定义组件${tagName}已注册，useShadow=${options?.useShadow || GlobalConfig.useShadow}`);
   }
 }
 

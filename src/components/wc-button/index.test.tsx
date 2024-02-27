@@ -1,6 +1,8 @@
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
-import '@/components/wc-button';
+import { GlobalConfig } from '@/config';
+GlobalConfig.useShadow = false;
+import('@/components/wc-button');
 
 export function App() {
   const [value, setValue] = useState(20);

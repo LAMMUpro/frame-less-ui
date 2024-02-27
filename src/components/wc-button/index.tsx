@@ -1,8 +1,7 @@
-import register from "@/utils/preact-custom-element";
 import { Component } from "preact";
-import styleInline from './index.scss?inline';
 import { extractClass } from "@/utils";
 import { WebComponentDefine } from '@/decorator/webcomponent';
+import { GlobalConfig } from '@/config';
 
 type WuButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 type NativeType = 'button' | 'submit' | 'reset';
@@ -44,10 +43,22 @@ class WcButton extends Component<PropsType, StateType> {
     
     /** 插入constructed stylesheet */
     setTimeout(() => {
-      const styleSheet = new CSSStyleSheet();
-      styleSheet.replaceSync(styleInline);
-      if ((this as unknown as WcComponentPrivate).__P?.adoptedStyleSheets) {
-        (this as unknown as WcComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
+      if (GlobalConfig.useShadow) {
+        import('./index.scss?inline').then((styleInline: any) => {
+          const styleSheet = new CSSStyleSheet();
+          styleSheet.replaceSync(styleInline.default);
+          if ((this as unknown as WcComponentPrivate).__P?.adoptedStyleSheets) {
+            (this as unknown as WcComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
+          }
+        })
+        // import styleInline from './index.scss?inline';
+      } else {
+        import('./index.scss').then((styleInline: any) => {
+          const style = document.createElement('style');
+          style.setAttribute('from-wcui', 'button');
+          style.innerHTML = styleInline.default
+          document.head.appendChild(style)
+        })
       }
     });
   }
