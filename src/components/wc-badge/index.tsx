@@ -2,6 +2,7 @@ import register from "@/utils/preact-custom-element";
 import { Component } from "preact";
 import styleInline from "./index.scss?inline";
 import { extractClass } from "@/utils";
+import { WebComponentDefine } from '@/decorator/webcomponent';
 
 const styleSheet = new CSSStyleSheet();
 styleSheet.replaceSync(styleInline);
@@ -25,6 +26,7 @@ export interface StateType {
   count: number;
 }
 
+@WebComponentDefine('wc-badge', ['value'])
 export class WcBadge extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
@@ -72,11 +74,3 @@ export class WcBadge extends Component<PropsType, StateType> {
     );
   }
 }
-
-export async function define() {
-  /** 定义过了则退出 */
-  if (customElements.get("wc-badge")) return;
-  register(WcBadge, "wc-badge", ['value'], { shadow: true });
-}
-
-define();

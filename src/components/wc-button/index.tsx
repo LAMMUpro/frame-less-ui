@@ -2,6 +2,7 @@ import register from "@/utils/preact-custom-element";
 import { Component } from "preact";
 import styleInline from './index.scss?inline';
 import { extractClass } from "@/utils";
+import { WebComponentDefine } from '@/decorator/webcomponent';
 
 type WuButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 type NativeType = 'button' | 'submit' | 'reset';
@@ -33,7 +34,8 @@ export interface StateType {
   count: number
 }
 
-export class WcButton extends Component<PropsType, StateType> {
+@WebComponentDefine('wc-button')
+class WcButton extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
     // this.setState({
@@ -76,11 +78,3 @@ export class WcButton extends Component<PropsType, StateType> {
     );
   }
 }
-
-export async function define() {
-  /** 定义过了则退出 */
-  if (customElements.get('wc-button')) return;
-  register(WcButton, "wc-button", ["vvv"], { shadow: true });
-}
-
-define();

@@ -3,12 +3,11 @@ import register from "@/utils/preact-custom-element";
 /**
  * webcomponent类装饰器
  * @param tagName 自定义标签名称
+ * @param watchProps 需要监控变化的属性
  */
-export function WebComponentDefine(tagName: string, options?: {
-  /** 需要监控的组件属性 */
-  watchProps: string[];
+export function WebComponentDefine(tagName: string, watchProps: string[] = [], options?: {
   /** 是否使用shadow dom封装组件 */
-  useShadow: boolean;
+  useShadow?: boolean;
 }) {
   // TODEO，第一个TS参数怎么写 ，这里不知道为什么需要第二个参数
   return function (WcComponentClass: Function, _:any) {
@@ -16,7 +15,7 @@ export function WebComponentDefine(tagName: string, options?: {
     /** 定义过了则退出 */
     if (customElements.get(tagName))
       return console.warn(`custom element <${tagName}> is used!`);
-    register(WcComponentClass, tagName, options?.watchProps || [], {
+    register(WcComponentClass, tagName, watchProps, {
       shadow: options?.useShadow || true,
     });
   }

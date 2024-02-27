@@ -1,8 +1,6 @@
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
 import '@/components/wc-button';
-import { define } from '@/components/wc-dialog';
-define();
 
 export function App() {
   const [show, setShow] = useState(false);

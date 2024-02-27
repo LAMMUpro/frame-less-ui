@@ -2,6 +2,7 @@ import register from "@/utils/preact-custom-element";
 import { Component } from "preact";
 import styleInline from "./index.scss?inline";
 import { extractClass } from "@/utils";
+import { WebComponentDefine } from '@/decorator/webcomponent';
 
 export interface PropsType {
   // 是否显示
@@ -34,6 +35,7 @@ export interface StateType {
   show: boolean;
 }
 
+@WebComponentDefine('wc-counter', ['visible'])
 export class WcDialog extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
@@ -170,11 +172,3 @@ export class WcDialog extends Component<PropsType, StateType> {
     );
   }
 }
-
-export async function define() {
-  /** 定义过了则退出 */
-  if (customElements.get("wc-dialog")) return;
-  register(WcDialog, "wc-dialog", ["visible"], { shadow: true });
-}
-
-define();

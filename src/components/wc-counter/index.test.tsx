@@ -1,7 +1,5 @@
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
-import { define } from '@/components/wc-counter';
-define();
 
 export function App() {
   const [value, setValue] = useState(20);
