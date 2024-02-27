@@ -1,4 +1,3 @@
-import register from "@/utils/preact-custom-element";
 import { Component } from "preact";
 import styleInline from './index.scss?inline';
 import { throttle } from '@/utils';

@@ -1,7 +1,5 @@
-import register from "@/utils/preact-custom-element";
 import { Component } from "preact";
 import styleInline from "./index.scss?inline";
-import { extractClass } from "@/utils";
 import { WebComponentDefine } from '@/decorator/webcomponent';
 
 export interface PropsType {
