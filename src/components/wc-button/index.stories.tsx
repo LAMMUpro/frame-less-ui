@@ -1,7 +1,5 @@
-import { define as defineWcButton } from './index';
+import './index';
 import type { Meta, StoryObj } from '@storybook/web-components';
-
-defineWcButton();
 
 // Meta<typeof WcCounter>
 const meta: Meta = {

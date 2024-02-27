@@ -1,8 +1,6 @@
 import { useState } from 'preact/hooks';
-import { define as defineWcBadge } from './index';
+import './index';
 import type { Meta, StoryObj } from '@storybook/web-components';
-
-defineWcBadge();
 
 // Meta<typeof WcCounter>
 const meta: Meta = {

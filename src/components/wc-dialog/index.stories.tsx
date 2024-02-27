@@ -1,8 +1,6 @@
+import './index';
 import { useState } from 'react';
-import { define as defineWcDialog } from './index';
 import type { Meta, StoryObj } from '@storybook/web-components';
-
-defineWcDialog();
 
 // Meta<typeof WcCounter>
 const meta: Meta = {
