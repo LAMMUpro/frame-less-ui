@@ -17,7 +17,14 @@ export default defineConfig({
     host: '0.0.0.0',
   },
 	plugins: [
-    preact(),
+    preact({
+      babel: {
+        plugins: [
+          ["@babel/plugin-proposal-decorators", { legacy: true }],
+          ["@babel/plugin-proposal-class-properties", { loose: true }],
+        ],
+      },
+    }),
     /** Gzip配置 */
     viteCompression({
       algorithm: 'gzip', /** 压缩算法 */
