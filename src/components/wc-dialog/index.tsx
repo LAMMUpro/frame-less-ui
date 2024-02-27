@@ -35,7 +35,7 @@ export interface StateType {
   show: boolean;
 }
 
-@WebComponentDefine('wc-counter', ['visible'])
+@WebComponentDefine('wc-dialog', ['visible'])
 export class WcDialog extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
