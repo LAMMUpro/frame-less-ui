@@ -2,6 +2,7 @@
 @use "sass:math";
 @import '@/styles/var.scss';
 @import '@/styles/mixin.scss';
+
 @include b(badge) {
     position: relative;
     vertical-align: middle;
