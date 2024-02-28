@@ -1,7 +1,6 @@
 import { Component } from "preact";
 import { extractClass } from "@/utils";
 import { WebComponentDefine } from '@/decorator/webcomponent';
-import { GlobalConfig } from '@/config';
 
 type WuButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 type NativeType = 'button' | 'submit' | 'reset';
@@ -33,34 +32,10 @@ export interface StateType {
   count: number
 }
 
-@WebComponentDefine('button')
+@WebComponentDefine('button', [], import('./index.scss?inline'))
 class Button extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
-    // this.setState({
-    //   count: +props.vvv,
-    // })
-    
-    /** 插入constructed stylesheet */
-    setTimeout(() => {
-      if (GlobalConfig.useShadow) {
-        import('./index.scss?inline').then((styleInline: any) => {
-          const styleSheet = new CSSStyleSheet();
-          styleSheet.replaceSync(styleInline.default);
-          if ((this as unknown as ComponentPrivate).__P?.adoptedStyleSheets) {
-            (this as unknown as ComponentPrivate).__P.adoptedStyleSheets = [styleSheet];
-          }
-        })
-        // import styleInline from './index.scss?inline';
-      } else {
-        import('./index.scss').then((styleInline: any) => {
-          const style = document.createElement('style');
-          style.setAttribute('from-wcui', 'button');
-          style.innerHTML = styleInline.default
-          document.head.appendChild(style)
-        })
-      }
-    });
   }
 
   render(props: PropsType, state: StateType, context: any) {
