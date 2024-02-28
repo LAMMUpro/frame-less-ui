@@ -1,4 +1,4 @@
-import { PropsType as CounterPropsType, define } from '../components/wc-counter';
+import { PropsType as CounterPropsType } from '../components/wc-counter';
 import { PropsType as ButtonPropsType } from '../components/wc-button';
 import { PropsType as BadgePropsType } from '../components/wc-badge';
 import { PropsType as DialogPropsType } from '../components/wc-dialog';
