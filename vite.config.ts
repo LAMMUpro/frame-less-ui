@@ -15,6 +15,9 @@ export default defineConfig({
   server: {
     /** 允许127.0.0.1 或者 ipv4访问 */
     host: '0.0.0.0',
+    port: 5173,
+    /** 默认打开某页面 */
+    open: '/src/components/wc-button/index.test.html',
   },
 	plugins: [
     preact({
