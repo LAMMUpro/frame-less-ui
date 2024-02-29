@@ -79,3 +79,25 @@ export function extractClass(a: any, b: any, c: any) {
   }
   return { class: '' };
 }
+
+
+/**
+ * 类名转换，每个参数是单独一个类名或者 { 类名: 是否生效 }
+ * @Example ct('button', { 'active' : 真值 | 假值 })
+ */
+export function ct(...args: Array<string | {
+  [key: string]: any
+}>) {
+  const classList: string[] = [];
+  args.forEach(item => {
+    if (typeof item === 'string') {
+      classList.push(item);
+    } else if (typeof item === 'object') {
+      const classKeys = Object.keys(item);
+      classKeys.forEach(className => {
+        if (item[className]) classList.push(className);
+      })
+    }
+  })
+  return classList.join(' ');
+}
