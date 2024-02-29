@@ -1,16 +1,16 @@
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
-import '@/components/wc-dialog';
+import '@/components/dialog';
 
 export function App() {
   const [show, setShow] = useState(false);
 	return (
 		<div>
-      <wc-button text="显示弹窗" onClick={() => setShow(true)}></wc-button>
-      <wc-dialog 
+      <fl-button text="显示弹窗" onClick={() => setShow(true)}></fl-button>
+      <fl-dialog 
         visible={show}
         closeOnClickModal={true}
-        showClose={true}
+        shofllose={true}
         lockScroll={true}
         zIndex={1000}
         title="弹窗标题"
@@ -19,7 +19,7 @@ export function App() {
         <div >
           <h2>弹窗内容</h2>
         </div>
-      </wc-dialog>
+      </fl-dialog>
 		</div>
 	);
 }

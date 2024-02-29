@@ -17,7 +17,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     /** 默认打开某页面 */
-    open: '/src/components/wc-button/index.test.html',
+    open: '/src/components/button/index.test.html',
   },
 	plugins: [
     preact({
@@ -45,7 +45,7 @@ export default defineConfig({
         fs.readdirSync('./src/components')
           .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
           .map(componentName => [
-            `components/${componentName.slice(3, componentName.length)}`,
+            `components/${componentName}`,
             `./src/components/${componentName}/index.tsx`
           ])
       ),

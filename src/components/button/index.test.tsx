@@ -1,11 +1,15 @@
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
+import { GlobalConfig } from '@/config';
+GlobalConfig.useShadow = false;
+GlobalConfig.componentPrefix = 'iu';
+import('@/components/button');
 
 export function App() {
   const [value, setValue] = useState(20);
 	return (
 		<div>
-      <wc-counter vvv={value}></wc-counter>
+      <iu-button text={value}></iu-button>
 		</div>
 	);
 }

@@ -2,7 +2,7 @@
 ## 安装
 
 ```yarn
-yarn add wcui
+yarn add flui
 ```
 
 ## 使用
@@ -11,11 +11,11 @@ yarn add wcui
 
 ```tsx
 <template>
-  <wc-input v-model="name"></wc-input>
+  <fl-input v-model="name"></fl-input>
 </template>
 
 <srcipt>
-import "wcui/components/input";
+import "flessui/components/input";
 import ref from 'vue';
 
 const name = ref('');
@@ -27,9 +27,9 @@ const name = ref('');
 
 **新建setWebComponentConfig.ts,配置以下内容**
 ```tsx
-import { GlobalConfig } from 'wcui';
+import { GlobalConfig } from 'flui';
 GlobalConfig.useShadow = false; /** 不使用shadow dom隔离元素(默认为true) */
-GlobalConfig.componentPrefix = 'iu'; /** 全局设置组件前缀(默认为wc) */
+GlobalConfig.componentPrefix = 'iu'; /** 全局设置组件前缀(默认为fl) */
 ```
 
 **如果修改了默认配置,则需要在项目初始化时导入上述文件(setWebComponentConfig.ts)**

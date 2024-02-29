@@ -5,14 +5,14 @@ export function App() {
   const [value, setValue] = useState(20);
 	return (
 		<div>
-      <wc-badge 
+      <fl-badge 
         value={value} 
         max={100}
         dot={false}
         type="danger"
       >
         <button onClick={ () => setValue(value + 1)}>徽标</button>
-      </wc-badge>
+      </fl-badge>
 		</div>
 	);
 }

@@ -22,7 +22,7 @@ export default class WebComponent<PropsType, StateType> extends Component<PropsT
       } else {
         import('./index.scss').then((styleInline: any) => {
           const style = document.createElement('style');
-          style.setAttribute('from-wcui', 'button');
+          style.setAttribute('from-flessui', 'button');
           style.innerHTML = styleInline.default
           document.head.appendChild(style)
         })

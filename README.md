@@ -44,7 +44,7 @@ yarn storybook
 
 ## 常用接口
 
-**[组件调试(preact环境)](http://localhost:5173/src/components/wc-button/index.test.html) button组件调试👈**
+**[组件调试(preact环境)](http://localhost:5173/src/components/button/index.test.html) button组件调试👈**
 
 **[组件调试(原生环境)](http://localhost:5173/demo/button.html) button组件调试, 需先运行`yarn build`👈**
 
@@ -74,11 +74,11 @@ demo # 组件预览测试(纯html下测试，需要先将项目打包) ( yarn vi
   - [xxx].html
 docs # storybook文档（手动编写）
 src
-  - components # wc组件
-    - wc-[xxx]
+  - components # fl组件
+    - fl-[xxx]
       - index.scss # 组件样式
       - index.stories.tsx # 组件storybook文档配置
-      - index.test.html # 组件测试 （ yarn vite后访问 http://127.0.0.1:5173/src/components/wc-counter/index.test.html ）
+      - index.test.html # 组件测试 （ yarn vite后访问 http://127.0.0.1:5173/src/components/counter/index.test.html ）
       - index.test.tsx # 组件测试
       - index.tsx # 组件源码
   - types # ts类型

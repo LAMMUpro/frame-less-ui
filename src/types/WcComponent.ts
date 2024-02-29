@@ -1,6 +1,6 @@
 interface ComponentPrivate {
   __?: any
-  /** wc组件根节点 */
+  /** fl组件根节点 */
   __P: ShadowRoot
   __d: boolean
   __e: boolean

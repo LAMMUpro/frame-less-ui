@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 // Meta<typeof Counter>
 const meta: Meta = {
   // title: 'Example/Counter', // 不写可推导出来
-  component: 'wc-dialog', // webcomponent组件注册后直接用string
+  component: 'fl-dialog', // webcomponent组件注册后直接用string
   tags: ['autodocs'],
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -27,11 +27,11 @@ export const Primary = {
     const [show, setShow] = useState(false);
     return (
       <div>
-        <wc-button text="显示弹窗" onClick={() => setShow(true)}></wc-button>
-        <wc-dialog 
+        <fl-button text="显示弹窗" onClick={() => setShow(true)}></fl-button>
+        <fl-dialog 
           visible={show}
           closeOnClickModal={true}
-          showClose={true}
+          shofllose={true}
           lockScroll={true}
           zIndex={1000}
           title="弹窗标题"
@@ -40,7 +40,7 @@ export const Primary = {
           <div >
             <h2>弹窗内容</h2>
           </div>
-        </wc-dialog>
+        </fl-dialog>
       </div>
     )
   }
@@ -52,11 +52,11 @@ export const Primary = {
 //     const [show, setShow] = useState(false);
 //     return (
 //       <div>
-//         <wc-button text="显示弹窗" onClick={() => setShow(true)}></wc-button>
-//         <wc-dialog 
+//         <fl-button text="显示弹窗" onClick={() => setShow(true)}></fl-button>
+//         <fl-dialog 
 //           visible={show}
 //           closeOnClickModal={true}
-//           showClose={true}
+//           shofllose={true}
 //           lockScroll={true}
 //           zIndex={1000}
 //           title="弹窗标题"
@@ -65,7 +65,7 @@ export const Primary = {
 //           <div >
 //             <h2>弹窗内容</h2>
 //           </div>
-//         </wc-dialog>
+//         </fl-dialog>
 //       </div>
 //     )
 //   }

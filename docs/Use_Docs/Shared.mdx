@@ -17,7 +17,7 @@ web component支持我们自定义像video这样的组件，无需编译，命�
 
 在线访问
 
-http://172.16.10.180:5173/src/components/wc-button/index.test.html
+http://172.16.10.180:5173/src/components/button/index.test.html
 
 http://172.16.10.180:6008/?path=/docs/use-docs-shared--docs
 
@@ -79,12 +79,12 @@ vue3 => react (需要导入vue3的runtime)
 
 <template>
   
-  <wc-input type="primary" v-model="value"></wc-input>
+  <fl-input type="primary" v-model="value"></fl-input>
 
 </template>
 
 <script setup>
-import 'wcui/cp/wc-input'; // 导入组件
+import 'flessui/component/input'; // 导入组件
 
 import ref from 'vue';
 const value = ref('默认值');

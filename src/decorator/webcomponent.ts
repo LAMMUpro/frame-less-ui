@@ -49,7 +49,7 @@ export function WebComponentDefine(
         } else { /** 不使用shadow dom */
           stylePromise?.then?.((styleInline) => {
             const style = document.createElement('style');
-            style.setAttribute(`from-wcui`, `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`);
+            style.setAttribute(`from-flessui`, `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`);
             style.innerHTML = styleInline.default;
             document.head.appendChild(style);
           })
