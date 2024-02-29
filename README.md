@@ -21,3 +21,8 @@ vite.config.ts # vite配置
 ## 开发规范
 
 - 文件名不要有空格！！！
+
+
+## 注
+
+使用`import styles from './index.module.scss';`的语法会导致在`/dist/assets/`下生成`.css资源，由于没有.html入口，所以这个资源目前是用不到的`
