@@ -100,11 +100,13 @@ vite.config.ts # vite配置
 git config core.ignorecase false # 在项目根目录中执行
 ```
 
-## 注
+## 分支说明
 
-使用`import styles from './index.module.scss';`的语法会导致在`/dist/assets/`下生成`.css资源，由于没有.html入口，所以这个资源目前是用不到的`
+`master` - 主分支
 
-## 常见问题
+`dev` - 开发分支
+
+`x.y.z` - 版本分支
 
 ## 更新说明
 - 1.1.0
@@ -113,3 +115,11 @@ git config core.ignorecase false # 在项目根目录中执行
 - 1.0.0
   - xx
   - xx
+
+
+## 注
+
+使用`import styles from './index.module.scss';`的语法会导致在`/dist/assets/`下生成`.css资源，由于没有.html入口，所以这个资源目前是用不到的`
+
+## 常见问题
+
