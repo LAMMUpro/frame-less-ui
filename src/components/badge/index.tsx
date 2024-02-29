@@ -1,6 +1,6 @@
 import { Component } from "preact";
 import styleInline from "./index.scss?inline";
-import { extractClass } from "@/utils";
+import { ct } from "@/utils";
 import { WebComponentDefine } from '@/decorator/webcomponent';
 
 const styleSheet = new CSSStyleSheet();
@@ -59,11 +59,10 @@ export class Badge extends Component<PropsType, StateType> {
         <slot id="defaultSlot" />
         {!props.hide && (this.content || this.content === 0 || props.dot) ? (
           <sup
-            {...extractClass({}, "", {
+            className={ct("wu-badge_content", {
               ["wu-badge_content-" + props.type]: props.type,
               "is-fixed": this.isFixed,
               "is-dot": props.dot,
-              "wu-badge_content": true,
             })}
           >
             {this.content}

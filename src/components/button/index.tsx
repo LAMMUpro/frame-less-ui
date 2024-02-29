@@ -1,5 +1,5 @@
 import { Component } from "preact";
-import { ct, extractClass } from "@/utils";
+import { ct } from "@/utils";
 import { WebComponentDefine } from "@/decorator/webcomponent";
 import styles from "./index.module.scss";
 
