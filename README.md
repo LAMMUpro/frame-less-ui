@@ -1,18 +1,17 @@
-# 
+# FrameLessUI
 
 ## 介绍
 
-xxxxxxxxxxxxxxxx
+一个跨`框架`的`轻量`前端`ui组件库`
 
 ### 特性
 
-- ✅ xxx
-- 🧙‍xxx
-- 🐎 xxx
-- 🍃 xxx
+- ✅ 无框架绑定, html原生支持, 所以也支持Vue2/Vue3/React/Angular/JQuery等框架...
+- 🧙‍ 组件按需导入、按需加载
+- 🔋 核心依赖非常小(gzip后约20kb, 每个组件大约10kb)
+- 🐎 首次加载快, 只加载button只需加载(20 + 10)kb依赖
+- 🍃 storybook在线文档调试
 - 🐻 xxx
-
-- 🔋xxx
 - 🥃 xxx
 - ⚡️ xxx
 - 👀 xxx
