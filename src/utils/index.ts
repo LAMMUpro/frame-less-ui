@@ -55,3 +55,11 @@ export function ct(...args: Array<string | {
   })
   return classList.join(' ');
 }
+
+/**
+ * 短横线命名法转驼峰命名法
+ * @Example toCamelCase('start-time') => 'startTime'
+ */
+export function toCamelCase(str: string) {
+	return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''));
+}
