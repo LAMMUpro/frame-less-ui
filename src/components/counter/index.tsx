@@ -44,11 +44,16 @@ class Counter extends Component<PropsType, StateType> {
           -
         </button>
         
+        <span className="content">{props.vvv}</span>
         <span className="content">{state.count}</span>
         
         <button onClick={this.inc} className="button">
           +
         </button>
+        {/* <slot></slot> */}
+        {
+          props.children
+        }
       </>
     );
   }

@@ -1,13 +1,20 @@
+import { GlobalConfig } from '@/config';
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
+GlobalConfig.useShadow = true;
 import('@/components/counter');
 
 export function App() {
-  const [value, setValue] = useState(20);
+  const [value, setValue] = useState(null);
 	return (
 		<div>
       <div>{value}</div>
-      <fl-counter vvv={value}></fl-counter>
+      <button onClick={() => setValue(undefined)}>改变value</button>
+      <button onClick={() => setValue(null)}>改变value</button>
+
+      <fl-counter vvv={value}>
+        <span className="aaa">666</span>
+      </fl-counter>
 		</div>
 	);
 }
