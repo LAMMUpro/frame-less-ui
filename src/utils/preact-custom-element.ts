@@ -1,6 +1,23 @@
 import { h, cloneElement, render, hydrate } from 'preact';
 
-export default function register(Component, tagName, propNames, options) {
+/**
+ * 注册自定义组件，基于customElements.define封装
+ */
+export default function register(
+  /** preact类组件 */
+  Component: any, 
+  /** 自定义组件名称 */
+  tagName: string, 
+  /** 需要监控值变化的属性列表 */
+  propNames: Array<string>,
+  /** 其它选项 */
+  options: {
+    /** 是否使用shadow dom */
+    shadow: boolean
+    /** shadow dom 模式 */
+    mode: 'open' | 'closed'
+  }
+): void {
 	function PreactElement() {
 		const inst = Reflect.construct(HTMLElement, [], PreactElement);
 		inst._vdomComponent = Component;
