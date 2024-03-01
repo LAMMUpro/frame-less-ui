@@ -1,6 +1,7 @@
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
 import '@/components/dialog';
+import '@/components/button';
 
 export function App() {
   const [show, setShow] = useState(false);
