@@ -1,15 +1,16 @@
-# 跨`框架`的UI组件库 开发方案
+# `FrameLessUI`: 跨`框架`的`轻量`前端`ui组件库`
 
-html原生支持, 所以Vue2/Vue3/React/Angular/JQuery...
+> 为何跨框架: 因为html原生支持, 所以也支持Vue2/Vue3/React/Angular/JQuery...
 
-## web component & shadow dom & template & slot
+## 基本原理: web component
 
-> 这两个API[官方标准](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_components)，不兼容ie
+> 配套API: shadow dom & template & slot
+
+> 这些API都是[官方标准](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_components)，[不兼容ie](https://caniuse.com/?search=Custom%20Elements)
+
 > 标准提出2011年、浏览器支持2018年
 
-input、video就类似web component
-
-![video](/docs/images/video.png)
+案例: [fl-badge组件](http://localhost:5173/docs/Dev_Docs/customElements.define.html)
 
 web component支持我们自定义像video这样的组件，无需编译，命名必须包含-
 

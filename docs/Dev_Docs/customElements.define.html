@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>customElements.define</title>
+</head>
+<body>
+  <fl-badge>
+    <button>按钮</button>
+  </fl-badge>
+
+  <template>
+    <div id="fl-badge-template">
+      <div>
+        <slot></slot>
+        <span class="number">88</span>
+      </div>
+    </div>
+    <style>
+      .number {
+        border: 1px solid blue;
+        border-radius: 6px;
+      }
+    </style>
+  </template>
+
+  <script>
+    class BadgeElement extends HTMLElement {
+      constructor() {
+        super();
+
+
+      }
+    }
+    customElements.define('fl-badge', )
+  </script>
+</body>
+</html>
