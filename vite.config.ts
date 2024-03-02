@@ -21,6 +21,7 @@ export default defineConfig({
   },
 	plugins: [
     preact({
+      include: '*.tsx',
       babel: {
         plugins: [
           ["@babel/plugin-proposal-decorators", { legacy: true }],
@@ -44,10 +45,14 @@ export default defineConfig({
       input: Object.fromEntries(
         fs.readdirSync('./src/components')
           .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
-          .map(componentName => [
-            `components/${componentName}`,
-            `./src/components/${componentName}/index.tsx`
-          ])
+          .map(componentName => {
+            /** .tsx是preact组件, .ts是lit组件 */
+            const isPreactComponent = fs.existsSync(`./src/components/${componentName}/index.tsx`);
+            return [
+              `components/${componentName}`,
+              `./src/components/${componentName}/index.${isPreactComponent ? 'tsx':'ts'}`
+            ]
+          })
       ),
       output: {
         dir: 'dist',
@@ -57,6 +62,8 @@ export default defineConfig({
         /** 分包配置 */
         manualChunks: {
           'preact': ['preact'], // 将 preact 相关库打包成单独的 chunk 中
+          'lit': ['lit'], // 将 lit 相关库打包成单独的 chunk 中
+          'lit-html': ['lit-html', 'lit-element'],
         },
       },
     }
