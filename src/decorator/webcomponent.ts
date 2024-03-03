@@ -41,17 +41,52 @@ export function LitWebcomponent(
     class ComponentClassInjectStyle extends ComponentClass {
       constructor(...args: any[]) {
         super(...args);
+        /** 给组件加一个变量 */
+        this._useShadow = useShadow;
+      }
 
-        /** 使用shadow dom */
-        if (useShadow) {
-          this.createRenderRoot = super.createRenderRoot;
-        } else { /** 不使用shadow dom */
-          this.createRenderRoot = () => { return this; }
+      /** 
+       * 兼容不使用shadow dom的情况
+       */
+      createRenderRoot() {
+        return this._useShadow ? super.createRenderRoot() : this;
+      }
+
+      firstUpdated() {
+        super.firstUpdated();
+
+        /**
+         * 处理slot, 非shadow dom渲染原生不支持<slot>标签
+         */
+        if (!this._useShadow) {
+          /** 组件内使用到的所有slot */
+          const slots = this.querySelectorAll('slot');
+          if (slots.length == 0) return;
+          /** slot对应的内容节点(根节点下, 没有fl-cn标签的) */
+          const slotContentNodes = [...this.children].filter(node => !node.hasAttribute('fl-cn'));
+          
+          /** 默认slot对应的内容 */
+          const normalSlotContentNodeIndex = slotContentNodes.findIndex(node => [null, ''].includes(node.getAttribute('slot')));
+
+          slots.forEach(slot => {
+            const slotName = slot.getAttribute('name') || '';
+
+            /** preact如果只有slot属性会被当成true值, 处理这种特殊情况 */
+            if (!slotName && normalSlotContentNodeIndex > -1) {
+              slot.replaceWith(slotContentNodes.splice(normalSlotContentNodeIndex, 1)[0]);
+            } else { /** 其他具名slot */
+              const index = slotContentNodes.findIndex(node => slotName === node.getAttribute('slot'));
+              if (index > -1) {
+                slot.replaceWith(slotContentNodes.splice(index, 1)[0]);
+              }
+            }
+          })
         }
       }
     }
 
     /**
+     * 样式表插入(兼容不使用shadow dom 的情况)
      * // TODO 开发环境下(import styles from './index.scss';)会自动加载插入到<head>内
      */
     customElements.whenDefined(tagName).then(() => {
