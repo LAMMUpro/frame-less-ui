@@ -1,23 +1,25 @@
-import {LitElement, css, html} from 'lit';
-import {customElement, property, state} from 'lit/decorators.js';
-
-interface PropsType {
-  name: string
-}
+import {LitElement, css, html, unsafeCSS} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import styles from './index.module.scss';
+import stylesInline from './index.module.scss?inline';
+import { ct } from '@/utils';
 
 @customElement('fl-tree')
 export class Tree extends LitElement {
-  @property() name: string = '';
+  @property({ reflect: true }) 
+  name: string = 'world! ';
 
+  @property({ type: Array }) 
+  arr: Array<number> = [];
+  
   render() {
     return html`
-      <p>Hello, ${this.name}!</p>
+      <p 
+        @click=${() => console.log(this.arr)}
+      >Hello, ${this.name}</p>
     `;
   }
 
-  static styles = css`
-    :host {
-      color: blue;
-    }
-  `;
+  static styles = [css`${unsafeCSS(stylesInline)}`];
 }
+

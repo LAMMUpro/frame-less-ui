@@ -1,10 +1,14 @@
 import { render } from 'preact';
+import { useState } from 'react';
 import('@/components/tree');
 
 export function App() {
+  const [name, setName] = useState("worl");
+  const arr = ['str',4,5];
 	return (
 		<div>
-      <fl-tree name="worlddd"></fl-tree>
+      {/* 传递Array和object需要先json.stringify!!! */}
+      <fl-tree name={name} arr={JSON.stringify(arr)}></fl-tree>
 		</div>
 	);
 }

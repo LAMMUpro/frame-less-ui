@@ -24,7 +24,7 @@ export function WebComponentDefine(
 ) {
   const tagName = `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`;
   // TODO，第一个TS参数怎么写 ，这里不知道为什么需要第二个参数
-  return function (ComponentClass: any, _:any): any {
+  return function (ComponentClass: any, _?:any): any {
     // TODO tagName正则校验: 自定义组件名称，必须含有下划线 
 
     /** 自定义元素已经定义过了则退出 */
