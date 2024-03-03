@@ -1,0 +1,25 @@
+body > .title {
+  color: #333;
+  font-size: 18px;
+  font-weight: 700;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background-color: #9bd0e2;
+  &::before {
+    content: "";
+    width: 4px;
+    height: 44%;
+    background-color: #1890ff;
+    margin-right: 10px;
+  }
+}
+
+#origin > .divide,
+#preact > .divide,
+#preact > * > .divide, 
+#vue3 > .divide,
+#vue3 > * > .divide {
+  margin: 20px 0;
+  border-bottom: 2px dashed rgb(170, 170, 170);
+}
