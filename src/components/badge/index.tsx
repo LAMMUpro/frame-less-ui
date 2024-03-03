@@ -1,7 +1,7 @@
 import { Component } from "preact";
 import styleInline from "./index.scss?inline";
 import { ct } from "@/utils";
-import { WebComponentDefine } from '@/decorator/webcomponent';
+import { PreactWebcomponent } from '@/decorator/webcomponent';
 
 const styleSheet = new CSSStyleSheet();
 styleSheet.replaceSync(styleInline);
@@ -25,7 +25,7 @@ export interface StateType {
   count: number;
 }
 
-@WebComponentDefine('badge', ['value'])
+@PreactWebcomponent('badge', ['value'])
 export class Badge extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();

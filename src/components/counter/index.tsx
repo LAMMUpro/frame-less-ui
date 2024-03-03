@@ -1,7 +1,7 @@
 import { Component } from "preact";
 import styleInline from './index.scss?inline';
 import { throttle } from '@/utils';
-import { WebComponentDefine } from '@/decorator/webcomponent';
+import { PreactWebcomponent } from '@/decorator/webcomponent';
 
 export interface PropsType {
   vvv: number
@@ -11,7 +11,7 @@ export interface StateType {
   count: number
 }
 
-@WebComponentDefine('counter', ['vvv'])
+@PreactWebcomponent('counter', ['vvv'])
 class Counter extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();

@@ -1,6 +1,6 @@
 import { Component } from "preact";
 import styleInline from "./index.scss?inline";
-import { WebComponentDefine } from '@/decorator/webcomponent';
+import { PreactWebcomponent } from '@/decorator/webcomponent';
 
 export interface PropsType {
   // 是否显示
@@ -33,7 +33,7 @@ export interface StateType {
   show: boolean;
 }
 
-@WebComponentDefine('dialog', ['visible'])
+@PreactWebcomponent('dialog', ['visible'])
 class Dialog extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();

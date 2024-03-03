@@ -1,6 +1,6 @@
 import { Component } from "preact";
 import { ct } from "@/utils";
-import { WebComponentDefine } from "@/decorator/webcomponent";
+import { PreactWebcomponent } from "@/decorator/webcomponent";
 import styles from "./index.module.scss";
 
 type WuButtonType = "primary" | "success" | "warning" | "danger" | "info";
@@ -33,7 +33,7 @@ export interface StateType {
   count: number;
 }
 
-@WebComponentDefine("button", [], import("./index.module.scss?inline"))
+@PreactWebcomponent("button", [], import("./index.module.scss?inline"))
 class Button extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
