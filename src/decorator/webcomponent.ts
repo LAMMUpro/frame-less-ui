@@ -50,7 +50,7 @@ export function LitWebcomponent(
     }
 
     /**
-     * // TODO 开发环境下(import styles from './index.module.scss';)会自动加载插入到<head>内
+     * // TODO 开发环境下(import styles from './index.scss';)会自动加载插入到<head>内
      */
     customElements.whenDefined(tagName).then(() => {
       if(!useShadow) stylePromise?.then?.((styleInline) => {
