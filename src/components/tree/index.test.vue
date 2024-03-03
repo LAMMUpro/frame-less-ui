@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <fl-tree name="word vue3" :arr="arr"></fl-tree>
+    <fl-tree-sd name="word vue3" :arr="arr"></fl-tree-sd>
   </div>
 </template>
 

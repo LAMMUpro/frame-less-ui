@@ -4,9 +4,7 @@ import stylesInline from './index.scss?inline';
 import { ct } from '@/utils';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 
-@LitWebcomponent('tree', import('./index.scss?inline'), {
-  useShadow: true
-})
+@LitWebcomponent('tree', import('./index.scss?inline'))
 export class Tree extends LitElement {
   @property({ reflect: true }) 
   name: string = 'world! ';

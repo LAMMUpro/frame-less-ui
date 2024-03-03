@@ -42,8 +42,10 @@ export function LitWebcomponent(
       constructor(...args: any[]) {
         super(...args);
 
-        /** 不使用shadow dom */
-        if (!useShadow) {
+        /** 使用shadow dom */
+        if (useShadow) {
+          this.createRenderRoot = super.createRenderRoot;
+        } else { /** 不使用shadow dom */
           this.createRenderRoot = () => { return this; }
         }
       }
