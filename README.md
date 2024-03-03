@@ -44,9 +44,7 @@ yarn storybook
 
 ## 常用接口
 
-**[组件调试(preact环境)](http://localhost:5173/src/components/button/index.test.html) button组件调试👈**
-
-**[组件调试(原生环境)](http://localhost:5173/demo/button.html) button组件调试, 需先运行`yarn build`👈**
+**[组件调试(html/preact/vue)](http://localhost:5173/src/components/button/index.test.html) button组件调试👈**
 
 **[组件文档👈](http://localhost:6008/) 需先运行`yarn storybook`**
 
@@ -70,8 +68,6 @@ node版本: `node`v16.18.0
 ## 目录结构
 ```SH
 .storybook # storybook文档配置
-demo # 组件预览测试(纯html下测试，需要先将项目打包) ( yarn vite后访问 http://127.0.0.1:5173/demo/html/counter.html )
-  - [xxx].html
 docs # storybook文档（手动编写）
 src
   - components # fl组件
