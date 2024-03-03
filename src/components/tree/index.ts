@@ -11,14 +11,19 @@ export class Tree extends LitElement {
 
   @property({ type: Array })
   arr: Array<number> = [];
-  
+
   render() {
     return html`
-      <div class=${ct('flessui-tree')}>
+      <span fl-cn>test</span>
+      <div class=${ct('flessui-tree')} fl-cn>
         <p 
           class=${ct('fl-red')}
           @click=${() => console.log(this.arr)}
         >Hello, ${this.name}</p>
+        <div>
+          <div><slot></slot></div>
+          <section><slot name="hhh"></slot></section>
+        </div>
       </div>
     `;
   }

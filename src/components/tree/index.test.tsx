@@ -1,6 +1,7 @@
 import { render } from 'preact';
 import { createApp } from 'vue';
 import Vue3App from './index.test.vue';
+import '@/styles/demo.scss';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 import { Tree } from './index';
 import { useState } from 'preact/hooks';
@@ -20,8 +21,13 @@ function PreactApp() {
   const arr = ['str', 4, 5, () => console.log(666)];
 	return (
 		<div>
-      <fl-tree name={name} arr={arr}></fl-tree>
-      <fl-tree-sd name={name} arr={arr}></fl-tree-sd>
+      <fl-tree name={name} arr={arr}>
+        <button slot="">插槽示例</button>
+      </fl-tree>
+      <div class="divide"></div>
+      <fl-tree-sd name={name} arr={arr}>
+        <button>插槽示例</button>
+      </fl-tree-sd>
 		</div>
 	);
 }

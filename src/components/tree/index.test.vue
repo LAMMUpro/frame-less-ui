@@ -1,7 +1,16 @@
 <template>
   <div class="main">
-    <fl-tree name="word vue3" :arr="arr"></fl-tree>
-    <fl-tree-sd name="word vue3" :arr="arr"></fl-tree-sd>
+    <fl-tree name="word vue3" :arr="arr">
+      <button slot>默认插槽</button>
+      <div slot="hhh">
+        <div>{{ number }}</div>
+        <button @click="add">增加</button>
+      </div>
+    </fl-tree>
+    <div class="divide"></div>
+    <fl-tree-sd name="word vue3" :arr="arr">
+      <button slot>插槽示例</button>
+    </fl-tree-sd>
   </div>
 </template>
 
@@ -16,6 +25,10 @@ const arr = ref([
   [5],
   {}
 ]);
+const number = ref(5);
+function add () {
+  number.value = number.value + 1;
+}
 </script>
 
 <style lang="scss">
