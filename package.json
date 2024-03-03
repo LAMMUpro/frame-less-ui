@@ -1,5 +1,6 @@
 {
   "name": "flessui",
+  "version": "1.0.0",
   "description": "flessui, 一个跨框架的轻量前端ui组件库",
   "author": "lammu",
   "keywords": [
