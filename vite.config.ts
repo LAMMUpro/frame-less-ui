@@ -3,6 +3,7 @@ import preact from '@preact/preset-vite';
 import viteCompression from 'vite-plugin-compression';
 import * as fs from 'fs';
 import path from "path";
+import vue from '@vitejs/plugin-vue';
 
 // [vite](https://vitejs.dev/config/)
 // [rollup](https://rollupjs.org/configuration-options/)
@@ -20,6 +21,7 @@ export default defineConfig({
     open: '/src/components/button/index.test.html',
   },
 	plugins: [
+    vue(),
     preact({
       include: '*.tsx',
       babel: {
