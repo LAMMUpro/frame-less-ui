@@ -1,7 +1,6 @@
 import { Component } from "preact";
 import { ct } from "@/utils";
 import { PreactWebcomponent } from "@/decorator/webcomponent";
-import styles from "./index.module.scss";
 
 type WuButtonType = "primary" | "success" | "warning" | "danger" | "info";
 type NativeType = "button" | "submit" | "reset";
@@ -33,7 +32,7 @@ export interface StateType {
   count: number;
 }
 
-@PreactWebcomponent("button", [], import("./index.module.scss?inline"))
+@PreactWebcomponent("button", [], import("./index.scss?inline"))
 class Button extends Component<PropsType, StateType> {
   constructor(props: PropsType, context: any) {
     super();
@@ -43,7 +42,7 @@ class Button extends Component<PropsType, StateType> {
     return (
       <button
         disabled={props.disabled}
-        className={ct(styles["wu-button"], {
+        className={ct("wu-button", {
           ["wu-button-" + props.type]: props.type,
           ["wu-button-" + props.size]: props.size,
           "is-plain": props.plain,
