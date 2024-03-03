@@ -3,8 +3,11 @@ import {customElement, property} from 'lit/decorators.js';
 import styles from './index.module.scss';
 import stylesInline from './index.module.scss?inline';
 import { ct } from '@/utils';
+import { LitWebcomponent } from '@/decorator/webcomponent';
 
-@customElement('fl-tree')
+@LitWebcomponent('tree', import('./index.module.scss?inline'), {
+  useShadow: true
+})
 export class Tree extends LitElement {
   @property({ reflect: true }) 
   name: string = 'world! ';
@@ -14,9 +17,12 @@ export class Tree extends LitElement {
   
   render() {
     return html`
-      <p 
-        @click=${() => console.log(this.arr)}
-      >Hello, ${this.name}</p>
+      <div class=${ct(styles.wrap)}>
+        <p 
+          class=${ct(styles.red)}
+          @click=${() => console.log(this.arr)}
+        >Hello, ${this.name}</p>
+      </div>
     `;
   }
 

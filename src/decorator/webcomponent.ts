@@ -25,7 +25,46 @@ export function LitWebcomponent(
   stylePromise: WebCompoponentDefine['stylePromise'],
   options?: WebCompoponentDefine['options'],
 ) {
-  return WebComponentDefine(tagNameWithoutPrefix, [], stylePromise, options);
+  // TODO tagName正则校验: 自定义组件名称，必须含有下划线 
+  const tagName = `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`;
+  /** 定义时传到参数优先 */
+  const useShadow = options?.useShadow ?? GlobalConfig.useShadow;
+  // TODO，第一个TS参数怎么写 ，这里不知道为什么需要第二个参数
+  return function (ComponentClass: any, _?:any): any {
+    /** 自定义元素已经定义过了则退出 */
+    if (customElements.get(tagName)) return console.warn(`custom element <${tagName}> is used!`);
+
+    /**
+     * 构造新的类，做一些通用功能
+     * 1. 样式注入
+     */
+    class ComponentClassInjectStyle extends ComponentClass {
+      constructor(...args: any[]) {
+        super(...args);
+
+        /** 不使用shadow dom */
+        if (!useShadow) {
+          this.createRenderRoot = () => { return this; }
+        }
+      }
+    }
+
+    //// 会自动加载??
+    // customElements.whenDefined(tagName).then(() => {
+    //   if(!useShadow) stylePromise?.then?.((styleInline) => {
+    //     const style = document.createElement('style');
+    //     style.setAttribute(`from-flessui`, `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`);
+    //     style.innerHTML = styleInline.default;
+    //     document.head.appendChild(style);
+    //   })
+    // })
+
+    /** 定义组件(tag) */
+    customElements.define(tagName, ComponentClassInjectStyle);
+    console.info(`>>> 自定义组件${tagName}注册成功，useShadow=${useShadow}`);
+
+    return ComponentClassInjectStyle;
+  }
 }
 
 export function PreactWebcomponent(
@@ -46,10 +85,12 @@ function WebComponentDefine(
   stylePromise?: WebCompoponentDefine['stylePromise'],
   options?: WebCompoponentDefine['options'],
 ) {
+  // TODO tagName正则校验: 自定义组件名称，必须含有下划线 
   const tagName = `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`;
+  /** 定义时传到参数优先 */
+  const useShadow = options?.useShadow ?? GlobalConfig.useShadow;
   // TODO，第一个TS参数怎么写 ，这里不知道为什么需要第二个参数
   return function (ComponentClass: any, _?:any): any {
-    // TODO tagName正则校验: 自定义组件名称，必须含有下划线 
 
     /** 自定义元素已经定义过了则退出 */
     if (customElements.get(tagName)) return console.warn(`custom element <${tagName}> is used!`);
@@ -63,29 +104,32 @@ function WebComponentDefine(
         super(...args);
 
         /** 使用shadow dom隔离样式 */
-        if (GlobalConfig.useShadow) {
+        if (useShadow) {
           stylePromise?.then?.((styleInline) => {
             const styleSheet = new CSSStyleSheet();
             styleSheet.replaceSync(styleInline.default);
             const shadowRoot = (this as unknown as ComponentPrivate).__P;
             if (shadowRoot?.adoptedStyleSheets) shadowRoot.adoptedStyleSheets = [styleSheet];
           })
-        } else { /** 不使用shadow dom */
-          stylePromise?.then?.((styleInline) => {
-            const style = document.createElement('style');
-            style.setAttribute(`from-flessui`, `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`);
-            style.innerHTML = styleInline.default;
-            document.head.appendChild(style);
-          })
         }
       }
     }
 
+    customElements.whenDefined(tagName).then(() => {
+      /** 不使用shadow dom */
+      if(!useShadow) stylePromise?.then?.((styleInline) => {
+        const style = document.createElement('style');
+        style.setAttribute(`from-flessui`, `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`);
+        style.innerHTML = styleInline.default;
+        document.head.appendChild(style);
+      })
+    })
+
     /** 定义组件 */
     register(ComponentClassInjectStyle, tagName, watchProps, {
-      shadow: options?.useShadow || GlobalConfig.useShadow,
+      shadow: useShadow,
     });
-    console.info(`>>> 自定义组件${tagName}注册成功，useShadow=${options?.useShadow || GlobalConfig.useShadow}`);
+    console.info(`>>> 自定义组件${tagName}注册成功，useShadow=${useShadow}`);
 
     return ComponentClassInjectStyle;
   }
