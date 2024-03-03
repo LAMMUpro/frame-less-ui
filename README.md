@@ -93,6 +93,7 @@ vite.config.ts # vite配置
 
 - 样式统一加fl-前缀, 统一包一层`:host, .flessui-[组件名]` { ... }
 
+- 调试shadow模式下组件, 统一命名`fl-[组件名]-sd`
 
 ## 项目配置
 
@@ -111,12 +112,17 @@ git config core.ignorecase false # 在项目根目录中执行
 `x.y.z` - 版本分支
 
 ## 更新说明
+> 版本详情见storybook文档
+
 - 1.1.0
   - xx
   - xx
-- 1.0.0
-  - xx
-  - xx
+
+- 1.0.0 - `2024-3-1`
+  - 支持lit/preact的方式写组件
+  - 支持多种框架调试组件
+  - 接入story文档
+  - 支持shadow/非shadow初始化组件
 
 
 ## 注
