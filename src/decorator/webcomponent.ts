@@ -49,15 +49,17 @@ export function LitWebcomponent(
       }
     }
 
-    //// 会自动加载??
-    // customElements.whenDefined(tagName).then(() => {
-    //   if(!useShadow) stylePromise?.then?.((styleInline) => {
-    //     const style = document.createElement('style');
-    //     style.setAttribute(`from-flessui`, `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`);
-    //     style.innerHTML = styleInline.default;
-    //     document.head.appendChild(style);
-    //   })
-    // })
+    /**
+     * // TODO 开发环境下(import styles from './index.module.scss';)会自动加载插入到<head>内
+     */
+    customElements.whenDefined(tagName).then(() => {
+      if(!useShadow) stylePromise?.then?.((styleInline) => {
+        const style = document.createElement('style');
+        style.setAttribute(`from-flessui`, `${GlobalConfig.componentPrefix}-${tagNameWithoutPrefix}`);
+        style.innerHTML = styleInline.default;
+        document.head.appendChild(style);
+      })
+    })
 
     /** 定义组件(tag) */
     customElements.define(tagName, ComponentClassInjectStyle);
