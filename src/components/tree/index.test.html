@@ -11,7 +11,7 @@
 	<body>
     <h2 class="title">原生</h2>
     <div id="origin">
-      <fl-tree name="word" arr="&quot;[\&quot;str\&quot;,4,5]&quot;">
+      <fl-tree id="fl-tree" name="word">
         <button>插槽示例</button>
       </fl-tree>
       <div class="divide"></div>
@@ -19,6 +19,10 @@
         <button>插槽示例</button>
       </fl-tree-sd>  
     </div>
+    <script>
+      const flTree = document.getElementById('fl-tree');
+      flTree.arr = ['str', 2, 3, ()=> {}];
+    </script>
 
     <h2 class="title">preact</h2>
     <div id="preact"></div>
