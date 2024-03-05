@@ -36,10 +36,10 @@ const meta: Meta<Tree> = {
 export default meta;
 
 /**
- * 案例1
+ * 
  */
 export const case_1 = {
-  name: "默认",
+  name: "基本用法",
   tags: [], // 标签，用于搜索
   args: {
     // name: "word!",
@@ -54,10 +54,10 @@ export const case_1 = {
 };
 
 /**
- * 案例2
+ * 
  */
 export const case_2:StoryObj = {
-  name: "成功",
+  name: "自定义渲染子项目",
   tags: [], // 标签，用于搜索
   render: () => (<div><fl-tree name="www"></fl-tree></div>),
 };
