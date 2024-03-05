@@ -17,6 +17,7 @@
     "baseUrl": "./",
 		"paths": {
       "@/*": ["src/*"],
+      "@sb/*": ["./.storybook/*"],
 			"react": ["./node_modules/preact/compat/"],
 			"react-dom": ["./node_modules/preact/compat/"]
 		}

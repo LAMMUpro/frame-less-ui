@@ -10,7 +10,8 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@sb': path.resolve(__dirname, '.storybook'),
+      '@': path.resolve(__dirname, 'src'),
     }
   },
   server: {
