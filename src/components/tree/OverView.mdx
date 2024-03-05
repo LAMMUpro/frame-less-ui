@@ -1,0 +1,16 @@
+import { Subtitle, Meta, Stories, Title, ArgTypes } from '@storybook/blocks';
+import * as ComponentStories from './index.stories';
+
+<Title>{ComponentStories.default.component}</Title>
+
+<Subtitle>{ComponentStories.default.subtitle}</Subtitle>
+
+> {ComponentStories.default.description}
+<br/>
+
+<Meta of={ComponentStories} />
+
+<Stories />
+
+<ArgTypes of={ComponentStories} />
+
