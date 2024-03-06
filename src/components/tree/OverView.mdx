@@ -4,21 +4,21 @@ import AsideLinks from '@sb/AsideLinks.tsx';
 
 <div style="display:flex;">
   <div style="flex-grow: 1;">
-  <Title>{ComponentStories.default.component}</Title>
+    <Title>{ComponentStories.default.component}</Title>
 
-  <Subtitle>{ComponentStories.default.subtitle}</Subtitle>
+    <Subtitle>{ComponentStories.default.subtitle}</Subtitle>
 
-  > {ComponentStories.default.description}
-  <br/>
+    > {ComponentStories.default.description}
+    <br/>
 
-  <Meta of={ComponentStories} />
+    <Meta of={ComponentStories} />
 
-  <Stories />
+    <Stories />
 
-  <ArgTypes of={ComponentStories} />
+    <ArgTypes of={ComponentStories} />
   </div>
 
-  <div>
+  <div style="min-width: 150px;">
     <AsideLinks/>
   </div>
 </div>
