@@ -45,6 +45,16 @@ export function LitWebcomponent(
         this._useShadow = useShadow;
       }
 
+      /**
+       * 事件
+       */
+      emit = (name: string, detail?: any, options?: EventInit) => {
+        this.dispatchEvent(new CustomEvent(name, {
+          ...options,
+          detail,
+        }));
+      }
+
       /** 
        * 兼容不使用shadow dom的情况
        */

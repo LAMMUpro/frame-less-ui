@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <fl-tree name="word vue3" :arr="arr">
+    <fl-tree name="word vue3" :arr="arr" @success="(e) => console.log('>>>', e)">
       <button slot>默认插槽</button>
       <div slot="hhh">
         <div>{{ number }}</div>
@@ -8,7 +8,7 @@
       </div>
     </fl-tree>
     <div class="divide"></div>
-    <fl-tree-sd name="word vue3" :arr="arr">
+    <fl-tree-sd name="word vue3" :arr="arr" @success="(e) => console.log('>>>', e)">
       <button slot>插槽示例</button>
     </fl-tree-sd>
   </div>

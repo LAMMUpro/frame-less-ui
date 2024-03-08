@@ -29,9 +29,8 @@ export type EmitType = {
 @LitWebcomponent('tree', import('./index.scss?inline'))
 export class Tree extends LitElement {
   
-  emit: EmitType = (name: string, ...args: any[]) => {
-    this.dispatchEvent(new CustomEvent(name, ...args));
-  }
+  /** 类型声明，内部有实现 */
+  emit: EmitType;
 
   @property({ reflect: true }) 
   name: string = 'world! ';
@@ -40,12 +39,12 @@ export class Tree extends LitElement {
   arr: Array<number> = [];
 
   submit () {
-    this.emit('success', true);
+    this.emit('success', { list: ['aaa', 'bbb'] });
   }
 
   render() {
     return html`
-      <span fl-cn>test</span>
+      <span fl-cn @click=${this.submit}>自定义事件</span>
       <div class=${ct('flessui-tree')} fl-cn>
         <p 
           class=${ct('fl-red')}
