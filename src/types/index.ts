@@ -1,4 +1,4 @@
-import { Counter, PropsType as CounterPropsType } from '../components/counter';
+import { PropsType as CounterPropsType } from '../components/counter';
 import { PropsType as ButtonPropsType } from '../components/button';
 import { PropsType as BadgePropsType } from '../components/badge';
 import { PropsType as DialogPropsType } from '../components/dialog';
