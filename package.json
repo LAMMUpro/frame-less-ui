@@ -14,8 +14,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "yarn vite build",
     "storybook": "storybook dev -p 6008",
+    "build": "yarn vite build",
+    "build:meta": "ts-node scripts/generateStoryBook.ts",
     "build:storybook": "storybook build"
   },
   "dependencies": {
@@ -60,5 +61,8 @@
   },
   "resolutions": {
     "jackspeak": "2.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }

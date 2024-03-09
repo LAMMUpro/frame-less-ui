@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { DocType } from "../src/types/storybook";
 
 enum FontSize {
   'H1' = '28px',
@@ -51,45 +52,51 @@ function generateDocsH2andPropsH3() {
 /**
  * 生成事件文档
  */
-function generateEventsDocs(events: Array<{
-  /** 事件名 */
+function generateDocsTable(list: Array<{
+  /** 名称 */
   name: string
-  /** 事件描述 */
-  description?: string
-  /** 事件详情 */
+  /** 描述 */
+  describe?: string
+  /** 详情 */
   detail?: string
-}>) {
-  const name = 'events';
-  if (!events.length) return;
+}>, type: DocType) {
+  if (!list.length) return;
   const docsWrapNode = document.getElementsByClassName('_doc_')[0];
   if (!docsWrapNode) return;
   /**
    * 插入副标题
    */
   const subTitle = document.createElement('h3');
-  subTitle.innerText = '方法';
+  subTitle.innerText =  {
+    'prop': '属性',
+    'event': '事件',
+    'method': '方法',
+    'slot': '插槽',
+    'cssvar': 'css变量',
+    'part': 'shadow part',
+  }[type];
   docsWrapNode.appendChild(subTitle);
 
   /**
    * 构造table
    */
   const tableNode = document.createElement('table');
-  tableNode.className = `docblock-table docblock-${name}table sb-unstyled css-v2ifgj _${name}_`;
+  tableNode.className = `docblock-table docblock-${type}stable sb-unstyled css-v2ifgj _${type}s_`;
   tableNode.innerHTML = `
-  <thead class="docblock-${name}table-head">
+  <thead class="docblock-${type}stable-head">
     <tr>
       <th><span>Name</span></th>
       <th><span>Description</span></th>
       <th><span>Event Detail</span></th>
     </tr>
   </thead>
-  <tbody class="docblock-${name}table-body">
+  <tbody class="docblock-${type}stable-body">
     ${
-      events.map(event => `
+      list.map(info => `
         <tr>
-          <td class="css-4lbn0a"><span class="css-in3yi3">${event.name}</span></td>
-          <td><div class="css-18pz2h2"><span>${event.description || '-'}</span></div><div class="css-1ije3e2"></div></td>
-          <td><div class="css-13nzt7e"><span class="css-o1d7ko">${event.detail || '-'}</span></div></td>
+          <td class="css-4lbn0a"><span class="css-in3yi3">${info.name}</span></td>
+          <td><div class="css-18pz2h2"><span>${info.describe || '-'}</span></div><div class="css-1ije3e2"></div></td>
+          <td><div class="css-13nzt7e"><span class="css-o1d7ko">${info.detail || '-'}</span></div></td>
         </tr>
       `).join('')
     }
@@ -104,20 +111,16 @@ function generateEventsDocs(events: Array<{
  * 2. 添加属性副标题
  * 3. 生成方法/事件/插槽/parts/css变量等区块
  */
-export default function AsideLinks(): React.ReactElement {
+export default function AsideLinks({ meta }): React.ReactElement {
   const [links, setLinks] = useState<any>([]);
 
   useEffect(() => {
     
     generateDocsH2andPropsH3();
 
-    generateEventsDocs([
-      {
-        name: 'onSlRequestClose',
-        description: 'Emitted when the user attempts to close the dialog by clicking the close button, clicking the overlay, or pressing escape. Calling event.preventDefault() will keep the dialog open. Avoid using this unless closing the dialog will result in destructive behavior such as data loss.',
-        detail: `{ source: 'close-button' | 'keyboard' | 'overlay' }`,
-      }
-    ]);
+    Object.keys(meta.tableInfo).forEach(key => {
+      if (meta.tableInfo[key].length) generateDocsTable(meta.tableInfo[key], key.slice(0, key.length - 1) as DocType);
+    })
 
     /**
      * 处理h节点
@@ -125,6 +128,7 @@ export default function AsideLinks(): React.ReactElement {
     const list: any[] = [];
     const h2Nodes = document.querySelectorAll("#storybook-docs h1, #storybook-docs h2, #storybook-docs h3");
     h2Nodes.forEach((node) => {
+      if (!(node instanceof HTMLElement)) return; /** 如果是文本, 换行 */
       if (
         node.classList.contains("sbdocs-subtitle") ||
         node.classList.contains("sbdocs-title")
