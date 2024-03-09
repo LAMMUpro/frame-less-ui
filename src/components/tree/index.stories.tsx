@@ -26,7 +26,6 @@ const meta: Meta<Tree> = {
   component: `${GlobalConfig.componentPrefix}-tree`,
   subtitle: '嵌套树',
   description: '这是一个实验性功能',
-  // tags: ['autodocs'], // 自动生成组件DOCS文档
   /** props定义 */
   argTypes,
   /** 默认值设置 */

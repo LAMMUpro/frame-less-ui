@@ -4,9 +4,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 
 // Meta<typeof Counter>
 const meta: Meta = {
-  // title: 'Example/Counter', // 不写可推导出来
   component: 'fl-dialog', // webcomponent组件注册后直接用string
-  tags: ['autodocs'],
   argTypes: {
     backgroundColor: { control: 'color' },
     onClick: { action: 'onClick' },
