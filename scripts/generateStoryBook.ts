@@ -1,3 +1,4 @@
+import { toCamelCase } from "../src/utils/index.ts";
 import { DocInfo, DocType, docTypes } from "../src/types/storybook.ts";
 import fs from "fs";
 import path from "path";
@@ -77,10 +78,12 @@ const componentInfoList: Array<ComponentInfo> = componentsName
       });
     }
 
+    const frame: ComponentInfo['frame']  = isPreactComponent ? "preact" : "lit";
+
     return {
       name,
       isAbnormal: false,
-      cpType: isPreactComponent ? "preact" : "lit",
+      frame,
       originCode,
       tableInfo: {
         props,
@@ -97,6 +100,7 @@ const componentInfoList: Array<ComponentInfo> = componentsName
 componentInfoList.forEach(componentInfo => {
   saveMetaFileByComponentInfo(componentInfo);
   saveOverViewMdxFile(componentInfo);
+  generateReactWrapFile(componentInfo);
 });
 
 /**
@@ -153,6 +157,41 @@ import meta from './meta.cache.ts';
     <AsideLinks meta={meta}/>
   </div>
 </div>
+  `;
+  
+  fs.writeFile(filePath, contents, 'utf-8', () => {});
+}
+
+
+/**
+ * lit组件生成react.cache.ts
+ */
+function generateReactWrapFile(componentInfo: ComponentInfo) {
+  console.log(componentInfo)
+  /** 只有lit组件才包一层 */
+  if (componentInfo.frame !== 'lit') return;
+
+  /** 获取类名 */
+  const className = toCamelCase(componentInfo.name[0].toUpperCase() + componentInfo.name.slice(1));
+
+  const filePath = path.resolve(componentDir, componentInfo.name, 'react.cache.ts');
+  
+  let contents: string = `
+import { createComponent, type EventName } from '@lit/react';
+import React from 'react';
+import { GlobalConfig } from '@/config';
+import { ${className} } from './index';
+
+const Fl${className} = createComponent({
+  tagName: GlobalConfig.componentPrefix + '-${componentInfo.name}',
+  elementClass: ${className},
+  react: React,
+  events: {
+    onSuccess: 'success' as EventName<CustomEvent<{ list: any[] }>>,
+  },
+});
+
+export default Fl${className};
   `;
   
   fs.writeFile(filePath, contents, 'utf-8', () => {});

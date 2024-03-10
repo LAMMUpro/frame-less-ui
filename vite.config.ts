@@ -62,7 +62,7 @@ export default defineConfig({
 
             return [
               `components/${componentName}`,
-              `./src/components/${componentName}/${outputMode == 'react' ? 'react.cache.ts': `index.${isPreactComponent ? 'tsx':'ts'}`}`
+              `./src/components/${componentName}/${outputMode==='react' && isLitComponent ? 'react.cache.ts': `index.${isPreactComponent ? 'tsx':'ts'}`}`
             ]
           }).filter(item => item.length).filter(item => {
             const exist = fs.existsSync(item[1]);
