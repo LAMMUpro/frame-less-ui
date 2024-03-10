@@ -44,14 +44,14 @@ addons.register(ADDON_ID, (api) => {
           <div 
             style={{
               position: 'absolute',
-              right: '-4px',
-              top: '-4px',
+              right: 0,
+              top: 0,
               color: isCopy ? '#128512' : '#2e3438',
               fontWeight: isCopy ? 800 : 400,
-              padding: '8px 14px 4px 10px',
+              padding: '4px 10px',
               borderLeft: '1px solid rgb(201 208 212)',
               borderBottom: '1px solid rgb(201 208 212)',
-              borderRadius: '4px',
+              borderRadius: '0px 0 0 4px',
               backgroundColor: 'white',
               cursor: 'pointer',
             }}
