@@ -4,7 +4,8 @@ import Vue3App from './index.test.vue';
 import '@/styles/demo.scss';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 import { Tree } from './index';
-import { useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
+import FlTree from './react.cache';
 
 /** 注册组件的shadow版本 */
 LitWebcomponent(
@@ -19,9 +20,19 @@ LitWebcomponent(
 function PreactApp() {
   const [name, setName] = useState("word preact");
   const arr = ['str', 4, 5, () => console.log(666)];
+
+  const treeRef = useRef();
+
+  useEffect(() => {
+    console.log((treeRef.current as HTMLElement).addEventListener('success', (e)=>{
+      console.log(e);
+    }));
+  })
+
 	return (
 		<div>
-      <fl-tree name={name} arr={arr}>
+      <FlTree name="kkk" onSuccess={({detail})=>console.log(detail)}></FlTree>
+      <fl-tree name={name} arr={arr} ref={treeRef}>
         <button slot="">插槽示例</button>
       </fl-tree>
       <div class="divide"></div>
