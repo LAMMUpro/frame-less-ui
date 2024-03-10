@@ -5,6 +5,11 @@ import * as fs from 'fs';
 import path from "path";
 import vue from '@vitejs/plugin-vue';
 
+/** 输出模式 */
+const outputMode: 'react' | 'js' | 'vue' = process.env.output as any || 'js';
+/** 输出路径前缀 */
+const outputDir = outputMode === 'js' ? '' : `${outputMode}/`;
+
 // [vite](https://vitejs.dev/config/)
 // [rollup](https://rollupjs.org/configuration-options/)
 export default defineConfig({
@@ -51,21 +56,30 @@ export default defineConfig({
           .map(componentName => {
             /** .tsx是preact组件, .ts是lit组件 */
             const isPreactComponent = fs.existsSync(`./src/components/${componentName}/index.tsx`);
+            const isLitComponent = fs.existsSync(`./src/components/${componentName}/index.ts`);
+            
+            if (!isPreactComponent && !isLitComponent) return [];
+
             return [
               `components/${componentName}`,
-              `./src/components/${componentName}/index.${isPreactComponent ? 'tsx':'ts'}`
+              `./src/components/${componentName}/${outputMode == 'react' ? 'react.cache.ts': `index.${isPreactComponent ? 'tsx':'ts'}`}`
             ]
+          }).filter(item => item.length).filter(item => {
+            const exist = fs.existsSync(item[1]);
+            if (!exist) console.warn('>>>', '组件入口文件不存在', item[1]);
+            return exist;
           })
       ),
       output: {
         dir: 'dist',
-        entryFileNames: "[name].js",
-        chunkFileNames: "deps/[name].[hash].js",
-        assetFileNames: 'assets/[name]-[hash][extname]',
+        entryFileNames: outputDir + "[name].js",
+        chunkFileNames: outputDir + "deps/[name].[hash].js",
+        assetFileNames: outputDir + 'assets/[name]-[hash][extname]',
         /** 分包配置 */
         manualChunks: {
+          'react': ['react'],
           'preact': ['preact'], // 将 preact 相关库打包成单独的 chunk 中
-          'lit': ['lit'], // 将 lit 相关库打包成单独的 chunk 中
+          'lit': ['lit', '@lit/react'], // 将 lit 相关库打包成单独的 chunk 中
           'lit-html': ['lit-html', 'lit-element'],
         },
       },

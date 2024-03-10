@@ -1,5 +1,5 @@
 import {LitElement, css, html, unsafeCSS} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {property} from 'lit/decorators.js';
 import stylesInline from './index.scss?inline';
 import { ct } from '@/utils';
 import { LitWebcomponent } from '@/decorator/webcomponent';
