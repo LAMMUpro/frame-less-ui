@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components';
 import './index';
 import { getDefaultArgs } from '@/utils/storybook';
 import { GlobalConfig } from '@/config';
 import { Tree } from './index';
+import { useState } from 'react';
 
 const argTypes:Meta<Tree>['argTypes'] = {
   name: { 
@@ -34,29 +35,22 @@ const meta: Meta<Tree> = {
 }
 export default meta;
 
-/**
- * 
- */
-export const case_1 = {
-  name: "基本用法",
-  tags: [], // 标签，用于搜索
-  args: {
-    // name: "word!",
-  },
-  parameters: {
-    docs: {
-      source: {
-        code: `<fl-tree>// TODO源码映射</fl-tree>`,
-      },
-    },
+
+export const 基本用法 = {
+  render: () => {
+    const [name] = useState('lammu');
+    return (
+      <div>
+        <fl-tree name={name}></fl-tree>
+      </div>
+    )
   },
 };
 
-/**
- * 
- */
-export const case_2:StoryObj = {
-  name: "自定义渲染子项目",
-  tags: [], // 标签，用于搜索
-  render: () => (<div><fl-tree name="www"></fl-tree></div>),
+export const 自定义渲染子项目 = {
+  render: () => (
+    <div>
+      <fl-tree name="www"></fl-tree>
+    </div>
+  )
 };

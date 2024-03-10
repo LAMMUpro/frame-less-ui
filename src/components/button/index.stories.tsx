@@ -1,5 +1,5 @@
 import './index';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta } from '@storybook/web-components';
 
 // Meta<typeof Counter>
 const meta: Meta = {
@@ -8,18 +8,10 @@ const meta: Meta = {
     backgroundColor: { control: 'color' },
     onClick: { action: 'onClick' },
   },
-  decorators: [
-    (Story) => (
-      <div>
-        <Story />
-      </div>
-    ),
-  ],
 }
 export default meta;
 
-// 实例1
-export const Primary = {
+export const 实例1 = {
   args: {
     type: 'success',
     size: 'medium',
@@ -32,7 +24,6 @@ export const Primary = {
   },
 };
 
-// 实例2
-export const Secondary: StoryObj = {
+export const 实例2 = {
   render: () => (<fl-button text="按钮实例2" plain={false} round={true}></fl-button>),
 };
