@@ -37,20 +37,20 @@ export default meta;
 
 
 export const 基本用法 = {
-  render: () => {
+  render: (args) => {
     const [name] = useState('lammu');
     return (
       <div>
-        <fl-tree name={name}></fl-tree>
+        <fl-tree name={args.name}></fl-tree>
       </div>
     )
   },
 };
 
 export const 自定义渲染子项目 = {
-  render: () => (
+  render: (args) => (
     <div>
-      <fl-tree name="www"></fl-tree>
+      <fl-tree name={args.name}></fl-tree>
     </div>
   )
 };
