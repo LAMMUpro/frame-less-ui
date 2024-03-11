@@ -4,24 +4,31 @@ import { getDefaultArgs } from '@/utils/storybook';
 import { GlobalConfig } from '@/config';
 import { QrCode } from './index';
 import { useState } from 'react';
+import metaCache from './meta.cache';
 
-const argTypes:Meta<QrCode>['argTypes'] = {
-  name: { 
-    control: 'inline-radio', 
-    options: ['email', 'phone', 'mail'],
-    description: '这是一个描述',
-    defaultValue: {
-      summary: 'phone',
-    }
-  },
-  arr: {
-    control: 'number',
-    description: '这是一个描述',
-    defaultValue: {
-      summary: 666,
-    }
-  },
-}
+const argTypes:Meta<QrCode>['argTypes'] = metaCache.tableInfo.props.reduce((result, item) => {
+  result[item.name] = {
+
+  }
+  return result;
+}, {})
+// {
+//   name: { 
+//     control: 'inline-radio', 
+//     options: ['email', 'phone', 'mail'],
+//     description: '这是一个描述',
+//     defaultValue: {
+//       summary: 'phone',
+//     }
+//   },
+//   arr: {
+//     control: 'number',
+//     description: '这是一个描述',
+//     defaultValue: {
+//       summary: 666,
+//     }
+//   },
+// }
 
 const meta: Meta<QrCode> = {
   component: `${GlobalConfig.componentPrefix}-tree`,
@@ -30,7 +37,7 @@ const meta: Meta<QrCode> = {
   /** props定义 */
   argTypes,
   /** 默认值设置 */
-  args: getDefaultArgs(argTypes),
+  // args: getDefaultArgs(argTypes),
   
 }
 export default meta;
@@ -45,7 +52,6 @@ export const 基本用法 = {
     return (
       <div>
         <button onClick={change}>变换</button>
-        <fl-qr-code value={text}></fl-qr-code>
         <fl-qr-code value={text}></fl-qr-code>
       </div>
     )

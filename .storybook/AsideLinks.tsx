@@ -59,6 +59,8 @@ function generateDocsTable(list: Array<{
   describe?: string
   /** 详情 */
   detail?: string
+  /** 默认值(prop时) */
+  default?: string
 }>, type: DocType) {
   if (!list.length) return;
   const docsWrapNode = document.getElementsByClassName('_doc_')[0];
@@ -77,6 +79,16 @@ function generateDocsTable(list: Array<{
   }[type];
   docsWrapNode.appendChild(subTitle);
 
+  /** table第三列列名 */
+  const column3name = {
+    'prop': 'Default',
+    'event': 'Event Params',
+    'method': 'Method Params',
+    'slot': '',
+    'cssvar': 'Var Type',
+    'part': '',
+  }[type];
+  
   /**
    * 构造table
    */
@@ -87,7 +99,7 @@ function generateDocsTable(list: Array<{
     <tr>
       <th><span>Name</span></th>
       <th><span>Description</span></th>
-      <th><span>Event Detail</span></th>
+      ${ column3name ? `<th><span>${ column3name }</span></th>`: ''}
     </tr>
   </thead>
   <tbody class="docblock-${type}stable-body">
@@ -96,7 +108,7 @@ function generateDocsTable(list: Array<{
         <tr>
           <td class="css-4lbn0a"><span class="css-in3yi3">${info.name}</span></td>
           <td><div class="css-18pz2h2"><span>${info.describe || '-'}</span></div><div class="css-1ije3e2"></div></td>
-          <td><div class="css-13nzt7e"><span class="css-o1d7ko">${info.detail || '-'}</span></div></td>
+          ${ column3name ? `<td><div class="css-13nzt7e"><span class="css-o1d7ko">${info.default || info.detail || '-'}</span></div></td>`: ''}
         </tr>
       `).join('')
     }
@@ -118,7 +130,7 @@ export default function AsideLinks({ meta }): React.ReactElement {
     
     generateDocsH2andPropsH3();
 
-    Object.keys(meta.tableInfo).forEach(key => {
+    Object.keys(meta.tableInfo).filter(item => item !== 'props').forEach(key => {
       if (meta.tableInfo[key].length) generateDocsTable(meta.tableInfo[key], key.slice(0, key.length - 1) as DocType);
     })
 
