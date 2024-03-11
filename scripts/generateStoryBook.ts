@@ -26,7 +26,8 @@ interface ComponentInfo {
 
 const componentsName = fs.readdirSync(componentDir);
 
-const jsDocBlockReg = /\/\*\*(?:.|\n)*?@(prop|event|method|slot|cssvar|part)(?:.|\n)*?\*\/+/g;
+/** 多行注释匹配 */
+const jsDocBlockReg = /\/\*\*\s*?((\r\n)|[\r\n]) (\s*?\*.*?((\r\n)|[\r\n]))*? \s*?\*\//g;
 
 const componentInfoList: Array<ComponentInfo> = componentsName
   .map((name) => {
@@ -60,19 +61,21 @@ const componentInfoList: Array<ComponentInfo> = componentsName
     const match = originCode.match(jsDocBlockReg);
     if (match) {
       match.forEach((doc) => {
-        const content = clearX(doc);
-        for (let i = 0; i < docTypes.length; i++) {
-          const type = docTypes[i];
-          if (content.includes(`@${type}`)) {
-            ({
-              'prop': props,
-              'event': events,
-              'method': methods,
-              'slot': slots,
-              'cssvar': cssvars,
-              'part': parts,
-            })[type]?.push(parseTableData(content, type));
-            break;
+        if (/@(prop|event|method|slot|cssvar|part)/.test(doc)) {
+          const content = clearX(doc);
+          for (let i = 0; i < docTypes.length; i++) {
+            const type = docTypes[i];
+            if (content.includes(`@${type}`)) {
+              ({
+                'prop': props,
+                'event': events,
+                'method': methods,
+                'slot': slots,
+                'cssvar': cssvars,
+                'part': parts,
+              })[type]?.push(parseTableData(content, type));
+              break;
+            }
           }
         }
       });
