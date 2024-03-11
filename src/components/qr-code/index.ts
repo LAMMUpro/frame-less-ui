@@ -3,7 +3,7 @@ import { property, query } from "lit/decorators.js";
 import stylesInline from "./index.scss?inline";
 import { ct } from "@/utils";
 import { LitWebcomponent } from "@/decorator/webcomponent";
-import QRCode from "qrcode";
+import QRCode, { QRCodeErrorCorrectionLevel } from "qrcode";
 
 export type EmitType = {
   /**
@@ -26,7 +26,9 @@ export class QrCode extends LitElement {
   emit: EmitType;
 
   /**
-   * 二维码内容
+   * @prop value
+   * @describe 二维码内容
+   * @required
    */
   @property()
   value: string;
@@ -38,16 +40,22 @@ export class QrCode extends LitElement {
   size: number = 200;
 
   /**
-   * 颜色
+   * 二维码颜色, 十六进制格式
    */
   @property()
-  color: {
-    dark: string
-    light: string
-  } = {
-    dark: '#000000ff',
-    light: '#ffffffff',
-  };
+  color: string = '#000000ff';
+
+  /**
+   * 背景颜色, 十六进制格式
+   */
+  @property()
+  backgroundColor: string = '#ffffffff';
+
+  /**
+   * Error correction level.
+   */
+  @property()
+  errorCorrectionLevel: QRCodeErrorCorrectionLevel = 'M';
 
   /**
    * 二维码描述标签, 会挂在canvas的aria-label
@@ -58,6 +66,14 @@ export class QrCode extends LitElement {
   @query("#canvas")
   canvas: HTMLElement;
 
+  /**
+   * 暴露QRCode对象
+   */
+  @property({attribute: false})
+  get QRCode() {
+    return QRCode;
+  }
+
   protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
     /** 
      * 空值|非字符串 判断
@@ -66,10 +82,17 @@ export class QrCode extends LitElement {
     if (Object.prototype.toString.apply(this.value) === '[object String]') {
       text = this.value || text;
     }
-    QRCode.toCanvas(this.canvas, text, {
+    /**
+     * 绘制二维码
+     */
+     QRCode.toCanvas(this.canvas, text, {
       margin: 0,
       width: this.size,
-      color: this.color,
+      color: {
+        dark: this.color,
+        light: this.backgroundColor,
+      },
+      errorCorrectionLevel: this.errorCorrectionLevel,
     }, (err) => {
       if (err) {
         this.emit('error', { error: err });
