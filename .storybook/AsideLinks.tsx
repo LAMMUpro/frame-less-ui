@@ -15,6 +15,9 @@ styleFix.innerText = `
   div.sbdocs-content {
     max-width: 95%;
   }
+  div.sbdocs-content>div>div:first-child {
+    overflow: hidden;
+  }
   table.docblock-table.sb-unstyled {
     margin: 0px 0 20px;
   }
