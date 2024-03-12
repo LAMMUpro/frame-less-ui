@@ -5,7 +5,7 @@ import '@/styles/demo.scss';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 import { Tree } from './index';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import FlTree from './react.cache';
+import { TreeItem } from './type';
 
 /** 注册组件的shadow版本 */
 LitWebcomponent(
@@ -28,17 +28,71 @@ function PreactApp() {
       console.log(e);
     }));
   })
+  
+  const treeData: Array<TreeItem> = [
+    {
+      label: '一级1',
+      value: 'k1',
+    },
+    {
+      label: '一级2',
+      value: 'k1',
+    },
+    {
+      label: '一级3',
+      value: 'k1',
+    },
+
+    {
+      label: '一级',
+      value: '11',
+      children: [
+        {
+          label: '二级1',
+          value: '21',
+        },
+        {
+          label: '二级2',
+          value: '21',
+        },
+        {
+          label: '二级2',
+          value: '22',
+          children: [
+            {
+              label: '三级1',
+              value: '31',
+            },
+            {
+              label: '三级2',
+              value: '32',
+            },
+          ]
+        },
+      ]
+    }
+  ]
+
+  function list2comp(list: Array<TreeItem>) {
+    return <div>
+      {
+        list.map(item => 
+          <fl-tree label={item.label}>
+            { item.children?.length && list2comp(item.children) }
+          </fl-tree>
+        )
+      }
+    </div>
+  }
 
 	return (
 		<div>
-      <FlTree name="kkk" onSuccess={({detail})=>console.log(detail)}></FlTree>
-      <fl-tree name={name} arr={arr} ref={treeRef}>
-        <button slot="">插槽示例</button>
-      </fl-tree>
+      <div>
+        {
+          list2comp(treeData)
+        }
+      </div>
       <div class="divide"></div>
-      <fl-tree-sd name={name} arr={arr}>
-        <button>插槽示例</button>
-      </fl-tree-sd>
 		</div>
 	);
 }
