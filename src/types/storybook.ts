@@ -1,6 +1,113 @@
 /** 文档table枚举 */
 export const docTypes = ['prop', 'event', 'method', 'slot', 'cssvar', 'part'] as const;
 
+export const tableInfoList = [
+  {
+    name: 'props',
+    nameCh: '属性',
+    columns: [
+      {
+        name: '属性名',
+        key: 'name',
+      },
+      {
+        name: '描述',
+        key: 'describe',
+      },
+      {
+        name: '类型',
+        key: 'type',
+      },
+      {
+        name: '默认值',
+        key: 'default',
+      },
+    ],
+  },
+  {
+    name: 'events',
+    nameCh: '事件',
+    columns: [
+      {
+        name: '事件名',
+        key: 'name',
+      },
+      {
+        name: '描述',
+        key: 'describe',
+      },
+      {
+        name: '参数详情',
+        key: 'detail',
+      },
+    ],
+  },
+  {
+    name: 'methods',
+    nameCh: '方法',
+    columns: [
+      {
+        name: '方法名',
+        key: 'name',
+      },
+      {
+        name: '描述',
+        key: 'describe',
+      },
+      {
+        name: '参数详情',
+        key: 'detail',
+      },
+    ],
+  },
+  {
+    name: 'slots',
+    nameCh: '插槽',
+    columns: [
+      {
+        name: '插槽名',
+        key: 'name',
+      },
+      {
+        name: '描述',
+        key: 'describe',
+      },
+    ],
+  },
+  {
+    name: 'cssvars',
+    nameCh: 'css变量',
+    columns: [
+      {
+        name: '变量名',
+        key: 'name',
+      },
+      {
+        name: '值类型',
+        key: 'type',
+      },
+      {
+        name: '默认值',
+        key: 'default',
+      },
+    ],
+  },
+  {
+    name: 'parts',
+    nameCh: 'part',
+    columns: [
+      {
+        name: 'part值',
+        key: 'name',
+      },
+      {
+        name: '描述',
+        key: 'describe',
+      },
+    ],
+  }
+]
+
 /** 文档table类型 */
 export type DocType = typeof docTypes[number];
 

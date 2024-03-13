@@ -138,9 +138,10 @@ function saveOverViewMdxFile(componentInfo: ComponentInfo) {
   const filePath = path.resolve(componentDir, componentInfo.name, 'OverView.cache.mdx');
   
   let contents: string = `
-import { Subtitle, Meta, Stories, Title, ArgTypes } from '@storybook/blocks';
+import { Subtitle, Meta, Stories, Title } from '@storybook/blocks';
 import * as ComponentStories from './index.stories';
 import AsideLinks from '@sb/AsideLinks.tsx';
+import Tables from '@sb/Tables.tsx';
 import meta from './meta.cache.ts';
 
 <div style="display:flex;">
@@ -158,7 +159,7 @@ import meta from './meta.cache.ts';
 
     <Stories />
 
-    <ArgTypes of={ComponentStories} />
+    <Tables meta={meta}/>
   </div>
 
   <div style="min-width: 150px;">
