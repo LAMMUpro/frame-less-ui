@@ -32,8 +32,8 @@ export class Tree extends LitElement {
   /** 类型声明，内部有实现 */
   emit: EmitType;
 
-  @property({ reflect: true }) 
-  name: string = 'world! ';
+  @property() 
+  label: string = '';
 
   @property({ type: Array })
   arr: Array<number> = [];
@@ -44,16 +44,9 @@ export class Tree extends LitElement {
 
   render() {
     return html`
-      <span fl-cn @click=${this.submit}>自定义事件</span>
-      <div class=${ct('flessui-tree')} fl-cn>
-        <p 
-          class=${ct('fl-red')}
-          @click=${() => console.log(this.arr)}
-        >Hello, ${this.name}</p>
-        <div>
-          <div><slot></slot></div>
-          <section><slot name="hhh"></slot></section>
-        </div>
+      <div class="root" fl-cn>
+        <span>${this.label}</span>
+        <slot></slot>
       </div>
     `;
   }
