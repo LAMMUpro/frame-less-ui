@@ -62,35 +62,67 @@ export function LitWebcomponent(
         return this._useShadow ? super.createRenderRoot() : this;
       }
 
+      /**
+       * 首次渲染完成时 做一些兼容处理
+       */
       firstUpdated() {
         super.firstUpdated();
 
         /**
-         * 处理slot, 非shadow dom渲染原生不支持<slot>标签
+         * 兼容slot（非shadow dom渲染原生不支持<slot>标签）
+         * 1. 先处理具名插槽，剩下的都是默认插槽
+         * 2. 内容节点有Node节点和Element节点，Node节点包括文本/注释
+         * 3. 如果用户slot="xxx"使用了多次，只匹配第一个并警告
+         * 4. 如果默认插槽传入了多个Element节点，只匹配第一个并警告
          */
         if (!this._useShadow) {
           /** 组件内使用到的所有slot */
           const slots = this.querySelectorAll('slot');
           if (slots.length == 0) return;
+
           /** slot对应的内容节点(根节点下, 没有fl-cn标签的) */
-          const slotContentNodes = [...this.children].filter(node => !node.hasAttribute('fl-cn'));
+          const slotContentNodes = ([...this.childNodes] as Array<Node>)
+            .filter(node => 
+              !(node instanceof HTMLElement) || // Node节点不过滤
+              !node.hasAttribute?.('fl-cn') // Element节点取非内容节点
+            );
           
-          /** 默认slot对应的内容 */
-          const normalSlotContentNodeIndex = slotContentNodes.findIndex(node => [null, ''].includes(node.getAttribute('slot')));
+          /** 组件内是否的默认插槽 */
+          let defaultSlot = undefined;
 
           slots.forEach(slot => {
             const slotName = slot.getAttribute('name') || '';
 
-            /** preact如果只有slot属性会被当成true值, 处理这种特殊情况 */
-            if (!slotName && normalSlotContentNodeIndex > -1) {
-              slot.replaceWith(slotContentNodes.splice(normalSlotContentNodeIndex, 1)[0]);
+            if (!slotName) { /** 默认插槽最后处理 */
+              defaultSlot = slot;
             } else { /** 其他具名slot */
-              const index = slotContentNodes.findIndex(node => slotName === node.getAttribute('slot'));
+              const index = slotContentNodes.findIndex(node => node instanceof HTMLElement && slotName === node.getAttribute?.('slot'));
               if (index > -1) {
-                slot.replaceWith(slotContentNodes.splice(index, 1)[0]);
+                const element = slotContentNodes.splice(index, 1)[0];
+                (<HTMLElement>element).setAttribute('slot-root', slotName);
+                slot.replaceWith(element);
               }
             }
           })
+
+          /**
+           * 单独处理默认插槽
+           */
+          if (slotContentNodes.length && defaultSlot) {
+            const div = document.createElement('div');
+            div.setAttribute('slot-root', 'default');
+            /** 是否已经插入了一个Element节点 */
+            let isAppendElement = false;
+            slotContentNodes.forEach(node => {
+              if (!(node instanceof HTMLElement)) {
+                div.appendChild(node);
+              } else if (!isAppendElement && [null, '', 'default', 'true'].includes(node.getAttribute('slot'))) { /** preact如果只有slot属性会被当成true值, 处理这种特殊情况 */
+                div.appendChild(node);
+                isAppendElement = true;
+              }
+            })
+            defaultSlot.replaceWith(div);
+          }
         }
       }
     }
