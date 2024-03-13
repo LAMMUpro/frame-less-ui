@@ -98,9 +98,7 @@ export function LitWebcomponent(
             } else { /** 其他具名slot */
               const index = slotContentNodes.findIndex(node => node instanceof HTMLElement && slotName === node.getAttribute?.('slot'));
               if (index > -1) {
-                const element = slotContentNodes.splice(index, 1)[0];
-                (<HTMLElement>element).setAttribute('slot-root', slotName);
-                slot.replaceWith(element);
+                slot.replaceWith(slotContentNodes.splice(index, 1)[0]);
               }
             }
           })
@@ -109,19 +107,18 @@ export function LitWebcomponent(
            * 单独处理默认插槽
            */
           if (slotContentNodes.length && defaultSlot) {
-            const div = document.createElement('div');
-            div.setAttribute('slot-root', 'default');
+            const defaultSlotParent = defaultSlot.parentElement;
             /** 是否已经插入了一个Element节点 */
             let isAppendElement = false;
             slotContentNodes.forEach(node => {
               if (!(node instanceof HTMLElement)) {
-                div.appendChild(node);
+                defaultSlotParent.insertBefore?.(node, defaultSlot);
               } else if (!isAppendElement && [null, '', 'default', 'true'].includes(node.getAttribute('slot'))) { /** preact如果只有slot属性会被当成true值, 处理这种特殊情况 */
-                div.appendChild(node);
+                defaultSlotParent.insertBefore?.(node, defaultSlot);
                 isAppendElement = true;
               }
             })
-            defaultSlot.replaceWith(div);
+            defaultSlot.remove();
           }
         }
       }
