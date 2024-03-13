@@ -25,22 +25,16 @@ export class QrCode extends LitElement {
   /** 类型声明，内部有实现 */
   emit: EmitType;
 
-  /**
-   * @prop value
-   * @describe 
-   * 二维码内容
-   * string
-   * @control text
-   * @required 
+  /** 
+   * @describe 二维码内容
+   * @control inline-radio
+   * @options ['A','B','C']
    */
   @property()
   value: string;
 
   /**
-   * @prop size
-   * @describe 尺寸, 长宽
-   * @control number
-   * @default 200
+   * 尺寸, 长宽
    */
   @property()
   size: number = 200;
