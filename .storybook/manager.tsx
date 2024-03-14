@@ -10,6 +10,17 @@ const ADDON_ID = 'storybook/code';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 addons.register(ADDON_ID, (api) => {
+
+  /** 修复样式表 */
+  const styleFix = document.createElement('style');
+  styleFix.setAttribute('tag', '242343554645654');
+  styleFix.innerHTML = `
+    #tabbutton-storybook-actions-panel {
+      display: none;
+    }
+  `;
+  document.head.appendChild(styleFix);
+
   addons.add(PANEL_ID, {
     type: Addon_TypesEnum.PANEL,
     title: 'Code',

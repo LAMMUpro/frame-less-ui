@@ -11,7 +11,7 @@ enum FontSize {
 
 /** 修复样式表 */
 const styleFix = document.createElement('style');
-styleFix.innerText = `
+styleFix.innerHTML = `
   div.sbdocs-content {
     max-width: 95%;
   }
