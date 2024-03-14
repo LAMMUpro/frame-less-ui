@@ -13,7 +13,6 @@ addons.register(ADDON_ID, (api) => {
 
   /** 修复样式表 */
   const styleFix = document.createElement('style');
-  styleFix.setAttribute('tag', '242343554645654');
   styleFix.innerHTML = `
     #tabbutton-storybook-actions-panel {
       display: none;
