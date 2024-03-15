@@ -28,18 +28,18 @@ export namespace SB {
   export interface DocInfo {
     /** 名称 */
     name: string
-    /** 描述 */
-    describe?: string
-    /** 详情 */
-    detail?: string
-    /** 控制器 */
-    control?: Control
     /** 是否必传 */
-    required?: ""
-    /** 选项 */
-    options?: string
+    required?: boolean
     /** 默认值 */
     default?: string
+    /** 参数ts类型 */
+    argsType?: string
+    /** 描述 */
+    describe?: string
+    /** 控制器 */
+    control?: Control
+    /** 控制器选项 */
+    options?: any[]
   }
 
   /** 
@@ -61,6 +61,10 @@ export namespace SB {
       cssvars?: Array<DocInfo>
       parts?: Array<DocInfo>
     },
+    /** 框架 */
+    frame?: "lit" | "preact"
+    /** 是否异常 */
+    isAbnormal?: boolean
   }
 
   /**

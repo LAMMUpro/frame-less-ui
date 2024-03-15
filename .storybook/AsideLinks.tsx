@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { DocType } from "../src/types/storybook";
 
 enum FontSize {
   'H1' = '28px',
@@ -30,7 +29,7 @@ document.head.appendChild(styleFix);
  * 2. 添加属性副标题
  * 3. 生成方法/事件/插槽/parts/css变量等区块
  */
-export default function AsideLinks({ meta }): React.ReactElement {
+export default function AsideLinks(): React.ReactElement {
   const [links, setLinks] = useState<any>([]);
 
   useEffect(() => {

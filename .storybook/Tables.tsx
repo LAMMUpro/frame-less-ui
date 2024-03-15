@@ -1,5 +1,5 @@
 import TableInfo from './TableInfo.tsx';
-import { tableInfoList } from '../src/types/storybook.ts';
+import { tableInfoList } from '../src/utils/storybook.ts';
 
 export default function TablesInfo({ meta }): React.ReactElement {
   return (

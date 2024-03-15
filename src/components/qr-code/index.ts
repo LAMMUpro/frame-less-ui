@@ -30,7 +30,7 @@ export class QrCode extends LitElement {
   emit: EmitType;
 
   /** 
-   * @describe 二维码内容
+   * 二维码内容
    * @control inline-radio
    * @options ['A','B','C']
    */
@@ -44,7 +44,6 @@ export class QrCode extends LitElement {
   size: number = 200;
 
   /**
-   * @prop color
    * @describe 二维码颜色, 十六进制格式
    * @control color
    * @default #000000ff
@@ -53,7 +52,6 @@ export class QrCode extends LitElement {
   color: string = '#000000ff';
 
   /**
-   * @prop backgroundColor
    * @describe 背景颜色, 十六进制格式
    * @control color
    * @default #ffffffff
@@ -62,7 +60,6 @@ export class QrCode extends LitElement {
   backgroundColor: string = '#ffffffff';
 
   /**
-   * @prop errorCorrectionLevel
    * @describe Error correction level.
    * ["L","M","Q","H"]
    * @control inline-radio
@@ -73,11 +70,10 @@ export class QrCode extends LitElement {
   errorCorrectionLevel: QRCodeErrorCorrectionLevel = 'M';
 
   /**
-   * @prop label
    * @describe 二维码描述标签, 会挂在canvas的aria-label
    */
   @property()
-  label: string;
+  label?: string;
 
   @query("#canvas")
   canvas: HTMLElement;
