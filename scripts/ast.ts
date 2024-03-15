@@ -1,22 +1,8 @@
 import ts, { CallExpression, Decorator, StringLiteral } from 'typescript';
 import * as fs from 'fs';
 import { ClassDeclaration, JSDoc } from 'typescript';
-import { DocInfo } from '@/types/storybook';
-
-interface MemberJsDoc {
-  jsDoc?: Array<JSDoc|undefined>
-}
-
-function getInfoFromJSDoc(jsDoc: JSDoc) {
-  const info = jsDoc.tags?.reduce((result, item) => {
-    if (item.tagName.escapedText)
-      result[item.tagName.escapedText] = item.comment;
-    return result;
-  }, {} as Required<DocInfo>) || {} as Required<DocInfo>;
-  if (!info.describe)
-    info.describe = (jsDoc.comment || '') as string;
-  return info;
-}
+import { SB } from '../src/types/storybook.ts';
+import { getInfoFromJSDoc } from '../src/utils/storybook.ts';
 
 const filename = './src/components/qr-code/index.ts';
 
@@ -38,8 +24,8 @@ function main() {
   
 
   componentClassAst.members.forEach(member => {
-    const infos = (member as MemberJsDoc).jsDoc?.filter(Boolean).map(item => getInfoFromJSDoc(item)) || [];
-
+    const infos = (member as SB.MemberJsDoc).jsDoc?.filter(Boolean).map(item => getInfoFromJSDoc(item)) || [];
+    console.log(infos);
   })
 
 }

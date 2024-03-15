@@ -1,12 +1,12 @@
 import { getDefaultArgs, getArgTypesFromAutoMeta } from '@/utils/storybook';
 import { GlobalConfig } from '@/config';
 import metaCache from './meta.cache';
-import { StoryMeta } from '@/types/storybook';
+import { SB } from '@/types/storybook';
 import './index'; // 注册组件
 import { useState } from 'react';
 
 const argTypes = getArgTypesFromAutoMeta(metaCache);
-const storyMeta: StoryMeta = {
+const storyMeta: SB.StoryMeta = {
   component: `<${GlobalConfig.componentPrefix}-${metaCache.componentName}>`,
   subtitle: metaCache.subtitle,
   description: metaCache.description,

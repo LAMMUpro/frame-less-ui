@@ -1,7 +1,8 @@
-import { toCamelCase } from "../src/utils/index.ts";
-import { DocInfo, DocType, docTypes } from "../src/types/storybook.ts";
 import fs from "fs";
 import path from "path";
+import { toCamelCase } from "../src/utils/index.ts";
+import { SB } from "../src/types/storybook.ts";
+import { docTypes } from '../src/utils/storybook.ts';
 
 const componentDir = "./src/components";
 
@@ -15,12 +16,12 @@ interface ComponentInfo {
   /** 组件源码 */
   originCode?: string;
   tableInfo?: {
-    props?: Array<DocInfo>;
-    events?: Array<DocInfo>;
-    methods?: Array<DocInfo>;
-    slots?: Array<DocInfo>;
-    cssvars?: Array<DocInfo>;
-    parts?: Array<DocInfo>;
+    props?: Array<SB.DocInfo>;
+    events?: Array<SB.DocInfo>;
+    methods?: Array<SB.DocInfo>;
+    slots?: Array<SB.DocInfo>;
+    cssvars?: Array<SB.DocInfo>;
+    parts?: Array<SB.DocInfo>;
   }
 }
 
@@ -51,12 +52,12 @@ const componentInfoList: Array<ComponentInfo> = componentsName
 
     const originCode = fs.readFileSync(entryFile, "utf-8");
 
-    const props: Array<DocInfo> = [];
-    const events: Array<DocInfo> = [];
-    const methods: Array<DocInfo> = [];
-    const slots: Array<DocInfo> = [];
-    const cssvars: Array<DocInfo> = [];
-    const parts: Array<DocInfo> = [];
+    const props: Array<SB.DocInfo> = [];
+    const events: Array<SB.DocInfo> = [];
+    const methods: Array<SB.DocInfo> = [];
+    const slots: Array<SB.DocInfo> = [];
+    const cssvars: Array<SB.DocInfo> = [];
+    const parts: Array<SB.DocInfo> = [];
 
     const match = originCode.match(jsDocBlockReg);
     if (match) {
@@ -112,9 +113,9 @@ componentInfoList.forEach(componentInfo => {
 function saveMetaFileByComponentInfo(componentInfo: ComponentInfo) {
   const filePath = path.resolve(componentDir, componentInfo.name, 'meta.cache.ts');
   
-  let contents: string = `import { AutoMeta } from "../../types/storybook.ts";
+  let contents: string = `import { SB } from "../../types/storybook.ts";
 
-const autoMeta: AutoMeta = {
+const autoMeta: SB.AutoMeta = {
   componentName: '',
   subtitle: '',
   description: '',
@@ -219,8 +220,8 @@ function clearX(doc: string) {
   );
 }
 
-function parseTableData(str: string, type: DocType) {
-  const result: DocInfo = {
+function parseTableData(str: string, type: SB.DocType) {
+  const result: SB.DocInfo = {
     name: "",
   };
   // 通过正则表达式匹配事件、描述和详情
