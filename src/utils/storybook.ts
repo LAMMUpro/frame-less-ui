@@ -150,14 +150,14 @@ export function getDefaultArgs(argTypes: Meta['argTypes']) {
 /** 
  * 从jsDocItem中提取参数
  */
-export function getInfoFromJSDoc(jsDoc: JSDoc) {
+export function getInfoFromJSDoc<T extends { describe?: string } = Required<SB.DocInfo>>(jsDoc: JSDoc) {
   const info = jsDoc.tags?.reduce((result, item) => {
     if (item.tagName.escapedText.toString())
       result[item.tagName.escapedText.toString()] = item.comment;
     return result;
-  }, {} as Required<SB.DocInfo>) || {} as Required<SB.DocInfo>;
+  }, {} as T) || {} as T;
   if (!info.describe)
-    info.describe = jsDoc.comment.toString();
+    info.describe = jsDoc.comment?.toString() || '';
   return info;
 }
 
@@ -177,6 +177,18 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
   const componentName = ((classDecoratorAst.expression as CallExpression)?.arguments?.[0] as StringLiteral)?.text;
   if (!componentName) return console.warn('组件名获取失败');
   
+  /**
+   * 处理类jsDoc, 从最后一个JsDoc取下面数据
+   * @subtitle 副标题
+   * @description 组件描述
+   */
+  const classJsDoc = (<SB.MemberJsDoc>componentClassAst).jsDoc?.filter(Boolean)?.pop();
+  if (classJsDoc) {
+    const docInfo = getInfoFromJSDoc<Partial<Pick<SB.AutoMeta, 'subtitle'> & {describe: string}>>(classJsDoc);
+    autoMeta.subtitle = docInfo.subtitle || '';
+    autoMeta.description = docInfo.describe || '';
+  }
+
   /**
    * 处理事件
    */
@@ -265,9 +277,6 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
       }
       autoMeta.tableInfo.props.push(docInfo);
     }
-
-    // const infos = (member as SB.MemberJsDoc).jsDoc?.filter(Boolean).map(item => getInfoFromJSDoc(item)) || [];
-    // console.log(infos);
   })
 
 }
