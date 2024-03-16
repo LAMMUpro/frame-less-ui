@@ -1,3 +1,4 @@
+import { ct } from "../src/utils";
 
 
 export default function TableInfo({ list, setting }): React.ReactElement {
@@ -8,21 +9,24 @@ export default function TableInfo({ list, setting }): React.ReactElement {
         width: '100%'
       }}>
         <thead>
-          <tr>
+          <tr style={{ textAlign: 'left' }}>
             {
               setting.columns?.map(column => 
-                <th><span>{ column.name }</span></th>
+                <th><span class="_fs14_">{ column.name }</span></th>
               )
             }     
           </tr>
         </thead>
-        <tbody>
+        <tbody className="fs14">
           {
             list.map(item => 
               <tr>
                 {
                   setting.columns?.map(column => 
-                    <td><span>{item[column.key]}</span></td>
+                    <td><span className={ct('_fs14_', {
+                      highlight_default: item[column.key] && ['default'].includes(column.key),
+                      highlight_name: item[column.key] && ['name'].includes(column.key),
+                    })}>{item[column.key]}</span></td>
                   )
                 }
               </tr>

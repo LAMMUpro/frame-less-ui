@@ -20,6 +20,25 @@ styleFix.innerHTML = `
   table.docblock-table.sb-unstyled {
     margin: 0px 0 20px;
   }
+  table ._fs12_ {
+    font-size: 12px !important;
+  }
+  table ._fs14_ {
+    font-size: 14px !important;
+  }
+  tbody span.highlight_default {
+    background-color: #F7FAFC;
+    padding: 1px 4px;
+    border: 1px solid #ECF4F9;
+    border-radius: 3px;
+    font-size: 12px !important;
+  }
+
+  tbody span.highlight_name {
+    background-color: rgba(0 0 0 / 0.025);
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
 `
 document.head.appendChild(styleFix);
 
