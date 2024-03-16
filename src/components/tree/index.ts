@@ -38,7 +38,7 @@ export class Tree extends LitElement {
   @property({ type: Array })
   arr: Array<number> = [];
 
-  submit () {
+  private submit () {
     this.emit('success', { list: ['aaa', 'bbb'] });
   }
 

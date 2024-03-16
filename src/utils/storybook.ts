@@ -1,9 +1,22 @@
 import { SB } from '@/types/storybook';
 import { Meta } from '@storybook/web-components';
-import ts, { CallExpression, CallSignatureDeclaration, ClassDeclaration, Decorator, Identifier, JSDoc, LiteralTypeNode, ParameterDeclaration, StringLiteral, TypeAliasDeclaration, TypeLiteralNode } from 'typescript';
+import ts, { CallExpression, CallSignatureDeclaration, ClassDeclaration, Decorator, Identifier, JSDoc, LiteralTypeNode, MethodDeclaration, ParameterDeclaration, StringLiteral, TypeAliasDeclaration, TypeLiteralNode } from 'typescript';
 
 /** 文档table枚举 */
 export const docTypes = ['prop', 'event', 'method', 'slot', 'cssvar', 'part'] as const;
+
+/** lit生命周期函数列表 */
+export const litLifecycle = [
+  'connectedCallback',
+  'disconnectedCallback',
+  'attributeChangedCallback',
+  'adoptedCallback',
+  'hasChanged',
+  'requestUpdate',
+  'willUpdate',
+  'render',
+  'updateComplete',
+]
 
 /**
  * 文档配置
@@ -218,7 +231,6 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
    * 处理属性
    */
   componentClassAst.members.forEach(member => {
-
     /** 
      * 是否是组件属性
      * 类属性定义 且 使用了@property装饰器
@@ -255,8 +267,6 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
       const valueType:ts.LiteralSyntaxKind  =  (member as any).initializer?.kind;
       const defaultValue = (member as any).initializer?.text; // 还需要类型转换
 
-      console.log(propName, tsType, valueType);
-
       docInfo.name = propName;
       docInfo.required = !hasDefault && !(member as any).questionToken;
       if (hasDefault) docInfo.default = defaultValue; // TODO
@@ -276,6 +286,39 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
         }
       }
       autoMeta.tableInfo.props.push(docInfo);
+    }
+  })
+
+  /**
+   * 处理方法
+   */
+  componentClassAst.members.forEach(methodAst => {
+    /** 
+     * 是否是组件方法
+     * 类方法定义 且 不存在装饰器/private/protected修饰符 且 不是钩子函数
+     */
+    const methodName = (<Identifier>methodAst.name)?.escapedText?.toString();
+    const isComponentMethod = 
+      methodAst.kind === ts.SyntaxKind.MethodDeclaration && 
+      !(<MethodDeclaration>methodAst).modifiers?.find(item => [ts.SyntaxKind.Decorator, ts.SyntaxKind.PrivateKeyword, ts.SyntaxKind.ProtectedKeyword].includes(item.kind)) &&
+      !litLifecycle.includes(methodName);
+    if (isComponentMethod) {
+      const argsCodeStart = (<MethodDeclaration>methodAst).parameters.pos || 0;
+      const argsCodeEnd = (<MethodDeclaration>methodAst).parameters.end || 0;
+      const returnTypeCodeStart = (<MethodDeclaration>methodAst).type?.pos || 0;
+      const returnTypeCodeEnd = (<MethodDeclaration>methodAst).type?.end || 0;
+      const argsType = `(${originCode.slice(argsCodeStart, argsCodeEnd).trim()}) => ${originCode.slice(returnTypeCodeStart, returnTypeCodeEnd).trim() || 'void'}`;
+
+      /** 
+       * 只取一个JsDoc
+       */
+      const jsDoc = (methodAst as SB.MemberJsDoc).jsDoc?.filter(Boolean)?.pop();
+      let docInfo: SB.DocInfo = {
+        name: methodName, // 无需jsDoc
+        argsType, // 字符串截取第二个参数的ts类型
+        describe: jsDoc?.comment?.toString() || '', //jsDoc
+      }
+      autoMeta.tableInfo.methods.push(docInfo);
     }
   })
 
