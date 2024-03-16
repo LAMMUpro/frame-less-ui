@@ -73,21 +73,11 @@ componentInfoList.forEach(componentInfo => {
 function saveMetaFileByComponentInfo(componentInfo: SB.AutoMeta) {
   const filePath = path.resolve(componentDir, componentInfo.componentName, 'meta.cache.ts');
   
-  let contents: string = `import { SB } from "../../types/storybook.ts";
+  const contents = `import { SB } from "../../types/storybook.ts";
 
-const autoMeta: SB.AutoMeta = {
-  componentName: '',
-  subtitle: '',
-  description: '',
-  tableInfo:{}
-};
-  `;
-  Object.keys(componentInfo.tableInfo).forEach(key => {
-    contents += `
-autoMeta.tableInfo.${key} = ${JSON.stringify(componentInfo.tableInfo[key])};
-    `;
-  })
-  contents += '\nexport default autoMeta;';
+const autoMeta: SB.AutoMeta = ${JSON.stringify(componentInfo, null, 2)};
+
+export default autoMeta;`;
   
   fs.writeFile(filePath, contents, 'utf-8', () => {});
 }
