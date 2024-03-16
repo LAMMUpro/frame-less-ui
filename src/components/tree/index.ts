@@ -44,6 +44,10 @@ export class Tree extends LitElement {
 
 
   /**
+   * @part abc
+   * @describe 标题
+   */
+  /**
    * @slot default
    * @describe 默认插槽
    */

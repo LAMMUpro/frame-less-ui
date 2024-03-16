@@ -16,7 +16,12 @@ export type EmitType = {
   (e: "error", detail: { error: Error }): void;
 };
 
-
+/**
+ * 按钮成功颜色
+ * @cssvar --btn-primary
+ * @argsType color
+ * @default #fff
+ */
 /**
  * 支持原生/vue2/vue3/react/jquery
  * @subtitle 二维码预览2

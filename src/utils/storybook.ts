@@ -103,6 +103,10 @@ export const tableInfoList = [
         key: 'name',
       },
       {
+        name: '描述',
+        key: 'describe',
+      },
+      {
         name: '值类型',
         key: 'argsType',
       },
@@ -191,16 +195,33 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
   if (!componentName) return console.warn('组件名获取失败');
   
   /**
-   * 处理类jsDoc, 从最后一个JsDoc取下面数据
+   * 处理类jsDoc, 从最后一个JsDoc取下面数据, 从剩下的jsDoc提取cssvar
    * @subtitle 副标题
    * @description 组件描述
    */
-  const classJsDoc = (<SB.MemberJsDoc>componentClassAst).jsDoc?.filter(Boolean)?.pop();
+  const classJsDocs = (<SB.MemberJsDoc>componentClassAst).jsDoc?.filter(Boolean) || [];
+  const classJsDoc = classJsDocs?.pop();
   if (classJsDoc) {
     const docInfo = getInfoFromJSDoc<Partial<Pick<SB.AutoMeta, 'subtitle'> & {describe: string}>>(classJsDoc);
     autoMeta.subtitle = docInfo.subtitle || '';
     autoMeta.description = docInfo.describe || '';
   }
+  classJsDocs.forEach(jsDocAst => {
+    const jsDocInfo = getInfoFromJSDoc<{ 
+      cssvar?: string
+      describe?: string
+      argsType?: string
+      default?: string
+    }>(jsDocAst);
+    if (jsDocInfo.cssvar) {
+      autoMeta.tableInfo.cssvars.push({
+        name: jsDocInfo.cssvar,
+        argsType: jsDocInfo.argsType,
+        default: jsDocInfo.default,
+        describe: jsDocInfo.describe,
+      });
+    }
+  })
 
   /**
    * 处理事件
@@ -323,7 +344,7 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
   })
 
   /**
-   * 处理插槽, 从render函数上的jsDoc取
+   * 处理插槽/part, 从render函数上的jsDoc取
    */
   componentClassAst.members.forEach(renderAst => {
     const methodName = (<Identifier>renderAst.name)?.escapedText?.toString();
@@ -332,10 +353,15 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
       methodName === 'render';
     if (isComponentRender) {
       (<SB.MemberJsDoc>renderAst).jsDoc?.filter(Boolean)?.forEach(jsDocAst => {
-        const jsDocInfo = getInfoFromJSDoc<{ slot?: string, describe?: string }>(jsDocAst);
+        const jsDocInfo = getInfoFromJSDoc<{ slot?: string, part?: string, describe?: string }>(jsDocAst);
         if (jsDocInfo.slot) {
           autoMeta.tableInfo.slots.push({
             name: jsDocInfo.slot,
+            describe: jsDocInfo.describe,
+          });
+        } else if (jsDocInfo.part) {
+          autoMeta.tableInfo.parts.push({
+            name: jsDocInfo.part,
             describe: jsDocInfo.describe,
           });
         }
