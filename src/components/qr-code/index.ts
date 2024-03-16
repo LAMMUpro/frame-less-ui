@@ -7,15 +7,11 @@ import QRCode, { QRCodeErrorCorrectionLevel } from "qrcode";
 
 export type EmitType = {
   /**
-   * @event updated
-   * @describe 二维码更新完成
-   * @detail -
+   * 二维码更新完成
    */
   (e: "updated"): void;
   /**
-   * @event error
-   * @describe 二维码渲染错误
-   * @detail { error: Error }
+   * 二维码渲染错误
    */
   (e: "error", detail: { error: Error }): void;
 };

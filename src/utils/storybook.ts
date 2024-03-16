@@ -1,7 +1,6 @@
 import { SB } from '@/types/storybook';
 import { Meta } from '@storybook/web-components';
-import { PropertyDeclaration } from 'lit';
-import ts, { CallExpression, ClassDeclaration, Decorator, Identifier, JSDoc, StringLiteral } from 'typescript';
+import ts, { CallExpression, CallSignatureDeclaration, ClassDeclaration, Decorator, Identifier, JSDoc, LiteralTypeNode, ParameterDeclaration, StringLiteral, TypeAliasDeclaration, TypeLiteralNode } from 'typescript';
 
 /** 文档table枚举 */
 export const docTypes = ['prop', 'event', 'method', 'slot', 'cssvar', 'part'] as const;
@@ -45,7 +44,7 @@ export const tableInfoList = [
         key: 'describe',
       },
       {
-        name: '参数详情',
+        name: '参数类型(e.detail)',
         key: 'argsType',
       },
     ],
@@ -158,7 +157,7 @@ export function getInfoFromJSDoc(jsDoc: JSDoc) {
     return result;
   }, {} as Required<SB.DocInfo>) || {} as Required<SB.DocInfo>;
   if (!info.describe)
-    info.describe = (jsDoc.comment || '') as string;
+    info.describe = jsDoc.comment.toString();
   return info;
 }
 
@@ -167,7 +166,7 @@ export function getInfoFromJSDoc(jsDoc: JSDoc) {
  * @param astTree 
  * @returns 
  */
-export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFile) {
+export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFile, originCode: string) {
   const componentClassAst = astTree.statements
     .find(item => item.kind === ts.SyntaxKind.ClassDeclaration) as ClassDeclaration | undefined;
   if (!componentClassAst) return;
@@ -178,6 +177,34 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
   const componentName = ((classDecoratorAst.expression as CallExpression)?.arguments?.[0] as StringLiteral)?.text;
   if (!componentName) return console.warn('组件名获取失败');
   
+  /**
+   * 处理事件
+   */
+  const EmitTypeAst = astTree.statements.find(item => item.kind === ts.SyntaxKind.TypeAliasDeclaration) as TypeAliasDeclaration;
+  if (EmitTypeAst) {
+    (<TypeLiteralNode>EmitTypeAst.type).members.filter(item => item.kind === ts.SyntaxKind.CallSignature)?.forEach((eventAst: CallSignatureDeclaration) => {
+      const eventName = (<StringLiteral>(<LiteralTypeNode>(<ParameterDeclaration>eventAst.parameters[0])?.type)?.literal)?.text;
+      
+      const detailTypeStart = (<ParameterDeclaration>eventAst.parameters[1])?.type?.pos || 0;
+      const detailTypeEnd = (<ParameterDeclaration>eventAst.parameters[1])?.type?.end || 0;
+      const argsType = originCode.slice(detailTypeStart, detailTypeEnd).trim();
+
+      /** 
+       * 每个属性定义只取一个JsDoc
+       */
+      const jsDoc = (eventAst as SB.MemberJsDoc).jsDoc?.filter(Boolean)?.pop();
+      let docInfo: SB.DocInfo = {
+        name: eventName, // 无需jsDoc
+        argsType, // 字符串截取第二个参数的ts类型
+        describe: jsDoc?.comment?.toString() || '', //jsDoc
+      }
+      autoMeta.tableInfo.events.push(docInfo);
+    })
+  }
+
+  /**
+   * 处理属性
+   */
   componentClassAst.members.forEach(member => {
 
     /** 
@@ -187,7 +214,7 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
     const isProp = 
       member.kind === ts.SyntaxKind.PropertyDeclaration && 
       ((<any>member).modifiers as Array<Decorator>)?.find(item => (<Identifier>(<CallExpression>item.expression)?.expression)?.escapedText?.toString?.() === 'property');
-    
+
     if (isProp) {
       let docInfo: SB.DocInfo = {
         name: '', // 无需jsDoc

@@ -49,7 +49,7 @@ const componentInfoList: Array<SB.AutoMeta> = componentNameList
     /** 组件入口文件ast获取元数据 */
     if (isLitComponent) {
       const astTree = ts.createSourceFile('temp.ts', originCode, ts.ScriptTarget.ES2015);
-      getComponentDocsInfo(autoMeta, astTree);
+      getComponentDocsInfo(autoMeta, astTree, originCode);
     } else {
       // TODO preact组件
     }
