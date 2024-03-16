@@ -1,6 +1,6 @@
 import { SB } from '@/types/storybook';
 import { Meta } from '@storybook/web-components';
-import ts, { CallExpression, CallSignatureDeclaration, ClassDeclaration, Decorator, Identifier, JSDoc, LiteralTypeNode, MethodDeclaration, ParameterDeclaration, StringLiteral, TypeAliasDeclaration, TypeLiteralNode } from 'typescript';
+import ts, { CallExpression, CallSignatureDeclaration, ClassDeclaration, Decorator, Identifier, JSDoc, LiteralTypeNode, MethodDeclaration, ParameterDeclaration, ReturnStatement, StringLiteral, TypeAliasDeclaration, TypeLiteralNode } from 'typescript';
 
 /** 文档table枚举 */
 export const docTypes = ['prop', 'event', 'method', 'slot', 'cssvar', 'part'] as const;
@@ -322,4 +322,24 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
     }
   })
 
+  /**
+   * 处理插槽, 从render函数上的jsDoc取
+   */
+  componentClassAst.members.forEach(renderAst => {
+    const methodName = (<Identifier>renderAst.name)?.escapedText?.toString();
+    const isComponentRender = 
+      renderAst.kind === ts.SyntaxKind.MethodDeclaration && 
+      methodName === 'render';
+    if (isComponentRender) {
+      (<SB.MemberJsDoc>renderAst).jsDoc?.filter(Boolean)?.forEach(jsDocAst => {
+        const jsDocInfo = getInfoFromJSDoc<{ slot?: string, describe?: string }>(jsDocAst);
+        if (jsDocInfo.slot) {
+          autoMeta.tableInfo.slots.push({
+            name: jsDocInfo.slot,
+            describe: jsDocInfo.describe,
+          });
+        }
+      })
+    }
+  })
 }

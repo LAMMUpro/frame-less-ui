@@ -42,11 +42,21 @@ export class Tree extends LitElement {
     this.emit('success', { list: ['aaa', 'bbb'] });
   }
 
+
+  /**
+   * @slot default
+   * @describe 默认插槽
+   */
+  /**
+   * @slot abc
+   * @describe 标题插槽
+   */
   render() {
     return html`
       <div class="root" fl-cn>
         <span>${this.label}</span>
         <slot></slot>
+        <slot name="abc"></slot>
       </div>
     `;
   }
