@@ -15,6 +15,7 @@
   "scripts": {
     "dev": "vite",
     "storybook": "storybook dev -p 6008",
+    "new:lit": "ts-node scripts/newLitComponent.ts",
     "build": "cross-env output=js yarn vite build",
     "build:react": "cross-env output=react yarn vite build",
     "build:meta": "ts-node scripts/generateStoryBook.ts",
