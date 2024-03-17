@@ -297,13 +297,26 @@ export function getComponentDocsInfo(autoMeta: SB.AutoMeta, astTree: ts.SourceFi
        */
       const jsDoc = (member as SB.MemberJsDoc).jsDoc?.filter(Boolean)?.pop();
       if (jsDoc) {
+        const jsDoc_parse = getInfoFromJSDoc(jsDoc);
         docInfo = {
           ...docInfo,
-          ...getInfoFromJSDoc(jsDoc),
+          ...jsDoc_parse,
         }
         
         if (hasTsType && !docInfo.control) {
-          docInfo.control = 'multi-select';
+          docInfo.control = 'multi-select'; // TODO 类型推断
+        }
+
+        /** 解析jsDoc的options */
+        if (Object.prototype.toString.apply(docInfo.options) === '[object String]') {
+          /** '替换成" */
+          const optionsStr = (docInfo.options as any as string).replaceAll("'", '"');
+          try {
+            docInfo.options = JSON.parse(optionsStr);
+          } catch {
+            docInfo.options = [];
+            console.warn(`> 组件: ${autoMeta.componentName}的属性描述 @options ${optionsStr}解析失败!`);
+          }
         }
       }
       autoMeta.tableInfo.props.push(docInfo);
