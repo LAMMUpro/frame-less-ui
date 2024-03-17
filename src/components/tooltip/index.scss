@@ -1,0 +1,6 @@
+@import '@/styles/common.scss';
+
+:host, #{$prefix}-tooltip {
+  display: contents;
+  
+}

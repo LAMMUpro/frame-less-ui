@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="color-scheme" content="light dark" />
+		<title>tooltip组件测试</title>
+    <script type="module" src="./index.ts"></script>
+    <script type="module" src="./index.test.tsx"></script>
+	</head>
+	<body>
+    <h2 class="title">原生</h2>
+    <div id="origin">
+      <fl-tooltip value="vallina">
+      </fl-tooltip>
+      <div class="divide"></div>
+      <fl-tooltip-sd value="vallina">
+      </fl-tooltip-sd>  
+    </div>
+
+    <h2 class="title">preact</h2>
+    <div id="preact"></div>
+		
+    <h2 class="title">vue3</h2>
+    <div id="vue3"></div>
+	</body>
+</html>
