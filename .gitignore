@@ -37,6 +37,4 @@ storybook.log
 # storybook编译产物
 storybook-static
 # 生成的文件
-src/components/**/meta.cache.ts
-src/components/**/OverView.cache.mdx
-src/components/**/react.cache.ts
+src/components/**/*.cache.*
