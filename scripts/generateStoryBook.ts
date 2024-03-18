@@ -65,6 +65,7 @@ componentInfoList.forEach(componentInfo => {
   saveMetaFileByComponentInfo(componentInfo);
   saveOverViewMdxFile(componentInfo);
   generateReactWrapFile(componentInfo);
+  saveTypeFile(componentInfo);
 });
 
 /**
@@ -152,6 +153,23 @@ const Fl${className} = createComponent({
 
 export default Fl${className};
   `;
+  
+  fs.writeFile(filePath, contents, 'utf-8', () => {});
+}
+
+/**
+ * lit组件生成type.cache.ts
+ */
+function saveTypeFile(componentInfo: SB.AutoMeta) {
+  /** 只有lit组件才包一层 */
+  if (componentInfo.frame !== 'lit') return;
+
+  /** 获取类名 */
+  const className = toCamelCase(componentInfo.componentName[0].toUpperCase() + componentInfo.componentName.slice(1));
+
+  const filePath = path.resolve(componentDir, componentInfo.componentName, 'type.cache.ts');
+  
+  let contents: string = ``;
   
   fs.writeFile(filePath, contents, 'utf-8', () => {});
 }
