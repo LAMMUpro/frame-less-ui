@@ -98,11 +98,7 @@ import meta from './meta.cache.ts';
 
 <div style="display:flex;">
   <div style="flex-grow: 1;">
-    <Title>{ComponentStories.default.component}</Title>
-
-    {
-      ComponentStories.default?.subtitle && <Subtitle>{ComponentStories.default.subtitle}</Subtitle>
-    }
+    <Title>{ [ComponentStories.default.component, ComponentStories.default?.subtitle].filter(Boolean).join(' ')}</Title>
 
     > {ComponentStories.default.description}
     <br/>

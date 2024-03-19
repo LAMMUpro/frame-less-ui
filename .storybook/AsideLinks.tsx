@@ -39,6 +39,26 @@ styleFix.innerHTML = `
     padding: 1px 4px;
     border-radius: 2px;
   }
+
+  h1.sbdocs-title {
+    color: #595959;
+  }
+
+  h2.css-jy82ux:first-of-type {
+    margin-top: 0;
+  }
+
+  h2.css-jy82ux {
+    margin-bottom: 2px;
+  }
+
+  h3.css-wzniqs {
+    color: #606266;
+  }
+
+  section.tables > h3 {
+    color: #606266;
+  }
 `
 document.head.appendChild(styleFix);
 
