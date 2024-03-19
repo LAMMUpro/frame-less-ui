@@ -4,7 +4,7 @@ import Vue3App from './index.test.vue';
 import '@/styles/demo.scss';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 import { Tooltip } from './index';
-import './type.cache';
+import FlTooltip, { FlTooltipSd } from './react.cache';
 
 /** 注册组件的shadow版本 */
 LitWebcomponent(
@@ -19,11 +19,14 @@ LitWebcomponent(
 function PreactApp() {
 	return (
 		<div>
-      <fl-tooltip value="preact">
-      </fl-tooltip>
+      <FlTooltip
+        value="preact"
+        onSuccess={e=>e.detail}
+      ></FlTooltip>
       <div class="divide"></div>
-      <fl-tooltip-sd value="preact-sd">
-      </fl-tooltip-sd>
+      <FlTooltipSd
+        value="preact-sd"
+      ></FlTooltipSd>
 		</div>
 	);
 }
