@@ -61,7 +61,17 @@ export function ct(...args: Array<string | {
  * @Example toCamelCase('start-time') => 'startTime'
  */
 export function toCamelCase(str: string) {
+  if (!str) return str;
 	return str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''));
+}
+
+/**
+ * 短横线命名法转帕斯卡命名法
+ * @Example toCamelCase('start-time') => 'StartTime'
+ */
+export function toPascalCase(str: string) {
+  if (!str) return str;
+	return str[0].toUpperCase() + toCamelCase(str).slice(1);
 }
 
 

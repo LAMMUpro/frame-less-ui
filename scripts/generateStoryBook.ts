@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import ts from 'typescript';
-import { toCamelCase } from "../src/utils/index.ts";
+import { toCamelCase, toPascalCase } from "../src/utils/index.ts";
 import { SB } from "../src/types/storybook.ts";
 import { getComponentDocsInfo } from '../src/utils/storybook.ts';
 
@@ -132,26 +132,45 @@ function generateReactWrapFile(componentInfo: SB.AutoMeta) {
   if (componentInfo.frame !== 'lit') return;
 
   /** 获取类名 */
-  const className = toCamelCase(componentInfo.componentName[0].toUpperCase() + componentInfo.componentName.slice(1));
+  const className = toPascalCase(componentInfo.componentName);
 
   const filePath = path.resolve(componentDir, componentInfo.componentName, 'react.cache.ts');
   
+  const events = componentInfo.tableInfo.events || [];
+
   let contents: string = `
 import { createComponent, type EventName } from '@lit/react';
 import React from 'react';
 import { GlobalConfig } from '@/config';
 import { ${className} } from './index';
+${
+  events.length ?
+  `import { ${events.map(event => `on${toPascalCase(event.name)}Detail`)?.join(', ')} } from './type.cache';`
+  : ''
+}
+
+const events = {
+  ${events.map(event => {
+    const name_PascalCase = toPascalCase(event.name);
+    return `on${name_PascalCase}: '${event.name}' as EventName<CustomEvent<on${name_PascalCase}Detail>>,`
+  }).join('/n  ')}
+}
 
 const Fl${className} = createComponent({
   tagName: GlobalConfig.componentPrefix + '-${componentInfo.componentName}',
   elementClass: ${className},
   react: React,
-  events: {
-    onSuccess: 'success' as EventName<CustomEvent<{ list: any[] }>>,
-  },
+  events,
 });
 
 export default Fl${className};
+
+export const Fl${className}Sd = createComponent({
+  tagName: GlobalConfig.componentPrefix + '-${componentInfo.componentName}-sd',
+  elementClass: ${className},
+  react: React,
+  events,
+});
   `;
   
   fs.writeFile(filePath, contents, 'utf-8', () => {});
@@ -165,11 +184,25 @@ function saveTypeFile(componentInfo: SB.AutoMeta) {
   if (componentInfo.frame !== 'lit') return;
 
   /** 获取类名 */
-  const className = toCamelCase(componentInfo.componentName[0].toUpperCase() + componentInfo.componentName.slice(1));
+  const className = toPascalCase(componentInfo.componentName);
 
   const filePath = path.resolve(componentDir, componentInfo.componentName, 'type.cache.ts');
   
-  let contents: string = ``;
+  let contents: string = `
+import { DefineComponent } from 'vue';
+import { ${className} } from '.';
+import { VNode } from 'preact';
+
+/** 
+ * for js
+ */
+declare global {
+  interface HTMLElementTagNameMap {
+    'fl-${componentInfo.componentName}': ${className};
+    'fl-${componentInfo.componentName}-sd': ${className};
+  }
+}
+`;
   
   fs.writeFile(filePath, contents, 'utf-8', () => {});
 }
