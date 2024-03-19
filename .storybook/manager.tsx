@@ -16,15 +16,16 @@ addons.register(ADDON_ID, (api) => {
     #tabbutton-storybook-actions-panel {
       display: none;
     }
-    div.css-4ii5m {
+    
+    div.css-sqdry3[style=''] div.css-4ii5m {
       visibility: hidden;
     }
-    div.css-14tjqbs {
+    div.css-sqdry3[style=''] div.css-14tjqbs {
       z-index: 10;
       background-color: rgba(255,255,255,.4);
       box-shadow: none;
     }
-    div.css-10ro1m {
+    div.css-sqdry3[style=''] div.css-10ro1m {
       top: 0;
       height: 100%;
     }
