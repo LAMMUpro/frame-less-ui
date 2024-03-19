@@ -188,10 +188,18 @@ function saveTypeFile(componentInfo: SB.AutoMeta) {
 
   const filePath = path.resolve(componentDir, componentInfo.componentName, 'type.cache.ts');
   
+  const props = componentInfo.tableInfo.props || [];
+
+  const events = componentInfo.tableInfo.events || [];
+
   let contents: string = `
 import { DefineComponent } from 'vue';
 import { ${className} } from '.';
-import { VNode } from 'preact';
+
+${events.map(event => {
+  const name_PascalCase = toPascalCase(event.name);
+  return `export type on${name_PascalCase}Detail = ${event.argsType || 'any'}`;
+}).join('/n')}
 
 /** 
  * for js
@@ -200,6 +208,26 @@ declare global {
   interface HTMLElementTagNameMap {
     'fl-${componentInfo.componentName}': ${className};
     'fl-${componentInfo.componentName}-sd': ${className};
+  }
+}
+
+/**
+ * for vue
+ */
+type Fl${className} = DefineComponent<{
+  ${props.map(prop => {
+    return `/** ${prop.describe || ''} */\n  ${prop.name}${prop.required?'':'?'}: ${prop.argsType || 'any'}`;
+  }).join('\n  ')}
+  ${events.map(event => {
+    const name_PascalCase = toPascalCase(event.name);
+    return `/** ${event.describe || ''} */\n  on${name_PascalCase}?: ({detail}: {detail : on${name_PascalCase}Detail}) => void`;
+  }).join('\n  ')}
+}>
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+    /** 使用大写命名法，可以使大写和小写都生效 */
+    'Fl${className}': Fl${className};
+    'Fl${className}Sd': Fl${className};
   }
 }
 `;
