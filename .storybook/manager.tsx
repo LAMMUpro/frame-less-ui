@@ -10,12 +10,23 @@ const ADDON_ID = 'storybook/code';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
 addons.register(ADDON_ID, (api) => {
-
-  /** 修复样式表 */
+  /** 修复全局样式表 */
   const styleFix = document.createElement('style');
   styleFix.innerHTML = `
     #tabbutton-storybook-actions-panel {
       display: none;
+    }
+    div.css-4ii5m {
+      visibility: hidden;
+    }
+    div.css-14tjqbs {
+      z-index: 10;
+      background-color: rgba(255,255,255,.4);
+      box-shadow: none;
+    }
+    div.css-10ro1m {
+      top: 0;
+      height: 100%;
     }
   `;
   document.head.appendChild(styleFix);

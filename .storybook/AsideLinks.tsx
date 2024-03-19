@@ -8,7 +8,7 @@ enum FontSize {
   'H4' = '12px',
 }
 
-/** 修复样式表 */
+/** 修复OverView样式表 */
 const styleFix = document.createElement('style');
 styleFix.innerHTML = `
   div.sbdocs-content {
@@ -45,6 +45,10 @@ styleFix.innerHTML = `
     border-radius: 2px;
   }
 
+  div.sbdocs.sbdocs-wrapper.css-k7lbue {
+    padding: 2.6rem 20px;
+  }
+
   h1.sbdocs-title {
     color: #595959;
   }
@@ -64,6 +68,8 @@ styleFix.innerHTML = `
   section.tables > h3 {
     color: #606266;
   }
+
+  
 `
 document.head.appendChild(styleFix);
 
