@@ -26,6 +26,11 @@ styleFix.innerHTML = `
   table ._fs14_ {
     font-size: 14px !important;
   }
+  table .required::after {
+    content: '*';
+    color: #FF4400;
+    font-size: 18px;
+  }
   tbody span.highlight_default {
     background-color: #F7FAFC;
     padding: 1px 4px;

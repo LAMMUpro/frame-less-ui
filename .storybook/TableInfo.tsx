@@ -24,6 +24,7 @@ export default function TableInfo({ list, setting }): React.ReactElement {
                 {
                   setting.columns?.map(column => 
                     <td><span className={ct('_fs14_', {
+                      required: setting.name === 'props' && column.key === 'name' && item.required,
                       highlight_default: item[column.key] && ['default'].includes(column.key),
                       highlight_name: item[column.key] && ['name'].includes(column.key),
                     })}>{item[column.key]}</span></td>
