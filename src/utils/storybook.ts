@@ -142,7 +142,7 @@ export function getArgTypesFromAutoMeta(metaCache: SB.AutoMeta) {
       control: item.control || 'text',
       options: item.options,
       type: {
-        required: item.required == undefined ? false : true,
+        required: item.required,
       },
       defaultValue: {
         summary: item.control === 'number' ? +item.default: item.default,
