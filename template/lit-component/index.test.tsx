@@ -4,7 +4,7 @@ import Vue3App from './index.test.vue';
 import '@/styles/demo.scss';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 import { TempName } from './index';
-import './type.cache';
+import FlTempName, { FlTempNameSd } from './react.cache';
 
 /** 注册组件的shadow版本 */
 LitWebcomponent(
@@ -19,11 +19,11 @@ LitWebcomponent(
 function PreactApp() {
 	return (
 		<div>
-      <fl-temp-name value="preact">
-      </fl-temp-name>
+      <FlTempName value="preact">
+      </FlTempName>
       <div class="divide"></div>
-      <fl-temp-name-sd value="preact-sd">
-      </fl-temp-name-sd>
+      <FlTempNameSd value="preact-sd">
+      </FlTempNameSd>
 		</div>
 	);
 }

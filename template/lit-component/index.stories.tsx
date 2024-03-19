@@ -4,6 +4,7 @@ import metaCache from './meta.cache';
 import { SB } from '@/types/storybook';
 import './index'; // 注册组件
 import { useState } from 'react';
+import FlTempName from './react.cache';
 
 const argTypes = getArgTypesFromAutoMeta(metaCache);
 const storyMeta: SB.StoryMeta = {
@@ -26,7 +27,7 @@ export const 基本用法 = {
     return (
       <div>
         <div>
-          <fl-temp-name {...args} value={value} />
+          <FlTempName {...args} value={value} />
         </div>
         <button onClick={change}>变换</button>
       </div>
