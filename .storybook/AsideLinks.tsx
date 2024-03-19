@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
 enum FontSize {
-  'H1' = '28px',
-  'H2' = '18px',
-  'H3' = '16px',
-  'H4' = '14px',
+  'H1' = '20px',
+  'H2' = '16px',
+  'H3' = '14px',
+  'H4' = '12px',
 }
 
 /** 修复样式表 */
@@ -70,6 +70,7 @@ export default function AsideLinks(): React.ReactElement {
         node,
         fontSize,
         fontWeight: fontSize === FontSize.H2 ? 800 : 400,
+        color: fontSize === FontSize.H2 ? '#606266' : '#909399',
       });
     });
 
@@ -96,6 +97,8 @@ export default function AsideLinks(): React.ReactElement {
             cursor: "pointer",
             fontSize: link.fontSize,
             fontWeight: link.fontWeight || 400,
+            color: link.color,
+            lineHeight: '1.7em'
           }}
           onClick={()=>scrollToNode(link.node)}
         >

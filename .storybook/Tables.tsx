@@ -4,7 +4,7 @@ import { tableInfoList } from '../src/utils/storybook.ts';
 export default function TablesInfo({ meta }): React.ReactElement {
   return (
     <>
-      <h2>组件文档</h2>
+      <h2 class="css-jy82ux">组件文档</h2>
       <section className="tables">
         {
           tableInfoList

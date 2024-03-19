@@ -114,7 +114,7 @@ import meta from './meta.cache.ts';
     <Tables meta={meta}/>
   </div>
 
-  <div style="min-width: 150px;">
+  <div style="min-width: 130px;max-width: 160px;">
     <AsideLinks meta={meta}/>
   </div>
 </div>
