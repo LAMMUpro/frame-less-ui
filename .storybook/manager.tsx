@@ -32,6 +32,10 @@ addons.register(ADDON_ID, (api) => {
     div.css-sqdry3[style=''] div.css-jvk3z0 {
       margin-right: 14px;
     }
+    button.css-1q3s0lr {
+      letter-spacing: 1px;
+      font-size: 13px;
+    }
   `;
   document.head.appendChild(styleFix);
 
