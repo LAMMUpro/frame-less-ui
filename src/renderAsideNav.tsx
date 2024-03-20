@@ -1,3 +1,4 @@
+import { render } from 'preact';
 import { componentNameList } from '../node_modules/.cache/data.js';
 
 /**
@@ -35,3 +36,5 @@ export default function AsideNav() {
 		</div>
 	);
 }
+
+render(<AsideNav />, document.getElementById('aside-nav'));

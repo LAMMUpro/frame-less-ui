@@ -5,7 +5,7 @@ import '@/styles/demo.scss';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 import { TempName } from './index';
 import FlTempName, { FlTempNameSd } from './react.cache';
-import AsideNav from '@/AsideNav.tsx';
+import '@/renderAsideNav';
 
 /** 注册组件的shadow版本 */
 LitWebcomponent(
@@ -29,8 +29,6 @@ function PreactApp() {
 	);
 }
 render(<PreactApp />, document.getElementById('preact'));
-
-render(<AsideNav />, document.getElementById('aside-nav'));
 
 /**
  * vue实例
