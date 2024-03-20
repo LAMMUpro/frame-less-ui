@@ -2,6 +2,7 @@ import { render } from 'preact';
 import { useState } from 'preact/hooks';
 import '@/components/dialog';
 import '@/components/button';
+import '@/renderAsideNav.tsx';
 
 export function App() {
   const [show, setShow] = useState(false);

@@ -5,6 +5,7 @@ import '@/styles/demo.scss';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 import { QrCode } from './index';
 import { useEffect, useRef, useState } from 'preact/hooks';
+import '@/renderAsideNav.tsx';
 
 /** 注册组件的shadow版本 */
 LitWebcomponent(

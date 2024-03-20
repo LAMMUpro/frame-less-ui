@@ -1,6 +1,7 @@
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
 import { GlobalConfig } from '@/config';
+import '@/renderAsideNav.tsx';
 GlobalConfig.useShadow = false;
 GlobalConfig.componentPrefix = 'iu';
 import('@/components/button');

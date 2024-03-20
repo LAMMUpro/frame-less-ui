@@ -37,4 +37,5 @@ export default function AsideNav() {
 	);
 }
 
-render(<AsideNav />, document.getElementById('aside-nav'));
+const dom = document.getElementById('aside-nav');
+if (dom) render(<AsideNav />, dom);

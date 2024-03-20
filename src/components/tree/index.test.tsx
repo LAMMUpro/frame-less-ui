@@ -6,6 +6,7 @@ import { LitWebcomponent } from '@/decorator/webcomponent';
 import { Tree } from './index';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { TreeItem } from './type';
+import '@/renderAsideNav.tsx';
 
 /** 注册组件的shadow版本 */
 LitWebcomponent(

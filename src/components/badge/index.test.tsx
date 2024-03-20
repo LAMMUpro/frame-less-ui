@@ -1,5 +1,6 @@
 import { render } from 'preact';
 import { useState } from 'preact/hooks';
+import '@/renderAsideNav.tsx';
 import('@/components/badge');
 
 export function App() {

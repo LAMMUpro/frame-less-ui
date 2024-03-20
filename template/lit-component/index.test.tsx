@@ -5,7 +5,7 @@ import '@/styles/demo.scss';
 import { LitWebcomponent } from '@/decorator/webcomponent';
 import { TempName } from './index';
 import FlTempName, { FlTempNameSd } from './react.cache';
-import '@/renderAsideNav';
+import '@/renderAsideNav.tsx';
 
 /** 注册组件的shadow版本 */
 LitWebcomponent(
