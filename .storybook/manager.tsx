@@ -29,6 +29,9 @@ addons.register(ADDON_ID, (api) => {
       top: 0;
       height: 100%;
     }
+    div.css-sqdry3[style=''] div.css-jvk3z0 {
+      margin-right: 14px;
+    }
   `;
   document.head.appendChild(styleFix);
 
