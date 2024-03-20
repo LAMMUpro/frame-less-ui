@@ -1,4 +1,16 @@
-body > .title {
+body {
+  display: flex;
+}
+
+body > .aside-nav {
+  width: 130px;
+}
+
+body > .content {
+  flex: 1;
+}
+
+body > .content > .title {
   color: #333;
   font-size: 18px;
   font-weight: 700;

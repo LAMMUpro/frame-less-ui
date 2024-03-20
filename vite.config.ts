@@ -5,6 +5,16 @@ import * as fs from 'fs';
 import path from "path";
 import vue from '@vitejs/plugin-vue';
 
+/** 
+ * yarn vite启动时生成一个缓存文件存组件列表
+ */
+(function createCacheFile() {
+  const file = './node_modules/.cache/data.js';
+  if (fs.existsSync(file)) {
+    fs.writeFileSync(file, `export const componentNameList = ${JSON.stringify(fs.readdirSync('./src/components/'))};`);
+  }
+})();
+
 /** 输出模式 */
 const outputMode: 'react' | 'js' | 'vue' = process.env.output as any || 'js';
 /** 输出路径前缀 */
