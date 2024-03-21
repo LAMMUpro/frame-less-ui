@@ -14,6 +14,8 @@ export type EmitType = {
   (e: "success", detail: { data: { label: string, value: string } }): void;
 };
 
+export type TriggerType = 'hover' | 'click' | 'focus' | 'contextmenu';
+
 /**
  * 组件文本主色
  * @cssvar --primary-text-color
@@ -28,11 +30,25 @@ export type EmitType = {
 export class Popover extends LitElement {
   emit: EmitType;
 
-  /** 
-   * 文本内容
-   */
+  /** 主题 */
   @property()
-  value: string;
+  theme: 'light' | 'dark' = 'light';
+
+  /** 位置 */
+  @property() 
+  placement: 'auto' | 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end' = 'auto';
+
+  /** 触发条件 */
+  @property() 
+  trigger: TriggerType = 'hover';
+
+  /** 鼠标移入气泡卡片是否自动关闭 */
+  @property({ type: Boolean })
+  enterable: boolean = false;
+
+  /** 气泡卡片是否显示 */
+  @property({ attribute: false, type: Boolean })
+  private show: boolean = false;
 
   /**
    * 尺寸
@@ -42,15 +58,46 @@ export class Popover extends LitElement {
   @property()
   size: 'small' | 'medium' | 'large' = 'medium';
 
+  protected showPopup(trigger: TriggerType) {
+    if (this.trigger === trigger) {
+      this.show = true;
+    }
+  }
+
+  protected closePopup(trigger: TriggerType) {
+    if (this.trigger === trigger) {
+      this.show = false;
+    }
+  }
+
+  /**
+   * @slot default
+   * @describe 触发源
+   */
+  /**
+   * @slot content
+   * @describe 内容
+   */
   protected render() {
     return html`
-      <div fl-cn className=${ct(this.size)}>
-        <span>
-          <span>文本内容:</span>
-          <span>${this.value}</span>
-        </span>
+      <div fl-cn
+        class=${ct('wrap')} 
+        @click=${() =>this.showPopup('click')}
+        @mouseenter=${()=>this.showPopup('hover')}
+        @mouseout=${()=>this.closePopup('hover')}
+        @focus=${()=>this.showPopup('focus')}
+        @blur=${()=>this.showPopup('focus')}
+        @contextmenu=${()=>this.showPopup('contextmenu')}
+      >
         <slot></slot>
       </div>
+      ${
+        this.show ? html`
+        <div fl-cn>
+          title: 气泡卡片
+          <slot name="content"></slot>
+        </div>`: ''
+      }
     `;
   }
 
