@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="color-scheme" content="light dark" />
-		<title>组件测试</title>
+		<title>tree组件测试</title>
     <script type="module" src="./index.ts"></script>
     <script type="module" src="./index.test.tsx"></script>
 	</head>
@@ -12,7 +12,7 @@
     <section id="aside-nav" class="aside-nav"></section>
     <section class="content">
       <h2 class="title">原生</h2>
-      <div id="origin">
+      <div id="origin"><!-- 👈 这里编写代码 -->
         <fl-tree id="fl-tree" name="word">
           <button>插槽示例</button>
         </fl-tree>
@@ -20,11 +20,12 @@
         <fl-tree-sd name="word" arr="&quot;[\&quot;str\&quot;,4,5]&quot;">
           <button>插槽示例</button>
         </fl-tree-sd>  
+
+        <script>
+          const flTree = document.getElementById('fl-tree');
+          flTree.arr = ['str', 2, 3, ()=> {}];
+        </script>
       </div>
-      <script>
-        const flTree = document.getElementById('fl-tree');
-        flTree.arr = ['str', 2, 3, ()=> {}];
-      </script>
 
       <h2 class="title">preact</h2>
       <div id="preact"></div>
