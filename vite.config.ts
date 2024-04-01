@@ -34,7 +34,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     /** 默认打开某页面 */
-    open: '/src/components/button/index.test.html',
+    open: '/src/components/popover/index.test.html',
   },
 	plugins: [
     vue(),
