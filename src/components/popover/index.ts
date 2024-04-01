@@ -1,8 +1,9 @@
 import { LitElement, PropertyValueMap, css, html, unsafeCSS } from "lit";
-import { property } from "lit/decorators.js";
+import { property, query } from "lit/decorators.js";
 import stylesInline from "./index.scss?inline";
 import { ct } from "@/utils";
 import { LitWebcomponent } from "@/decorator/webcomponent";
+import { GlobalVar } from "@/config";
 
 /**
  * 组件事件定义
@@ -58,6 +59,9 @@ export class Popover extends LitElement {
   @property()
   size: 'small' | 'medium' | 'large' = 'medium';
 
+  @query('.popover-div')
+  popoverDom: Element;
+
   protected showPopup(trigger: TriggerType) {
     if (this.trigger === trigger) {
       this.show = true;
@@ -70,8 +74,43 @@ export class Popover extends LitElement {
     }
   }
 
-  protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-    console.log('变化的属性', _changedProperties);
+  /** 
+   * 创建容器根节点
+   */
+  private createPopoverContainerRootDom() {
+    const div = document.createElement('div');
+    const className = 'fl-popover-container-root';
+    const id = `${className}-${Math.random().toString(36).substring(2)}`;
+    div.id = id;
+    div.className = className;
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+      #${id}.${className} .popover-div {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background-color: gray;
+      }
+    `;
+
+    div.appendChild(style);
+    document.body.appendChild(div);
+    GlobalVar.FlPopoverContainerDom = div;
+  }
+
+  /** 
+   * 将弹出层提升到body下到容器根节点内
+   */
+  private afterFirstUpdated() {
+    if (!GlobalVar.FlPopoverContainerDom) {
+      this.createPopoverContainerRootDom();
+    }
+    GlobalVar.FlPopoverContainerDom.append(this.popoverDom);
+  }
+
+  protected firstUpdated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): Function {
+    return this.afterFirstUpdated;
   }
 
   /**
@@ -108,8 +147,10 @@ export class Popover extends LitElement {
         第一个方案：用display:none代替 动态加载（从写法上兼容）
         第二个方案：将匹配不到slot的元素存起来，每次更新视图后再检测一遍有无<slot />
        -->
-      <div fl-cn
-        style="${this.show ? '':'display:none'}"
+      <div 
+        fl-cn
+        class=${ct('popover-div', {'fl-hidden': !this.show})}
+        style=${`transform: translate(135px, 134px)`}
       >
         title: 气泡卡片
         <slot name="content"></slot>
