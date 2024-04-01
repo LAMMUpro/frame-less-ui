@@ -66,7 +66,7 @@ export function LitWebcomponent(
        * 首次渲染完成时 做一些兼容处理
        */
       firstUpdated() {
-        super.firstUpdated();
+        const afterFirstUpdated = super.firstUpdated();
 
         /**
          * 兼容slot（非shadow dom渲染原生不支持<slot>标签）
@@ -121,6 +121,8 @@ export function LitWebcomponent(
             defaultSlot.remove();
           }
         }
+
+        afterFirstUpdated?.apply?.(this);
       }
     }
 
