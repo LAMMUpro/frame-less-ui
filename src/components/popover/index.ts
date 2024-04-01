@@ -1,4 +1,4 @@
-import { LitElement, css, html, unsafeCSS } from "lit";
+import { LitElement, PropertyValueMap, css, html, unsafeCSS } from "lit";
 import { property } from "lit/decorators.js";
 import stylesInline from "./index.scss?inline";
 import { ct } from "@/utils";
@@ -70,6 +70,10 @@ export class Popover extends LitElement {
     }
   }
 
+  protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+    console.log('变化的属性', _changedProperties);
+  }
+
   /**
    * @slot default
    * @describe 触发源
@@ -91,13 +95,25 @@ export class Popover extends LitElement {
       >
         <slot></slot>
       </div>
-      ${
+
+      <!-- ${
         this.show ? html`
         <div fl-cn>
           title: 气泡卡片
           <slot name="content"></slot>
         </div>`: ''
-      }
+      } -->
+      <!-- 
+        因为对slot的兼容是在第一次mounted的时候，如果 slot 后面才渲染的话无法被处理
+        第一个方案：用display:none代替 动态加载（从写法上兼容）
+        第二个方案：将匹配不到slot的元素存起来，每次更新视图后再检测一遍有无<slot />
+       -->
+      <div fl-cn
+        style="${this.show ? '':'display:none'}"
+      >
+        title: 气泡卡片
+        <slot name="content"></slot>
+      </div>
     `;
   }
 

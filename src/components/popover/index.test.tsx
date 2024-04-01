@@ -25,7 +25,9 @@ function PreactApp() {
         <span slot="content">自定义显示内容</span>
       </FlPopover>
       <div class="divide"></div>
-      <FlPopoverSd value="preact-sd">
+      <FlPopoverSd>
+        <button>触发源</button>
+        <span slot="content">自定义显示内容</span>
       </FlPopoverSd>
 		</div>
 	);
