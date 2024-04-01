@@ -10,9 +10,7 @@ import vue from '@vitejs/plugin-vue';
  */
 (function createCacheFile() {
   const file = './node_modules/.cache/data.js';
-  if (fs.existsSync(file)) {
-    fs.writeFileSync(file, `export const componentNameList = ${JSON.stringify(fs.readdirSync('./src/components/'))};`);
-  }
+  fs.writeFileSync(file, `export const componentNameList = ${JSON.stringify(fs.readdirSync('./src/components/'))};`);
 })();
 
 /** 输出模式 */
