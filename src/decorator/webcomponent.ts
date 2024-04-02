@@ -20,6 +20,34 @@ interface WebCompoponentDefine {
   }
 }
 
+/**
+ * 同步slot的属性到目标节点
+ * 只同步fl-开头的属性
+ * 如果目标节点是Node，则包一层变为HTMLElement
+ */
+function copySlotAttribute2Node(slot: HTMLElement, node: Node) {
+  /** 确保节点是HTMLElement而不是Node */
+  let wrapNode: HTMLElement;
+  /** 
+   * 不是HTMLElement，则包一层，否则无法设置setAttribute
+   */
+  if (!(node instanceof HTMLElement)) {
+    wrapNode = document.createElement('div');
+    wrapNode.className = 'fl-contents';
+    wrapNode.append(node);
+  } else {
+    wrapNode = node;
+  }
+  
+  for (let i = 0; i < slot.attributes.length; i++) {
+    const attribute = slot.attributes[i];
+    if (attribute.name.startsWith('fl-')) {
+      wrapNode.setAttribute(attribute.name, attribute.value);
+    }
+  }
+  return wrapNode;
+}
+
 export function LitWebcomponent(
   tagNameWithoutPrefix: WebCompoponentDefine['tagNameWithoutPrefix'],
   stylePromise: WebCompoponentDefine['stylePromise'],
@@ -83,8 +111,8 @@ export function LitWebcomponent(
           /** slot对应的内容节点(根节点下, 没有fl-cn标签的) */
           const slotContentNodes = ([...this.childNodes] as Array<Node>)
             .filter(node => 
-              !(node instanceof HTMLElement) || // Node节点不过滤
-              !node.hasAttribute?.('fl-cn') // Element节点取非内容节点
+              node.nodeType !== 8 && // 去掉注释节点
+              (!(node instanceof HTMLElement) || !node.hasAttribute?.('fl-cn')) // Node节点不过滤 或 Element节点取非内容节点
             );
           
           /** 组件内是否的默认插槽 */
@@ -98,7 +126,8 @@ export function LitWebcomponent(
             } else { /** 其他具名slot */
               const index = slotContentNodes.findIndex(node => node instanceof HTMLElement && slotName === node.getAttribute?.('slot'));
               if (index > -1) {
-                slot.replaceWith(slotContentNodes.splice(index, 1)[0]);
+                const slotContentNode = copySlotAttribute2Node(slot, slotContentNodes.splice(index, 1)[0]);
+                slot.replaceWith(slotContentNode);
               }
             }
           })
@@ -107,18 +136,22 @@ export function LitWebcomponent(
            * 单独处理默认插槽
            */
           if (slotContentNodes.length && defaultSlot) {
-            const defaultSlotParent = defaultSlot.parentElement;
             /** 是否已经插入了一个Element节点 */
             let isAppendElement = false;
+            /** 用一个盒子把 默认插槽内容包起来，默认插槽包括文本Node节点 */
+            const defaultSlotContentContainer = document.createElement('div');
+            /**
+             * 遍历剩余节点
+             */
             slotContentNodes.forEach(node => {
               if (!(node instanceof HTMLElement)) {
-                defaultSlotParent.insertBefore?.(node, defaultSlot);
+                defaultSlotContentContainer.appendChild(node);
               } else if (!isAppendElement && [null, '', 'default', 'true'].includes(node.getAttribute('slot'))) { /** preact如果只有slot属性会被当成true值, 处理这种特殊情况 */
-                defaultSlotParent.insertBefore?.(node, defaultSlot);
+                defaultSlotContentContainer.appendChild(node);
                 isAppendElement = true;
               }
             })
-            defaultSlot.remove();
+            defaultSlot.replaceWith(copySlotAttribute2Node(defaultSlot, defaultSlotContentContainer));
           }
         }
 
