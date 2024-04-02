@@ -47,10 +47,6 @@ export class Popover extends LitElement {
   @property({ type: Boolean })
   enterable: boolean = false;
 
-  /** 气泡卡片是否显示 */
-  @property({ attribute: false, type: Boolean })
-  private show: boolean = false;
-
   /**
    * 尺寸
    * @control inline-radio
@@ -59,12 +55,45 @@ export class Popover extends LitElement {
   @property()
   size: 'small' | 'medium' | 'large' = 'medium';
 
+  /** 气泡卡片是否显示 */
+  @property({ attribute: false, type: Boolean })
+  private show: boolean = false;
+
+  /** 弹出层的left, 单位px */
+  @property({ attribute: false })
+  private left: number = 0;
+
+  /** 弹出层的top, 单位px */
+  @property({ attribute: false })
+  private top: number = 0;
+
   @query('.popover-div')
   popoverDom: Element;
+
+  @query('[fl-class=fl-popover]')
+  triggerDom?: Element;
+  
+
+  /**
+   * 计算Popover弹出层的left\top
+   */
+  private computePopoverPosition() {
+    /** 触发源的位置信息 */
+    const triggerRect = this.triggerDom?.getBoundingClientRect();
+    /** html的位置信息（这里不用body，因为body可能会有margin） */
+    const htmlRect = document.documentElement.getBoundingClientRect();
+
+    console.log('trigger', triggerRect);
+    console.log('body', document.body.getBoundingClientRect())
+
+    this.left = triggerRect.left - htmlRect.left;
+    this.top = triggerRect.top - htmlRect.top - triggerRect.height;
+  }
 
   protected showPopup(trigger: TriggerType) {
     if (this.trigger === trigger) {
       this.show = true;
+      this.computePopoverPosition();
     }
   }
 
@@ -88,8 +117,6 @@ export class Popover extends LitElement {
     style.innerHTML = `
       #${id}.${className} .popover-div {
         position: absolute;
-        left: 0px;
-        top: 0px;
         background-color: gray;
       }
     `;
@@ -132,7 +159,7 @@ export class Popover extends LitElement {
         @blur=${()=>this.showPopup('focus')}
         @contextmenu=${()=>this.showPopup('contextmenu')}
       >
-        <slot></slot>
+        <slot fl-class="fl-popover"></slot>
       </div>
 
       <!-- ${
@@ -150,7 +177,7 @@ export class Popover extends LitElement {
       <div 
         fl-cn
         class=${ct('popover-div', {'fl-hidden': !this.show})}
-        style=${`transform: translate(135px, 134px)`}
+        style=${`left: ${this.left}px; top: ${this.top}px`}
       >
         title: 气泡卡片
         <slot name="content"></slot>
