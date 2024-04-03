@@ -70,7 +70,7 @@ export class Popover extends LitElement {
   @query('.popover-div')
   popoverDom: Element;
 
-  @query('[fl-class=fl-popover]')
+  @query('[fl-class=fl-trigger]')
   triggerDom?: Element;
   
 
@@ -159,7 +159,7 @@ export class Popover extends LitElement {
         @blur=${()=>this.showPopup('focus')}
         @contextmenu=${()=>this.showPopup('contextmenu')}
       >
-        <slot fl-class="fl-popover"></slot>
+        <slot fl-class="fl-trigger"></slot>
       </div>
 
       <!-- ${
