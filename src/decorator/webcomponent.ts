@@ -33,7 +33,7 @@ function copySlotAttribute2Node(slot: HTMLElement, node: Node) {
    */
   if (!(node instanceof HTMLElement)) {
     wrapNode = document.createElement('div');
-    wrapNode.className = 'fl-contents';
+    wrapNode.className = 'fl-inline';
     wrapNode.append(node);
   } else {
     wrapNode = node;
@@ -109,13 +109,14 @@ export function LitWebcomponent(
           if (slots.length == 0) return;
 
           /** slot对应的内容节点(根节点下, 没有fl-cn标签的) */
-          const slotContentNodes = ([...this.childNodes] as Array<Node>)
+          let slotContentNodes = ([...this.childNodes] as Array<Node>)
             .filter(node => 
               node.nodeType !== 8 && // 去掉注释节点
+              (node.nodeType !== 3 || node.nodeValue.replaceAll('\n', '').trim()) && // 去掉换行到文本节点
               (!(node instanceof HTMLElement) || !node.hasAttribute?.('fl-cn')) // Node节点不过滤 或 Element节点取非内容节点
             );
           
-          /** 组件内是否的默认插槽 */
+          /** 组件内是否有默认插槽 */
           let defaultSlot = undefined;
 
           slots.forEach(slot => {
@@ -132,26 +133,33 @@ export function LitWebcomponent(
             }
           })
 
+          
           /**
            * 单独处理默认插槽
            */
+          /** 筛掉slot不等于默认的 */
+          if (defaultSlot) slotContentNodes = slotContentNodes.filter(node =>
+            !(node instanceof HTMLElement) || 
+            [null, '', 'default', 'true'].includes(node.getAttribute('slot'))
+          );
           if (slotContentNodes.length && defaultSlot) {
-            /** 是否已经插入了一个Element节点 */
-            let isAppendElement = false;
-            /** 用一个盒子把 默认插槽内容包起来，默认插槽包括文本Node节点 */
-            const defaultSlotContentContainer = document.createElement('div');
             /**
-             * 遍历剩余节点
+             * 标准情况, 未处理的节点只有一个 且 slot属性不是其他
              */
-            slotContentNodes.forEach(node => {
-              if (!(node instanceof HTMLElement)) {
+            if (slotContentNodes.length === 1) {
+              defaultSlot.replaceWith(copySlotAttribute2Node(defaultSlot, slotContentNodes[0]));
+            } else {
+              /** 用一个盒子把 默认插槽内容包起来，默认插槽包括文本Node节点 */
+              const defaultSlotContentContainer = document.createElement('div');
+              defaultSlotContentContainer.className = 'fl-inline';
+              /**
+               * 遍历剩余节点
+               */
+              slotContentNodes.forEach(node => {
                 defaultSlotContentContainer.appendChild(node);
-              } else if (!isAppendElement && [null, '', 'default', 'true'].includes(node.getAttribute('slot'))) { /** preact如果只有slot属性会被当成true值, 处理这种特殊情况 */
-                defaultSlotContentContainer.appendChild(node);
-                isAppendElement = true;
-              }
-            })
-            defaultSlot.replaceWith(copySlotAttribute2Node(defaultSlot, defaultSlotContentContainer));
+              })
+              defaultSlot.replaceWith(copySlotAttribute2Node(defaultSlot, defaultSlotContentContainer));
+            }
           }
         }
 
