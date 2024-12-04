@@ -8,5 +8,5 @@ import { defineCustomElement } from 'vue'
 const vueWebComponent = defineCustomElement(CeVue)
 
 /** 注册组件 */
-if (!customElements.get('fl-qr-code'))
-  customElements.define('fl-qr-code', vueWebComponent);
+if (!customElements.get('fl-temp-name'))
+  customElements.define('fl-temp-name', vueWebComponent);

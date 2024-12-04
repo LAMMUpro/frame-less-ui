@@ -1,9 +1,7 @@
 import fs from "fs";
 import path from "path";
-import ts from 'typescript';
-import { toCamelCase, toPascalCase } from "../src/utils/index.ts";
+import { toPascalCase } from "../src/utils/index.ts";
 import { SB } from "../src/types/storybook.ts";
-import { getComponentDocsInfo } from '../src/utils/storybook.ts';
 
 /** 组件文件夹路径 */
 const componentDir = "./src/components";
@@ -16,17 +14,17 @@ const componentInfoList: Array<SB.AutoMeta> = componentNameList
   .map((name) => {
     /** 是否存在ts入口文件 */
     const indexTsFile = path.resolve(componentDir, name, "index.ts");
-    /** 是否存在tsx入口文件 */
-    const indexTsxFile = path.resolve(componentDir, name, "index.tsx");
-    /** 是否是lit组件 */
-    const isLitComponent = fs.existsSync(indexTsFile);
-    /** 是否是preact组件 */
-    const isPreactComponent = fs.existsSync(indexTsxFile);
+    // /** 是否存在tsx入口文件 */
+    // const indexTsxFile = path.resolve(componentDir, name, "index.tsx");
+    // /** 是否是lit组件 */
+    // const isLitComponent = fs.existsSync(indexTsFile);
+    // /** 是否是preact组件 */
+    // const isPreactComponent = fs.existsSync(indexTsxFile);
     /** 生成的meta信息对象 */
     const autoMeta: SB.AutoMeta = {
       componentName: name,
       isAbnormal: false,
-      frame: isPreactComponent ? "preact" : "lit",
+      frame: "vue3",
       tableInfo: {
         props: [],
         events: [],
@@ -37,22 +35,22 @@ const componentInfoList: Array<SB.AutoMeta> = componentNameList
       }
     };
     /** 异常检测 */
-    if (!isLitComponent && !isPreactComponent) {
+    if (!fs.existsSync(indexTsFile)) {
       console.log(`组件${name}异常: 找不到入口文件`);
       autoMeta.isAbnormal = true;
       return autoMeta;
     }
     /** 组件入口文件 */
-    const entryFile = isPreactComponent ? indexTsxFile : indexTsFile;
+    // const entryFile = indexTsFile;
     /** 组件源代码 */
-    const originCode = fs.readFileSync(entryFile, "utf-8");
+    // const originCode = fs.readFileSync(entryFile, "utf-8");
     /** 组件入口文件ast获取元数据 */
-    if (isLitComponent) {
-      const astTree = ts.createSourceFile('temp.ts', originCode, ts.ScriptTarget.ES2015);
-      getComponentDocsInfo(autoMeta, astTree, originCode);
-    } else {
-      // TODO preact组件
-    }
+    // if (isLitComponent) {
+    //   const astTree = ts.createSourceFile('temp.ts', originCode, ts.ScriptTarget.ES2015);
+    //   getComponentDocsInfo(autoMeta, astTree, originCode);
+    // } else {
+
+    // }
     return autoMeta;
   })
   /** 过滤掉异常的组件 */

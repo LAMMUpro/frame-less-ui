@@ -11,7 +11,7 @@ dist
 # 第三方包
 node_modules 
 # yarn版本锁定
-yarn.lock 
+# yarn.lock 
 # pnpm版本锁定
 pnpm-lock.yaml 
 # package版本锁定

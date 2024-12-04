@@ -43,15 +43,16 @@ async function main() {
   const subtitle = await getInput('请输入组件副标题：') || '';
   const describe = await getInput('请输入组件描述：') || '';
   fs.mkdirSync(path.resolve(componentDir, componentName));
-  fs.readdirSync('./template/lit-component').forEach(filename => {
-    let codeStr = fs.readFileSync(path.resolve('./template/lit-component', filename), 'utf-8')
+  // TODO：处理文件夹
+  fs.readdirSync('./template/vue-component').forEach(filename => {
+    let codeStr = fs.readFileSync(path.resolve('./template/vue-component', filename), 'utf-8')
       .replaceAll('fl-temp-name', `fl-${componentName}`)
       .replaceAll('temp-name', componentName)
       .replaceAll('TempName', className);
-    if (filename === 'index.ts') 
-      codeStr = codeStr
-        .replace('${组件副标题}', subtitle)
-        .replace('${组件描述}', describe);
+    // if (filename === 'index.ts') 
+    //   codeStr = codeStr
+    //     .replace('${组件副标题}', subtitle)
+    //     .replace('${组件描述}', describe);
     fs.writeFile(path.resolve(componentDir, componentName, filename), codeStr, 'utf-8', ()=> {})
   })
   console.log('> 组件文件生成完毕, 请执行yarn build:meta');

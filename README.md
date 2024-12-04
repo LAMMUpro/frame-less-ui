@@ -44,7 +44,7 @@ yarn storybook
 
 ## 常用接口
 
-**[组件调试(html/preact/vue)](http://localhost:5173/src/components/button/index.test.html) button组件调试👈**
+**[组件调试(html/react/vue)](http://localhost:5173/src/components/button/demo/index.html) button组件调试👈**
 
 **[组件文档👈](http://localhost:6008/) 需先运行`yarn storybook`**
 
@@ -58,7 +58,7 @@ node版本: `node`v16.18.0
 
 基本原理: webcomponent
 
-响应式: preact
+响应式: vue
 
 打包器: vite
 
@@ -71,12 +71,14 @@ node版本: `node`v16.18.0
 docs # storybook文档（手动编写）
 src
   - components # fl组件
-    - fl-[xxx]
-      - index.scss # 组件样式
+    - [xxx]
+      - demo 
+        - index.html # 组件测试 （yarn vite后访问 http://127.0.0.1:5173/src/components/counter/demo/index.html）
+        - index.tsx # 组件测试（react环境）
+        - index.vue # 组件测试（vue环境）
+      - index.ce.vue # vue组件源码
       - index.stories.tsx # 组件storybook文档配置
-      - index.test.html # 组件测试 （ yarn vite后访问 http://127.0.0.1:5173/src/components/counter/index.test.html ）
-      - index.test.tsx # 组件测试
-      - index.tsx # 组件源码
+      - index.entry.ts # 组件打包入口文件（注册自定义组件）
   - types # ts类型
 InlineScssPlugin.js # rollup插件，处理.scss?inline导入
 rollup.config.js # rollup配置，打包用rollup，本地预览用vite
@@ -125,7 +127,6 @@ git config core.ignorecase false # 在项目根目录中执行
   - xx
 
 - 1.0.0 - `2024-3-1`
-  - 支持lit/preact的方式写组件
   - 支持多种框架调试组件
   - 接入story文档
   - 支持shadow/非shadow初始化组件

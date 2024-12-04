@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import preact from '@preact/preset-vite';
 import viteCompression from 'vite-plugin-compression';
 import * as fs from 'fs';
 import path from "path";
@@ -32,18 +31,15 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     /** 默认打开某页面 */
-    open: '/src/components/popover/index.test.html',
+    open: '/src/components/qr-code/demo/index.html',
   },
 	plugins: [
-    vue(),
-    preact({
-      include: '*.tsx',
-      babel: {
-        plugins: [
-          ["@babel/plugin-proposal-decorators", { legacy: true }],
-          ["@babel/plugin-proposal-class-properties", { loose: true }],
-        ],
-      },
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.includes('-')
+        }
+      }
     }),
     /** Gzip配置 */
     viteCompression({
@@ -62,15 +58,9 @@ export default defineConfig({
         fs.readdirSync('./src/components')
           .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
           .map(componentName => {
-            /** .tsx是preact组件, .ts是lit组件 */
-            const isPreactComponent = fs.existsSync(`./src/components/${componentName}/index.tsx`);
-            const isLitComponent = fs.existsSync(`./src/components/${componentName}/index.ts`);
-            
-            if (!isPreactComponent && !isLitComponent) return [];
-
             return [
               `components/${componentName}`,
-              `./src/components/${componentName}/${outputMode==='react' && isLitComponent ? 'react.cache.ts': `index.${isPreactComponent ? 'tsx':'ts'}`}`
+              `./src/components/${componentName}/index.ts`
             ]
           }).filter(item => item.length).filter(item => {
             const exist = fs.existsSync(item[1]);
@@ -85,10 +75,7 @@ export default defineConfig({
         assetFileNames: outputDir + 'assets/[name]-[hash][extname]',
         /** 分包配置 */
         manualChunks: {
-          'react': ['react'],
-          'preact': ['preact'], // 将 preact 相关库打包成单独的 chunk 中
-          'lit': ['lit', '@lit/react'], // 将 lit 相关库打包成单独的 chunk 中
-          'lit-html': ['lit-html', 'lit-element'],
+          'vue': ['vue'],
         },
       },
     }

@@ -4,7 +4,6 @@ import metaCache from './meta.cache';
 import { SB } from '@/types/storybook';
 import './index'; // 注册组件
 import { useState } from 'react';
-import FlPopover from './react.cache';
 
 const argTypes = getArgTypesFromAutoMeta(metaCache);
 const storyMeta: SB.StoryMeta = {
@@ -17,7 +16,6 @@ const storyMeta: SB.StoryMeta = {
 export default storyMeta;
 
 
-
 export const 基本用法 = {
   render: (args) => {
     const [value, setValue] = useState(args.value);
@@ -27,11 +25,13 @@ export const 基本用法 = {
     return (
       <div>
         <div>
-          <FlPopover {...args} value={value} />
+          <div>value： {args}</div>
+          <fl-temp-name {...args} text="sfsfsd" />
         </div>
-        <button onClick={change}>变换</button>
+        <button onClick={change}>变换生成的文本</button>
       </div>
     )
   },
 };
 
+// export const 实例1 = {}

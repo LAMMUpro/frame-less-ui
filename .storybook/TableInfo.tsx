@@ -12,7 +12,7 @@ export default function TableInfo({ list, setting }): React.ReactElement {
           <tr style={{ textAlign: 'left' }}>
             {
               setting.columns?.map(column => 
-                <th><span class="_fs14_">{ column.name }</span></th>
+                <th><span className="_fs14_">{ column.name }</span></th>
               )
             }     
           </tr>

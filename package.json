@@ -8,35 +8,32 @@
     "framelessui",
     "ui library",
     "web component",
-    "preact",
+    "react",
     "shadow dom"
   ],
   "type": "module",
   "scripts": {
     "dev": "vite",
     "storybook": "storybook dev -p 6008",
-    "new:lit": "ts-node scripts/newLitComponent.ts",
+    "new:comp": "ts-node scripts/newVueComponent.ts",
     "build": "cross-env output=js yarn vite build",
-    "build:react": "cross-env output=react yarn vite build",
     "build:meta": "ts-node scripts/generateStoryBook.ts",
     "build:storybook": "storybook build"
   },
   "dependencies": {
-    "lit": "^3.1.2",
-    "preact": "^10.13.1",
+    "vue": "^3.4.21",
     "qrcode": "^1.5.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-decorators": "^7.23.9",
     "@lit/react": "^1.0.3",
-    "@preact/preset-vite": "^2.5.0",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
     "@storybook/blocks": "^7.6.17",
-    "@storybook/preact": "^7.6.17",
-    "@storybook/preact-vite": "^7.6.17",
+    "@storybook/react": "^7.6.17",
+    "@storybook/react-vite": "^7.6.17",
     "@storybook/test": "^7.6.17",
     "@storybook/web-components": "^7.6.17",
     "@types/node": "^20.11.20",
@@ -44,16 +41,14 @@
     "@vitejs/plugin-vue": "^4.6.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
-    "eslint-config-preact": "^1.3.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-syntax-highlighter": "^15.5.0",
     "sass": "^1.71.1",
     "storybook": "^7.6.17",
     "typescript": "^5.3.3",
     "vite": "^4.3.2",
-    "vite-plugin-compression": "^0.5.1",
-    "vue": "^3.4.21"
+    "vite-plugin-compression": "^0.5.1"
   },
   "eslintConfig": {
     "extends": [

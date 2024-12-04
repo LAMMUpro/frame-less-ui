@@ -1,4 +1,4 @@
-import { render } from 'preact';
+import { createRoot } from 'react-dom/client'
 import { componentNameList } from '../node_modules/.cache/data.js';
 
 /**
@@ -15,11 +15,10 @@ export default function AsideNav() {
     }}>
       {
         componentNameList.map(name => {
-          const href = `${location.origin}/src/components/${name}/` + 'index.test.html';
+          const href = `${location.origin}/src/components/${name}/` + 'demo/index.html';
           const isActive = pathname.includes(`/${name}/`);
           return (
           <span 
-            href={href}
             style={{
               cursor: 'pointer',
               fontWeight: isActive ? 800: 400,
@@ -38,4 +37,4 @@ export default function AsideNav() {
 }
 
 const dom = document.getElementById('aside-nav');
-if (dom) render(<AsideNav />, dom);
+if (dom) createRoot(dom).render(<AsideNav />);

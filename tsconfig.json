@@ -12,16 +12,14 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false, /* See https://lit.dev/docs/components/properties/#avoiding-issues-with-class-fields */
     
-		/* Preact Config */
+		/* react Config */
 		"jsx": "react-jsx",
-		"jsxImportSource": "preact",
+		"jsxImportSource": "react",
 		"skipLibCheck": true,
     "baseUrl": "./",
 		"paths": {
       "@/*": ["src/*"],
-      "@sb/*": ["./.storybook/*"],
-			"react": ["./node_modules/preact/compat/"],
-			"react-dom": ["./node_modules/preact/compat/"]
+      "@sb/*": ["./.storybook/*"]
 		}
 	},
 	"include": ["node_modules/vite/client.d.ts", "src", "scripts"],

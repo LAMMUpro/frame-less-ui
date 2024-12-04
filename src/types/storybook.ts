@@ -62,7 +62,7 @@ export namespace SB {
       parts?: Array<DocInfo>
     },
     /** 框架 */
-    frame?: "lit" | "preact"
+    frame?: "lit" | "preact" | "vue3"
     /** 是否异常 */
     isAbnormal?: boolean
   }

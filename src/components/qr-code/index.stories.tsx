@@ -16,7 +16,6 @@ const storyMeta: SB.StoryMeta = {
 export default storyMeta;
 
 
-
 export const 基本用法 = {
   render: (args) => {
     const [value, setValue] = useState(args.value);
@@ -26,7 +25,8 @@ export const 基本用法 = {
     return (
       <div>
         <div>
-          <fl-qr-code {...args} value={value} />
+          <div>value： {args}</div>
+          <fl-qr-code {...args} text="sfsfsd" />
         </div>
         <button onClick={change}>变换生成的文本</button>
       </div>
@@ -34,3 +34,4 @@ export const 基本用法 = {
   },
 };
 
+// export const 实例1 = {}

@@ -1,4 +1,4 @@
-import type { StorybookConfig } from "@storybook/preact-vite";
+import type { StorybookConfig } from "@storybook/react-vite";
 import './manager.tsx';
 
 const config: StorybookConfig = {
@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
   ],
   framework: {
-    name: "@storybook/preact-vite",
+    name: "@storybook/react-vite",
     options: {},
   },
   docs: {
