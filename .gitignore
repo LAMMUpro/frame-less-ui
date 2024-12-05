@@ -7,7 +7,9 @@ build
 # 编译产物
 build_* 
 # 编译产物
-dist 
+dist
+esm
+cjs
 # 第三方包
 node_modules 
 # yarn版本锁定

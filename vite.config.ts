@@ -68,14 +68,36 @@ export default defineConfig({
             return exist;
           })
       ),
-      output: {
-        dir: 'dist',
-        entryFileNames: outputDir + "[name].js",
-        chunkFileNames: outputDir + "deps/[name].[hash].js",
-        assetFileNames: outputDir + 'assets/[name]-[hash][extname]',
-        /** 分包配置 */
-        manualChunks: {},
-      },
+      output: [
+        {
+          format: 'esm',
+          dir: 'esm',
+          entryFileNames: outputDir + "[name].js",
+          chunkFileNames: outputDir + "deps/[name].[hash].js",
+          assetFileNames: outputDir + 'assets/[name]-[hash][extname]',
+          /** 分包配置 */
+          manualChunks: {
+            'qrcode': ['qrcode'],
+          },
+          paths: {
+            'vue': '../../vue@3.4.33.runtime-browser.js',
+          },
+        },
+        {
+          format: 'esm',
+          dir: 'cjs',
+          entryFileNames: outputDir + "[name].js",
+          chunkFileNames: outputDir + "deps/[name].[hash].js",
+          assetFileNames: outputDir + 'assets/[name]-[hash][extname]',
+          /** 分包配置 */
+          manualChunks: {
+            'qrcode': ['qrcode'],
+          },
+          paths: {
+            'vue': '../../vue@3.4.33.cjs.js',
+          },
+        }
+      ],
       external: ['vue']
     }
   }
