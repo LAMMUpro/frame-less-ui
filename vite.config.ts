@@ -41,15 +41,15 @@ export default defineConfig({
         }
       }
     }),
-    /** Gzip配置 */
-    viteCompression({
-      algorithm: 'gzip', /** 压缩算法 */
-      ext: '.gz', /** 生成的文件后缀 */
-      threshold: 1024*9, /** 对超过10k的数据压缩 */
-      verbose: false, /** 禁止在控制台输出压缩结果 */
-      filter: /\.(js|mjs|json|css|html)$/i, /** 对这些文件进行压缩 */
-      deleteOriginFile: false /** 是否删除原文件 */
-    })
+    // /** Gzip配置 */
+    // viteCompression({
+    //   algorithm: 'gzip', /** 压缩算法 */
+    //   ext: '.gz', /** 生成的文件后缀 */
+    //   threshold: 1024*9, /** 对超过10k的数据压缩 */
+    //   verbose: false, /** 禁止在控制台输出压缩结果 */
+    //   filter: /\.(js|mjs|json|css|html)$/i, /** 对这些文件进行压缩 */
+    //   deleteOriginFile: false /** 是否删除原文件 */
+    // })
   ],
   build: {
     rollupOptions: {
@@ -74,10 +74,9 @@ export default defineConfig({
         chunkFileNames: outputDir + "deps/[name].[hash].js",
         assetFileNames: outputDir + 'assets/[name]-[hash][extname]',
         /** 分包配置 */
-        manualChunks: {
-          'vue': ['vue'],
-        },
+        manualChunks: {},
       },
+      external: ['vue']
     }
   }
 });
