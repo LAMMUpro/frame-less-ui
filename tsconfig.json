@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"target": "ES2021",
-		"module": "ESNext",
-		"moduleResolution": "bundler",
+		"target": "ESNext",
+		"module": "Node16",
+		"moduleResolution": "node16",
 		"allowJs": true,
 		"checkJs": true,
     "allowImportingTsExtensions": true,
@@ -18,11 +18,11 @@
 		"skipLibCheck": true,
     "baseUrl": "./",
 		"paths": {
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
       "@sb/*": ["./.storybook/*"]
 		}
 	},
-	"include": ["node_modules/vite/client.d.ts", "src", "scripts"],
+	"include": ["node_modules/vite/client.d.ts", "scripts", "src/**/*.vue", "src/**/*.ts", "src/**/*.d.ts"],
   "ts-node": {
     "esm": true
   }
