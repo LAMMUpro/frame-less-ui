@@ -1,0 +1,12 @@
+.storybook
+.vscode
+docs
+node_modules
+scripts
+src
+template
+.gitignore
+package-lock.json
+tsconfig.json
+vite.config.ts
+yarn.lock

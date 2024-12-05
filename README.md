@@ -1,4 +1,4 @@
-# FrameLessUI
+# frame-less-ui组件库
 
 ## 介绍
 
@@ -135,6 +135,16 @@ git config core.ignorecase false # 在项目根目录中执行
 ## 注
 
 使用`import styles from './index.module.scss';`的语法会导致在`/dist/assets/`下生成`.css资源，由于没有.html入口，所以这个资源目前是用不到的`
+
+## 发版
+```tsx
+// 切换回官方镜像源
+npm config set registry https://registry.npmjs.com
+// 如果失败需要先登录npm login
+npm publish --access=public
+// 切换为淘宝镜像
+npm config set registry https://registry.npmmirror.com
+```
 
 ## 常见问题
 

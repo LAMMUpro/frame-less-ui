@@ -1,14 +1,14 @@
 {
-  "name": "flessui",
-  "version": "1.0.1",
-  "description": "flessui, 一个跨框架的轻量前端ui组件库",
+  "name": "frame-less-ui",
+  "version": "1.0.9",
+  "description": "frame-less-ui, 一个跨框架的轻量前端ui组件库",
   "author": "lammu",
   "keywords": [
-    "flessui",
+    "frame-less-ui",
     "framelessui",
     "ui library",
     "web component",
-    "react",
+    "vue",
     "shadow dom"
   ],
   "type": "module",
@@ -70,8 +70,5 @@
   },
   "engines": {
     "node": ">=16.0.0"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0"
   }
 }
