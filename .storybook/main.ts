@@ -1,5 +1,5 @@
-import type { StorybookConfig } from "@storybook/react-vite";
-import './manager.tsx';
+import type { StorybookConfig } from "@storybook/vue3-vite";
+import './manager';
 
 const config: StorybookConfig = {
   stories: ["../docs/**/*.mdx", "../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: "@storybook/vue3-vite",
     options: {},
   },
   docs: {

@@ -11,19 +11,19 @@ export default function TableInfo({ list, setting }): React.ReactElement {
         <thead>
           <tr style={{ textAlign: 'left' }}>
             {
-              setting.columns?.map(column => 
-                <th><span className="_fs14_">{ column.name }</span></th>
+              setting.columns?.map((column, index) => 
+                <th key={index}><span className="_fs14_">{ column.name }</span></th>
               )
             }     
           </tr>
         </thead>
         <tbody className="fs14">
           {
-            list.map(item => 
-              <tr>
+            list.map((item, index) => 
+              <tr key={index}>
                 {
-                  setting.columns?.map(column => 
-                    <td><span className={ct('_fs14_', {
+                  setting.columns?.map((column, index) => 
+                    <td key={index}><span className={ct('_fs14_', {
                       required: setting.name === 'props' && column.key === 'name' && item.required,
                       highlight_default: item[column.key] && ['default'].includes(column.key),
                       highlight_name: item[column.key] && ['name'].includes(column.key),

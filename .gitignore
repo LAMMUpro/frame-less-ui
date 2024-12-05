@@ -38,3 +38,4 @@ storybook.log
 storybook-static
 # 生成的文件
 src/components/**/*.cache.*
+*storybook.log

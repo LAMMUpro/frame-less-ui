@@ -3,35 +3,27 @@ import { GlobalConfig } from '@/config';
 import metaCache from './meta.cache';
 import { SB } from '@/types/storybook';
 import './index'; // 注册组件
-import { useState } from 'react';
 
 const argTypes = getArgTypesFromAutoMeta(metaCache);
+
 const storyMeta: SB.StoryMeta = {
-  component: `<${GlobalConfig.componentPrefix}-${metaCache.componentName}>`,
+  componentName: `<${GlobalConfig.componentPrefix}-${metaCache.componentName}>`,
   subtitle: metaCache.subtitle,
   description: metaCache.description,
   argTypes,
   args: getDefaultArgs(argTypes),
 }
+
 export default storyMeta;
 
-
 export const 基本用法 = {
-  render: (args) => {
-    const [value, setValue] = useState(args.value);
-    function change() {
-      setValue(new Date().getTime() + '');
-    }
-    return (
-      <div>
-        <div>
-          <div>value： {args}</div>
-          <fl-qr-code {...args} text="sfsfsd" />
-        </div>
-        <button onClick={change}>变换生成的文本</button>
-      </div>
-    )
+  render: (args: any) => {
+    console.log('args', args)
+    return ({
+      setup() {
+        return { args };
+      },
+      template: '<fl-qr-code v-bind="args" text="sfsfsd" />',
+    })
   },
 };
-
-// export const 实例1 = {}

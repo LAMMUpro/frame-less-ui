@@ -72,7 +72,7 @@ export namespace SB {
    */
   export interface StoryMeta {
     /** 组件名（带前缀） */
-    component: string
+    componentName: string
     /** 副标题 */
     subtitle: AutoMeta['subtitle']
     /** 组件描述 */

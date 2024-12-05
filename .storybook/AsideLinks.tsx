@@ -122,8 +122,9 @@ export default function AsideLinks(): React.ReactElement {
         marginLeft: "20px",
       }}
     >
-      {links.map((link) => (
+      {links.map((link, index) => (
         <a
+          key={index}
           style={{
             cursor: "pointer",
             fontSize: link.fontSize,
