@@ -12,7 +12,10 @@
       >
         ▶
       </span>
-      <span class="fl-tree-item__label">{{ node.label }}</span>
+      <slot name="item">
+        <span class="fl-tree-item__label">{{ node.label }}</span>
+      </slot>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;✅&nbsp;❌</span>
     </div>
     
     <div 
@@ -20,12 +23,14 @@
       class="fl-tree-item__children"
       v-show="isExpanded"
     >
-      <fl-tree-item
-        v-for="child in node.children"
-        :key="child.id"
-        :node="child"
-        @node-click="handleChildClick"
-      ></fl-tree-item>
+      <slot>
+        <fl-tree-item
+          v-for="child in node.children"
+          :key="child.id"
+          :node="child"
+          @node-click="handleChildClick"
+        ></fl-tree-item>
+      </slot>
     </div>
   </div>
 </template>
