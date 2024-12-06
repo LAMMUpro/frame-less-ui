@@ -31,14 +31,14 @@
     "@lit/react": "^1.0.3",
     "@storybook/addon-essentials": "^8.4.6",
     "@storybook/addon-interactions": "^8.4.6",
+    "@storybook/addon-links": "^8.4.6",
     "@storybook/addon-onboarding": "^8.4.6",
     "@storybook/blocks": "^8.4.6",
+    "@storybook/components": "^8.4.6",
     "@storybook/test": "^8.4.6",
+    "@storybook/types": "^8.4.6",
     "@storybook/vue3": "^8.4.6",
     "@storybook/vue3-vite": "^8.4.6",
-    "@storybook/types": "^8.4.6",
-    "@storybook/addon-links": "^8.4.6",
-    "@storybook/components": "^8.4.6",
     "@types/node": "^20.11.20",
     "@types/qrcode": "^1.5.5",
     "@vitejs/plugin-vue": "^4.6.2",
@@ -48,11 +48,12 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-syntax-highlighter": "^15.5.0",
-    "sass": "^1.71.1",
+    "sass": "~1.59.0",
     "storybook": "^8.4.6",
     "typescript": "^5.3.3",
     "vite": "^4.3.2",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-dts": "3.9.1"
   },
   "eslintConfig": {
     "extends": [

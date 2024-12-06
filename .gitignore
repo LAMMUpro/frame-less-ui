@@ -10,6 +10,7 @@ build_*
 dist
 esm
 cjs
+npm
 # 第三方包
 node_modules 
 # yarn版本锁定
