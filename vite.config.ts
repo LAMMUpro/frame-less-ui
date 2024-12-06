@@ -64,23 +64,6 @@ export default defineConfig({
     {
       name: 'move-npmignore',
       closeBundle() {
-        const npmignorePath = path.resolve(__dirname, '.npmignore')
-        const distNpmignorePath = path.resolve(__dirname, './npm/.npmignore')
-        
-        if (fs.existsSync(npmignorePath)) {
-          // 读取原始内容
-          let content = fs.readFileSync(npmignorePath, 'utf-8')
-          // 可以在这里修改 content
-          // content += '\n# 添加新的忽略项'
-          
-          // 写入新文件
-          fs.writeFileSync(distNpmignorePath, content)
-          console.log('Successfully copied and modified .npmignore to npm folder')
-        } else {
-          console.warn('.npmignore file not found in root directory')
-        }
-
-
         // 读取原始内容
         let content = fs.readFileSync(path.resolve(__dirname, './package2npm.json'), 'utf-8')
         
@@ -94,20 +77,23 @@ export default defineConfig({
     // minify: 'terser',
     rollupOptions: {
       /** 动态入口, 动态名称!!! */
-      input: Object.fromEntries(
-        fs.readdirSync('./src/components')
-          .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
-          .map(componentName => {
-            return [
-              `components/${componentName}`,
-              `./src/components/${componentName}/index.ts`
-            ]
-          }).filter(item => item.length).filter(item => {
-            const exist = fs.existsSync(item[1]);
-            if (!exist) console.warn('>>>', '组件入口文件不存在', item[1]);
-            return exist;
-          })
-      ),
+      input: {
+        'index': './src/components/index.ts',
+        ...Object.fromEntries(
+          fs.readdirSync('./src/components')
+            .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
+            .map(componentName => {
+              return [
+                `components/${componentName}`,
+                `./src/components/${componentName}/index.ts`
+              ]
+            }).filter(item => item.length).filter(item => {
+              const exist = fs.existsSync(item[1]);
+              if (!exist) console.warn('>>>', '组件入口文件不存在', item[1]);
+              return exist;
+            })
+        ),
+      },
       output: [
         {
           format: 'esm',

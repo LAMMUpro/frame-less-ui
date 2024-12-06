@@ -12,6 +12,7 @@
     "shadow dom"
   ],
   "type": "module",
+  "types": "./types/index.d.ts",
   "dependencies": {
     "qrcode": "^1.5.3",
     "vue3fless": "0.5.13"
