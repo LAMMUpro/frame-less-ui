@@ -14,6 +14,9 @@
   "type": "module",
   "types": "./types/index.d.ts",
   "exports": {
+    "./global.d.ts": {
+      "types": "./types/src/global.d.ts"
+    },
     ".": {
       "types": "./types/index.d.ts",
       "default": "./esm/index.js"

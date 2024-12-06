@@ -58,6 +58,18 @@ export default defineConfig({
       },
     }),
     /** 
+     * 构建前清理输出目录
+     */
+    {
+      name: 'clean-output',
+      buildStart() {
+        const npmDir = path.resolve(__dirname, './npm');
+        if (fs.existsSync(npmDir)) {
+          fs.rmSync(npmDir, { recursive: true });
+        }
+      }
+    },
+    /** 
      * 打包后复制文件
      * 复制.npmignore到npm目录下
      */
@@ -68,7 +80,11 @@ export default defineConfig({
         let content = fs.readFileSync(path.resolve(__dirname, './package2npm.json'), 'utf-8')
         
         // 写入新文件
-        fs.writeFileSync(path.resolve(__dirname, './npm/package.json'), content)
+        fs.writeFileSync(path.resolve(__dirname, './npm/package.json'), content);
+
+        
+        fs.writeFileSync(path.resolve(__dirname, './npm/esm/index.js'), `import './popver';import './qr-code';`);
+        fs.writeFileSync(path.resolve(__dirname, './npm/cjs/index.js'), `import './popver';import './qr-code';`);
       }
     },
   ],
@@ -77,23 +93,20 @@ export default defineConfig({
     // minify: 'terser',
     rollupOptions: {
       /** 动态入口, 动态名称!!! */
-      input: {
-        'index': './src/components/index.ts',
-        ...Object.fromEntries(
-          fs.readdirSync('./src/components')
-            .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
-            .map(componentName => {
-              return [
-                `components/${componentName}`,
-                `./src/components/${componentName}/index.ts`
-              ]
-            }).filter(item => item.length).filter(item => {
-              const exist = fs.existsSync(item[1]);
-              if (!exist) console.warn('>>>', '组件入口文件不存在', item[1]);
-              return exist;
-            })
-        ),
-      },
+      input: Object.fromEntries(
+        fs.readdirSync('./src/components')
+          .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
+          .map(componentName => {
+            return [
+              `components/${componentName}`,
+              `./src/components/${componentName}/index.ts`
+            ]
+          }).filter(item => item.length).filter(item => {
+            const exist = fs.existsSync(item[1]);
+            if (!exist) console.warn('>>>', '组件入口文件不存在', item[1]);
+            return exist;
+          })
+      ),
       output: [
         {
           format: 'esm',
