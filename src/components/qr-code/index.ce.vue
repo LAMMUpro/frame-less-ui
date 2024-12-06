@@ -57,6 +57,7 @@ const props = defineProps({
 const emit = defineEmits<{
   (e: 'error', data: any): void
   (e: 'updated'): void
+  (e: 'update-text', text: string): void
 }>();
 
 watch(() => props.text, () => {
@@ -69,11 +70,14 @@ watch(() => props.text, () => {
 
 const canvas = ref();
 
-function draw() {
+function draw(str?: string) {
+  if (str) {
+    emit('update-text', str)
+  }
   /**
    * 绘制二维码
    */
-  QRCode.toCanvas(canvas.value, props.text, {
+  QRCode.toCanvas(canvas.value, str || props.text, {
     margin: props.margin,
     width: props.width,
     color: {
@@ -89,6 +93,10 @@ function draw() {
     }
   });
 }
+
+defineExpose({
+  draw,
+})
 </script>
 
 <style lang="scss">
