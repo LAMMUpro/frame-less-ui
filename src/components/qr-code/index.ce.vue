@@ -9,10 +9,49 @@ import { ref, computed, onMounted, watch, nextTick } from 'vue';
 import QRCode, { QRCodeErrorCorrectionLevel } from "qrcode";
 
 const props = defineProps({
+  /**
+   * 二维码内容
+   */
   text: {
     type: String,
     required: true
   },
+  /**
+   * 二维码宽度
+   */
+  width: {
+    type: Number,
+    default: 200
+  },
+  /**
+   * 二维码暗色
+   */
+  darkColor: {
+    type: String,
+    default: '#000000ff'
+  },
+  /**
+   * 二维码亮色
+   */
+  lightColor: {
+    type: String,
+    default: '#ffffffff'
+  },
+  /**
+   * 二维码纠错级别
+   */
+  errorLevel: {
+    type: String as () => QRCodeErrorCorrectionLevel,
+    default: 'M',
+    validator: (value: string) => ['L', 'M', 'Q', 'H'].includes(value)
+  },
+  /**
+   * 二维码边距
+   */
+  margin: {
+    type: Number,
+    default: 0
+  }
 })
 
 const emit = defineEmits<{
@@ -35,16 +74,16 @@ function draw() {
    * 绘制二维码
    */
   QRCode.toCanvas(canvas.value, props.text, {
-    margin: 0,
-    width: 200,
+    margin: props.margin,
+    width: props.width,
     color: {
-      dark: '#000000ff',
-      light: '#ffffffff',
+      dark: props.darkColor,
+      light: props.lightColor,
     },
-    errorCorrectionLevel: 'M',
+    errorCorrectionLevel: props.errorLevel,
   }, (err) => {
     if (err) {
-      this.emit('error', { error: err });
+      emit('error', { error: err });
     } else {
       emit('updated');
     }
@@ -56,6 +95,11 @@ function draw() {
 @import '@/styles/common.scss';
 
 .#{$prefix}-qr-code {
-  background-color: gray;
+  display: inline-block;
+  canvas {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 </style>

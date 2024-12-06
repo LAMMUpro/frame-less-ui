@@ -14,11 +14,12 @@ export default function AsideNav() {
       padding: '2em 6px'
     }}>
       {
-        componentNameList.map(name => {
+        componentNameList.map((name, index) => {
           const href = `${location.origin}/src/components/${name}/` + 'demo/index.html';
           const isActive = pathname.includes(`/${name}/`);
           return (
           <span 
+            key={index}
             style={{
               cursor: 'pointer',
               fontWeight: isActive ? 800: 400,
