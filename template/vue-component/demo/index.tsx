@@ -10,8 +10,7 @@ import '@/renderAsideNav.tsx';
 function ReactApp() {
 	return (
 		<div>
-      <fl-qr-code text="234324323">
-      </fl-qr-code>
+      <fl-temp-comp></fl-temp-comp>
 		</div>
 	);
 }

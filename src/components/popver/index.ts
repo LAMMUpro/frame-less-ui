@@ -1,6 +1,3 @@
-
-
-
 import Popver from './index.ce.vue';
 import { defineCustomElement } from 'vue'
 
