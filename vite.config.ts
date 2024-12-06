@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import viteCompression from 'vite-plugin-compression';
 import * as fs from 'fs';
 import path from "path";
 import vue from '@vitejs/plugin-vue';
@@ -88,16 +87,7 @@ export default defineConfig({
         // 写入新文件
         fs.writeFileSync(path.resolve(__dirname, './npm/package.json'), content)
       }
-    }
-    // /** Gzip配置 */
-    // viteCompression({
-    //   algorithm: 'gzip', /** 压缩算法 */
-    //   ext: '.gz', /** 生成的文件后缀 */
-    //   threshold: 1024*9, /** 对超过10k的数据压缩 */
-    //   verbose: false, /** 禁止在控制台输出压缩结果 */
-    //   filter: /\.(js|mjs|json|css|html)$/i, /** 对这些文件进行压缩 */
-    //   deleteOriginFile: false /** 是否删除原文件 */
-    // })
+    },
   ],
   build: {
     // sourcemap: true,
@@ -130,7 +120,7 @@ export default defineConfig({
             'qrcode': ['qrcode'],
           },
           paths: {
-            'vue': '../../vue@3.4.33.runtime-browser.js',
+            'vue': 'vue3fless',
           },
         },
         {
@@ -144,11 +134,11 @@ export default defineConfig({
             'qrcode': ['qrcode'],
           },
           paths: {
-            'vue': '../../vue@3.4.33.cjs.js',
+            'vue': 'vue3fless',
           },
         }
       ],
-      external: ['vue']
+      external: ['vue', 'vue3fless']
     }
   }
 });

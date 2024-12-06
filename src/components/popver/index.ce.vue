@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from 'vue3fless/dist/vue'
+import { ref, nextTick } from 'vue'
 
 // Props definition
 const props = defineProps({

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue3fless/dist/vue';
+import { ref, computed, onMounted, watch, nextTick } from 'vue';
 import QRCode, { QRCodeErrorCorrectionLevel } from "qrcode";
 
 const props = defineProps({
