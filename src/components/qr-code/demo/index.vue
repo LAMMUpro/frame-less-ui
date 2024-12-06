@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue3fless/dist/vue';
 
 const content = ref('https://micro-admin-template.lammu.cn/micromain/');
 
