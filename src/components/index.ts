@@ -1,2 +1,5 @@
-export * from './qr-code/index.ts';
-export * from './popver/index.ts';
+/**
+ * 组件全局注册
+ */
+import './qr-code';
+import './popver';
