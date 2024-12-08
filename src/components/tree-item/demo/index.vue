@@ -1,18 +1,25 @@
 <template>
   <div class="main">
+    <span>这是一颗树, 用web component组件来渲染: </span>
     <fl-tree-item :node="node">
-      <fl-tree-item 
+      <fl-tree-item
         v-for="child in node.children"
         :key="child.id"
         :node="child"
       >
-        <div slot="item">{{ child.label }}(已离职)</div>
+        <div slot="label">
+          {{ child.label }}
+          <span style="color: red;">(已离职)</span>
+        </div>
         <fl-tree-item
           v-for="grandChild in child.children"
           :key="grandChild.id"
           :node="grandChild"
         >
-          <div slot="item">{{ grandChild.label }}(已离职)</div>
+          <div slot="label">
+            {{ grandChild.label }}
+            <span style="color: red;">(已离职)</span>
+          </div>
         </fl-tree-item>
       </fl-tree-item>
     </fl-tree-item>

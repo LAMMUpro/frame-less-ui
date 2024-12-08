@@ -12,7 +12,7 @@
       >
         ▶
       </span>
-      <slot name="item">
+      <slot name="label">
         <span class="fl-tree-item__label">{{ node.label }}</span>
       </slot>
       <span>&nbsp;&nbsp;&nbsp;&nbsp;✅&nbsp;❌</span>
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, PropType } from 'vue';
 
 interface TreeNode {
   id: string | number;
