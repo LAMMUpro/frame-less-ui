@@ -24,7 +24,6 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import './index';
 import '../tree-item';
 import { PropType, defineComponent, useSlots } from 'vue';
 
