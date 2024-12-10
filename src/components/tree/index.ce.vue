@@ -1,7 +1,7 @@
 <template>
   <div class="fl-tree">
     <fl-tree-item
-      v-for="item in data"
+      v-for="item in props.data"
       :key="item.id"
       :node="item"
       @node-click="handleNodeClick"
