@@ -126,11 +126,6 @@ git config core.ignorecase false # 在项目根目录中执行
   - xx
   - xx
 
-- 1.0.0 - `2024-3-1`
-  - 支持多种框架调试组件
-  - 接入story文档
-  - 支持shadow/非shadow初始化组件
-
 
 ## 注
 
