@@ -37,7 +37,10 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => tag.includes('-')
+          isCustomElement: (tag) => tag.startsWith('fl-')
+            && !tag.endsWith('-v3')
+            && !tag.endsWith('-v2')
+            && !tag.endsWith('-react')
         }
       }
     }),
