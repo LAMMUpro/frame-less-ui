@@ -13,6 +13,12 @@ export default function AsideNav() {
       lineHeight: '1.8em',
       padding: '2em 6px'
     }}>
+      <div>
+        <span style={{
+          fontWeight: 800,
+          color: '#333',
+        }}>组件列表：</span>
+      </div>
       {
         componentNameList.map((name, index) => {
           const href = `${location.origin}/src/components/${name}/` + 'demo/index.html';
@@ -23,8 +29,8 @@ export default function AsideNav() {
             style={{
               cursor: 'pointer',
               fontWeight: isActive ? 800: 400,
-              fontSize: isActive ? '16px': '14px',
-              color: isActive ? '#409EFF': '#67abf2',
+              fontSize: isActive ? '18px': '16px',
+              color: isActive ? '#409EFF': '#555',
             }}
             onClick={() => window.location.href = href}
           >

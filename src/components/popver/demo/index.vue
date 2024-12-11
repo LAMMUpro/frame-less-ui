@@ -1,23 +1,27 @@
 <template>
-  <div class="main">
-    <fl-qr-code :text="content" @updated="updated"></fl-qr-code>
-    <button @click="changeContent">改变内容</button>
+  <div>
+    <div>
+      <fl-popver trigger="hover" placement="right">
+        <span>悬停到此处显示</span>
+        <div slot="popover-content">
+          提示内容
+        </div>
+      </fl-popver>
+    </div>
     <div class="divide"></div>
+    <div>
+      <fl-popver trigger="click" placement="right">
+        <button>点击显示/隐藏</button>
+        <div slot="popover-content">
+          提示内容提示内容提示内容提示内容提示内容提示内容提示内容提示内容提示内容提示内容提示内容
+        </div>
+      </fl-popver>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 
-const content = ref('https://micro-admin-template.lammu.cn/micromain/');
-
-function changeContent() {
-  content.value = Date.now().toString();
-}
-
-function updated() {
-  console.log('二维码更新了')
-}
 </script>
 
 <style lang="scss">

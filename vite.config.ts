@@ -82,16 +82,15 @@ export default defineConfig({
      */
     {
       name: 'move-npmignore',
-      closeBundle() {
-        // 读取原始内容
-        let content = fs.readFileSync(path.resolve(__dirname, './package2npm.json'), 'utf-8')
+      closeBundle() {        
+        // ./package2npm.json => ./npm/package.json
+        fs.writeFileSync(path.resolve(__dirname, './npm/package.json'), fs.readFileSync(path.resolve(__dirname, './package2npm.json'), 'utf-8'));
+        // ./README.md => ./npm/README.md
+        fs.writeFileSync(path.resolve(__dirname, './npm/README.md'), fs.readFileSync(path.resolve(__dirname, './README2npm.md'), 'utf-8'));
         
-        // 写入新文件
-        fs.writeFileSync(path.resolve(__dirname, './npm/package.json'), content);
-
-        
-        fs.writeFileSync(path.resolve(__dirname, './npm/esm/index.js'), `import './popver';import './qr-code';`);
-        fs.writeFileSync(path.resolve(__dirname, './npm/cjs/index.js'), `import './popver';import './qr-code';`);
+        const content = `import './components/popver';\nimport './components/qr-code';\nimport './components/tree';\nimport './components/tree-item';\n`;
+        fs.writeFileSync(path.resolve(__dirname, './npm/esm/index.js'), content);
+        fs.writeFileSync(path.resolve(__dirname, './npm/cjs/index.js'), content);
       }
     },
   ],

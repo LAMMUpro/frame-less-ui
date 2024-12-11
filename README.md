@@ -117,7 +117,8 @@ git config core.ignorecase false # 在项目根目录中执行
 
 
 ## 发版
-```tsx
+```sh
+cd ./npm
 // 切换回官方镜像源
 npm config set registry https://registry.npmjs.com
 // 如果失败需要先登录npm login

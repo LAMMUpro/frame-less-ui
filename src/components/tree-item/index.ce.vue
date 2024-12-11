@@ -13,7 +13,7 @@
         ▶
       </span>
       <slot name="label">
-        <span class="fl-tree-item__label">{{ node.label }}</span>
+        <span class="fl-tree-item__label">{{ node?.label }}</span>
       </slot>
       <span>&nbsp;&nbsp;&nbsp;&nbsp;✅&nbsp;❌</span>
     </div>
@@ -25,7 +25,7 @@
     >
       <slot>
         <fl-tree-item
-          v-for="child in node.children"
+          v-for="child in node?.children || []"
           :key="child.id"
           :node="child"
           @node-click="handleChildClick"
@@ -58,7 +58,7 @@ const emit = defineEmits<{
 
 const isExpanded = ref(false);
 const hasChildren = computed(() => {
-  return props.node.children && props.node.children.length > 0;
+  return props.node?.children && props.node.children?.length > 0;
 });
 
 const toggleExpand = () => {

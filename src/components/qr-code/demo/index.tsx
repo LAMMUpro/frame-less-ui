@@ -10,8 +10,10 @@ import '@/renderAsideNav.tsx';
 function ReactApp() {
 	return (
 		<div>
-      <fl-qr-code text="234324323">
-      </fl-qr-code>
+      <fl-qr-code text="React" width={200}></fl-qr-code>
+      <fl-qr-code text="React" width={150}></fl-qr-code>
+      <fl-qr-code text="React" width={100}></fl-qr-code>
+      <fl-qr-code text="React" width={50}></fl-qr-code>
 		</div>
 	);
 }
