@@ -8,7 +8,11 @@ import dts from 'vite-plugin-dts';
  * yarn vite启动时生成一个缓存文件存组件列表
  */
 (function createCacheFile() {
-  const file = './node_modules/.cache/data.js';
+  const cacheDir = './node_modules/.cache';
+  const file = `${cacheDir}/data.js`;
+  
+  if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
+  
   fs.writeFileSync(file, `export const componentNameList = ${JSON.stringify(fs.readdirSync('./src/components/'))};`);
 })();
 
