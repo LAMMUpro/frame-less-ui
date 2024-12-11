@@ -3,6 +3,7 @@
   "version": "1.0.9-alpha.3",
   "description": "frame-less-ui, 一个跨框架的轻量前端ui组件库",
   "author": "lammu",
+  "private": true,
   "keywords": [
     "frame-less-ui",
     "framelessui",
@@ -14,8 +15,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build": "cross-env output=js yarn vite build",
     "new:comp": "ts-node scripts/newVueComponent.ts",
-    "build": "cross-env output=js yarn vite build"
+    "docs": "cd ./docs && yarn dev"
   },
   "dependencies": {
     "qrcode": "^1.5.3",
@@ -37,6 +39,14 @@
     "vite": "^4.3.2",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-dts": "3.9.1"
+  },
+  "workspaces": {
+    "packages": [
+      "docs"
+    ],
+    "nohoist": [
+      "docs/*"
+    ]
   },
   "resolutions": {
 
