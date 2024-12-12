@@ -21,7 +21,7 @@
       "@/*": ["./src/*"],
       "@sb/*": ["./.storybook/*"]
 		},
-		"types": ["vite/client", "@vue/runtime-core"]
+		"types": ["vite/client", "@vue/runtime-core", "@types/node"]
 	},
 	"include": ["node_modules/vite/client.d.ts", "scripts", "src/**/*.vue", "src/**/*.ts", "src/**/*.d.ts"],
   "ts-node": {
