@@ -1,7 +1,7 @@
 ## 组件依赖
 - popover √
 - popup
-- input(search)
+- input
 - tag √
 - checkbox
 - radio
@@ -9,3 +9,4 @@
 - icon √
 - button √
 - loading
+- scroll
