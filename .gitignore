@@ -42,3 +42,9 @@ storybook-static
 # 生成的文件
 src/components/**/*.cache.*
 *storybook.log
+# iconfont目录除了.ttf/.woff/.woff2文件
+src/assets/iconfont/*
+!src/assets/iconfont/iconfont.ttf
+!src/assets/iconfont/iconfont.woff
+!src/assets/iconfont/iconfont.woff2
+!src/assets/iconfont/iconfont.css
