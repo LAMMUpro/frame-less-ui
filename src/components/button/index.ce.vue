@@ -1,7 +1,7 @@
 <template>
   <!--
     复现：按钮loading时，点击按钮不会触发handleClick但会触发用户绑定事件
-    取消class属性就正常了
+    取消is-loading样式下的pointer-events: none;就正常了
   -->
   <button
     :class="[
@@ -16,12 +16,10 @@
       }
     ]"
     :disabled="disabled || loading"
-    @click.prevent.stop
+    @click.prevent.stop="handleClick"
   >
-    <span @click="handleClick">
-      <i v-if="loading" class="fl-icon-loading"></i>
-      <slot></slot>
-    </span>
+    <i v-if="loading" class="fl-icon-loading"></i>
+    <slot></slot>
   </button>
 </template>
 
@@ -132,7 +130,8 @@ const emit = defineEmits<{
   (e: 'click', evt: MouseEvent): void
 }>()
 
-const handleClick = (evt: MouseEvent) => {  
+const handleClick = (evt: MouseEvent) => {
+  console.log('handleClick', props.loading);
   if (props.disabled || props.loading) return console.log('禁用或加载，事件不触发');
   emit('click', evt);
 }
