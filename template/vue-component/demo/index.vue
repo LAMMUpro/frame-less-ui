@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="">
     <fl-temp-comp></fl-temp-comp>
   </div>
 </template>
