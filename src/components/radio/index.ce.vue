@@ -1,0 +1,132 @@
+<template>
+  <label 
+    class="fl-radio" 
+    :class="{ 
+      'is-checked': modelValue === label,
+      'is-disabled': disabled 
+    }"
+  >
+    <span class="fl-radio__input">
+      <input
+        type="radio"
+        :value="label"
+        :name="name"
+        :disabled="disabled"
+        @input="radioValue = $event.target.value"
+        @change="handleChange"
+      >
+      <span class="fl-radio__inner"></span>
+    </span>
+    <span class="fl-radio__label">
+      <slot>{{ label }}</slot>
+    </span>
+  </label>
+</template>
+
+<script lang="ts" setup>
+import { computed } from 'vue';
+
+const props = defineProps({
+  modelValue: {
+    type: [String, Number, Boolean],
+    default: ''
+  },
+  label: {
+    type: [String, Number, Boolean],
+    default: ''
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  name: {
+    type: String,
+    default: ''
+  }
+})
+
+const emit = defineEmits<{
+  (e: 'update-model-value', value: string | number | boolean): void
+  (e: 'change', value: string | number | boolean): void
+}>()
+
+const radioValue = computed({
+  get() {
+    return props.modelValue
+  },
+  set(val) {
+    emit('update-model-value', val)
+  }
+})
+
+const handleChange = () => {
+  emit('change', radioValue.value)
+}
+
+defineExpose({
+  value: radioValue
+})
+</script>
+
+<style lang="scss">
+.fl-radio {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 30px;
+  
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &__input {
+    position: relative;
+    display: inline-block;
+    
+    input {
+      position: absolute;
+      opacity: 0;
+      margin: 0;
+    }
+
+    .fl-radio__inner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 1px solid #dcdfe6;
+      border-radius: 50%;
+      position: relative;
+      
+      &::after {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: #fff;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+      }
+    }
+  }
+
+  &.is-checked {
+    .fl-radio__inner {
+      border-color: #409eff;
+      background: #409eff;
+      
+      &::after {
+        display: block;
+      }
+    }
+  }
+
+  &__label {
+    padding-left: 8px;
+    font-size: 14px;
+  }
+}
+</style>

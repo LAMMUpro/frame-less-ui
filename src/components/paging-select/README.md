@@ -4,7 +4,8 @@
 - input √
 - tag √
 - checkbox
-- radio
+- radio √
+- radio-group √
 - load-more
 - icon √
 - button √
