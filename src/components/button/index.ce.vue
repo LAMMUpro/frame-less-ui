@@ -1,8 +1,4 @@
 <template>
-  <!--
-    复现：按钮loading时，点击按钮不会触发handleClick但会触发用户绑定事件
-    取消is-loading样式下的pointer-events: none;就正常了
-  -->
   <button
     :class="[
       'fl-button',
@@ -24,7 +20,6 @@
 </template>
 
 <script lang="ts" setup>
-
 interface ButtonProps {
   /** 
    * 按钮类型
@@ -241,10 +236,8 @@ defineExpose({
   
   &.is-loading {
     position: relative;
-    pointer-events: none;
     
     &:before {
-      pointer-events: none;
       content: '';
       position: absolute;
       left: -1px;
