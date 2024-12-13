@@ -1,0 +1,11 @@
+## 组件依赖
+- popover √
+- popup
+- input(search)
+- tag √
+- checkbox
+- radio
+- load-more
+- icon √
+- button √
+- loading
