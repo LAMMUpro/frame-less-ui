@@ -25,9 +25,17 @@
     </div>
 
     <div>
-      <fl-button :loading="loading" @click="test">加载按钮</fl-button>
+      <fl-button :loading="loading" @click="test">
+        加载按钮
+      </fl-button>
     </div>
 
+    <div>
+      <fl-button>
+        <fl-icon name="xianshi_jinggaotianchong" />
+        按钮图标
+      </fl-button>
+    </div>
   </div>
 </template>
 

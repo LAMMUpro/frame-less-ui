@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import { componentNameList } from '../node_modules/.cache/data.js';
+/** 实际用的时候需要还需要手动引入iconfont.css!!! */
+import "@/assets/iconfont/iconfont.css";
 
 /**
  * 测试页面的侧边栏
