@@ -2,6 +2,8 @@
 // import { PropsType as BadgePropsType } from '../components/badge';
 // import { PropsType as DialogPropsType } from '../components/dialog';
 
+import { Ref } from 'vue';
+
 // import { Tree } from '../components/tree';
 
 // /** 组件ts类型全局声明 */
@@ -26,3 +28,14 @@
 //     "fl-tree": Tree;
 //   }
 // }
+
+export namespace RadioSpace {
+  /** radioGroup提供给radio组件的Provide */
+  export interface Provide {
+    /** radioGroup的modelValue(注意是ref) */
+    modelValue: Ref<string | number | boolean>;
+    /** radioGroup的emit */
+    emit(eventName: 'change' | 'update-model-value', ...args: any[]): void;
+  }
+}
+

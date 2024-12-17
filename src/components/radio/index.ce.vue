@@ -2,70 +2,51 @@
   <label 
     class="fl-radio" 
     :class="{ 
-      'is-checked': modelValue === label,
+      'is-checked': radioGroup.modelValue.value === props.value,
       'is-disabled': disabled 
     }"
   >
     <span class="fl-radio__input">
       <input
         type="radio"
-        :value="label"
-        :name="name"
+        :value="props.value"
         :disabled="disabled"
-        @input="radioValue = $event.target.value"
-        @change="handleChange"
+        :checked="radioGroup.modelValue.value === props.value"
+        @input="handleInput"
       >
       <span class="fl-radio__inner"></span>
     </span>
     <span class="fl-radio__label">
-      <slot>{{ label }}</slot>
+      <slot></slot>
     </span>
   </label>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { RadioSpace } from '@/types';
+import { inject } from 'vue';
 
 const props = defineProps({
-  modelValue: {
+  /** 选项值 */
+  value: {
     type: [String, Number, Boolean],
     default: ''
   },
-  label: {
-    type: [String, Number, Boolean],
-    default: ''
-  },
+  /** 是否禁用 */
   disabled: {
     type: Boolean,
     default: false
   },
-  name: {
-    type: String,
-    default: ''
-  }
 })
 
-const emit = defineEmits<{
-  (e: 'update-model-value', value: string | number | boolean): void
-  (e: 'change', value: string | number | boolean): void
-}>()
+/** 获取radioGroup Provide的数据 */
+const radioGroup = inject<RadioSpace.Provide>('radio-group-value');
 
-const radioValue = computed({
-  get() {
-    return props.modelValue
-  },
-  set(val) {
-    emit('update-model-value', val)
-  }
-})
-
-const handleChange = () => {
-  emit('change', radioValue.value)
+/** 处理radio选中事件 */
+const handleInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  radioGroup.modelValue.value = target.value;
 }
-
-defineExpose({
-  value: radioValue
-})
 </script>
 
 <style lang="scss">
