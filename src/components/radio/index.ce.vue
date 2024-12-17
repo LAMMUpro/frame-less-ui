@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import { RadioSpace } from '@/types';
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
 
 const props = defineProps({
   /** 选项值 */
@@ -40,7 +40,7 @@ const props = defineProps({
 })
 
 /** 获取radioGroup Provide的数据 */
-const radioGroup = inject<RadioSpace.Provide>('radio-group-value');
+const radioGroup = inject<RadioSpace.Provide>('radio-group-value', { modelValue: ref(''), emit: () => {} });
 
 /** 处理radio选中事件 */
 const handleInput = (event: Event) => {
