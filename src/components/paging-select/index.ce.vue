@@ -1,5 +1,6 @@
 <template>
   <div class="fl-paging-select">
+    <fl-input-placeholder />
     <div class="search-input">
       <input type="text" placeholder="请输入关键词进行搜索" v-model="searchText">
     </div>
@@ -36,6 +37,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch } from 'vue'
+import '../input-placeholder'
 
 interface Item {
   id: string | number
