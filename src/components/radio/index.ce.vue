@@ -42,10 +42,12 @@ const props = defineProps({
 /** 获取radioGroup Provide的数据 */
 const radioGroup = inject<RadioSpace.Provide>('radio-group-value', { modelValue: ref(''), emit: () => {} });
 
-/** 处理radio选中事件 */
+/** 
+ * 处理radio选中事件
+ * 不要从event.target中获取value，因为event.target.value是string类型，而props.value可能是number类型
+ */
 const handleInput = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  radioGroup.modelValue.value = target.value;
+  radioGroup.modelValue.value = props.value;
 }
 </script>
 

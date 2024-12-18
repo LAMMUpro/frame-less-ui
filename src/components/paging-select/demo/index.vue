@@ -1,37 +1,39 @@
 <template>
   <fl-paging-select
-    :selected="selected"
-    :multiple="true"
-    :load-data="loadData"
-    @confirm="handleConfirm"
-  />
+    :id="info.id"
+    @update-id="info.id = $event.detail[0]"
+    :label="info.name"
+    @update-label="info.name = $event.detail[0]"
+    :api="loadData"
+    immediate
+    :optionSetting="{label: 'name', id: 'id'}"
+  >
+
+  </fl-paging-select>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
-const selected = ref([])
+const info = reactive({
+  id: '1',
+  name: 'Item 1111',
+})
 
-const loadData = async (page, search) => {
-  // 实现数据加载逻辑
-  const response = await Promise.resolve({
-    data: [
-      { id: 1, name: 'Item 1' },
-      { id: 2, name: 'Item 2' },
-      { id: 3, name: 'Item 3' }
-    ],
-    hasMore: true
+const loadData = () => {
+  return Promise.resolve({
+    data: {
+      pageSize: 10,
+      currentPage: 1,
+      totalCount: 100,
+      list: [
+        { id: '1', name: 'Item 1' },
+        { id: '2', name: 'Item 2' },
+        { id: '3', name: 'Item 3' }
+      ]
+    },
+    success: true
   })
-  return {
-    items: response.data,
-    hasMore: response.hasMore
-  }
-}
-
-loadData();
-
-const handleConfirm = (items) => {
-  console.log('已选择:', items)
 }
 </script>
 

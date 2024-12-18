@@ -11,7 +11,7 @@
     <div class="fl-popup__container">
       <div class="fl-popup__header">
         <slot name="header">{{ title }}</slot>
-        <fl-icon name="guanbi-" :size="20"></fl-icon>
+        <fl-icon class="close-icon" name="guanbi-" :size="20" @click="emit('update-model-value', false)"></fl-icon>
       </div>
       <div class="fl-popup__content">
         <slot></slot>
@@ -112,6 +112,12 @@ defineExpose({
     font-size: 16px;
     font-weight: 500;
     border-bottom: 1px solid #f0f0f0;
+    text-align: center;
+    .close-icon {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+    }
   }
   
   &__content {
