@@ -53,10 +53,9 @@ const handleInput = (event: Event) => {
 
 <style lang="scss">
 .fl-radio {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   cursor: pointer;
-  margin-right: 30px;
   
   &.is-disabled {
     cursor: not-allowed;
@@ -108,8 +107,10 @@ const handleInput = (event: Event) => {
   }
 
   &__label {
+    padding: 4px 0;
     padding-left: 8px;
     font-size: 14px;
+    color: #333;
   }
 }
 </style>

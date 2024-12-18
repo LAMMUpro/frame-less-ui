@@ -30,7 +30,7 @@
       <!-- 搜索框 -->
       <div class="search-wrapper">
         <div class="search-input" v-if="props.isShowSearchBar">
-          <input type="text" style="width: 100%; line-height: 1.5rem;" placeholder="请输入关键词进行搜索">
+          <input type="text" style="width: 100%; line-height: 1.5rem; padding-left: 8px;" placeholder="请输入关键词进行搜索">
         </div>
       </div>
       <!-- 当前选中 -->
@@ -89,10 +89,10 @@
           <!-- <LoadMore class="py-1!" :autoLoad="!props.immediate" :loading="loading" :noMoreData="isNoMoreData" @getData="onLoadMore" normalContent="点击加载更多"/> -->
         </div>
       </div>
-      <div class="button-group">
-        <fl-button class="btn add-button" style="width: 100%;" type="default" size="small" @click="todo" v-if="isShowInsertRecordBtn">新增数据</fl-button>
-        <fl-button class="btn confirm-button" style="width: 100%;" type="primary" size="small" @click="onComfirm()">确定</fl-button>
-      </div>
+    </div>
+    <div class="button-group" slot="footer">
+      <fl-button class="btn add-button" style="width: 100%;" type="default" size="small" @click="todo" v-if="isShowInsertRecordBtn">新增数据</fl-button>
+      <fl-button class="btn confirm-button" style="width: 100%;" type="primary" size="small" @click="onComfirm()">确定</fl-button>
     </div>
   </fl-popup>
 </template>
@@ -383,12 +383,10 @@ defineExpose({
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 3.375rem;
 }
 
 .popup-title {
   font-size: 1.125rem;
-  padding: 0.4rem 0;
   font-weight: 800;
 }
 

@@ -127,7 +127,6 @@ defineExpose({
   }
   
   &__footer {
-    padding: 16px;
     border-top: 1px solid #f0f0f0;
     display: flex;
     justify-content: flex-end;
