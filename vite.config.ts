@@ -88,7 +88,7 @@ export default defineConfig({
         // ./README.md => ./npm/README.md
         fs.writeFileSync(path.resolve(__dirname, './npm/README.md'), fs.readFileSync(path.resolve(__dirname, './README2npm.md'), 'utf-8'));
         
-        const content = `import './components/popver';\nimport './components/qr-code';\nimport './components/tree';\nimport './components/tree-item';\n`;
+        const content = `import './components/popover';\nimport './components/qr-code';\nimport './components/tree';\nimport './components/tree-item';\n`;
         fs.writeFileSync(path.resolve(__dirname, './npm/esm/index.js'), content);
         fs.writeFileSync(path.resolve(__dirname, './npm/cjs/index.js'), content);
       }

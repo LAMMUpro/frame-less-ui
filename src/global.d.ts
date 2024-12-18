@@ -1,5 +1,5 @@
 import { QrCode } from './components/qr-code';
-import { Popver } from './components/popver';
+import { Popover } from './components/popover';
 import { Tree } from './components/tree';
 import { TreeItem } from './components/tree-item';
 
@@ -7,7 +7,7 @@ import { TreeItem } from './components/tree-item';
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     FlQrCode: typeof QrCode
-    FlPopver: typeof Popver
+    FlPopver: typeof Popover
     FlTree: typeof Tree
     FlTreeItem: typeof TreeItem
   }
