@@ -100,6 +100,9 @@ const showPopover = ref(false);
   
   .clear-icon {
     cursor: pointer;
+    position: absolute;
+    right: 8px;
+    color: #8d8d8d;
   }
 
   .popover-content {
