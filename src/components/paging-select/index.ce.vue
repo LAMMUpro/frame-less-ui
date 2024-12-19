@@ -13,7 +13,7 @@
       @click="!props.disabled && (isShowPopup=!isShowPopup)"
       @clear="clearAllSelect"
     ></fl-input-placeholder>
-    <div slot="popover-content">
+    <div slot="popover-content" style="height: 260px; overflow-y: scroll;">
       <div
         v-for="item in dataList"
         :key="item[keySetting['id']]"
@@ -22,6 +22,7 @@
       >
         {{ item[keySetting['label']] }}
       </div>
+      <fl-load-more class="py-1!" :autoLoad="!props.immediate" :loading="loading" :noMoreData="isNoMoreData" @getData="onLoadMore" normalContent="点击加载更多"/>
     </div>
   </fl-popover>
   <fl-popup
@@ -99,7 +100,7 @@
         </div>
         <!-- 有数据时才显示，没数据时会自动调一次请求接口 -->
         <div class="fcc" >
-          <!-- <LoadMore class="py-1!" :autoLoad="!props.immediate" :loading="loading" :noMoreData="isNoMoreData" @getData="onLoadMore" normalContent="点击加载更多"/> -->
+          <fl-load-more class="py-1!" :autoLoad="!props.immediate" :loading="loading" :noMoreData="isNoMoreData" @getData="onLoadMore" normalContent="点击加载更多"/>
         </div>
       </div>
     </div>
@@ -119,7 +120,7 @@ import '../tag';
 import '../radio';
 import '../radio-group';
 import '../popover';
-// import LoadMore from '@/components/LoadMore/index.vue';
+import '../load-more';
 import { useAttrs } from 'vue';
 import { isMobile } from '@/utils';
 
