@@ -1,8 +1,10 @@
 <template>
   <!-- 主容器：可切换禁用状态的输入占位符组件 -->
   <div class="fl-input-placeholder" :class="{ 'is-disabled': props.disabled }">
-    <!-- 显示值：优先显示用户标签，其次是ID，最后是占位符文本 -->
-    <span class="value-text">{{ props.labelForUser || props.id || (props.disabled ? '&nbsp;' : props.placeholderForNotSelect) }}</span>
+    <!-- 移动端外部是一个输入框样式的按钮，显示内容：优先显示用户标签，其次是ID，最后是占位符文本 -->
+    <span class="value-text" v-if="isMobile()">{{ props.labelForUser || props.id || (props.disabled ? '&nbsp;' : props.placeholderForNotSelect) }}</span>
+    <!-- PC端外部是一个搜索框 -->
+    <input v-else type="text" class="value-text" :value="props.labelForUser || props.id || (props.disabled ? '&nbsp;' : props.placeholderForNotSelect)"/>
     
     <!-- 问号图标提示：当只有ID没有名称时显示的帮助信息 -->
     <fl-popover v-if="props.isShowQuesIcon" :show="showPopover" @update-show="showPopover = $event.detail[0]" theme="dark">
@@ -29,6 +31,7 @@
 import { ref } from 'vue';
 import '../popover';
 import '../icon';
+import { isMobile } from '@/utils/index.ts';
 
 const props = defineProps({
   /** 是否禁用组件 */
@@ -72,13 +75,12 @@ const showPopover = ref(false);
 
 <style lang="scss" scoped>
 .fl-input-placeholder {
+  position: relative;
   display: inline-flex;
   align-items: center;
   max-width: 100%;
-  padding: 6px 12px;
   font-size: 14px;
   border-radius: 4px;
-  border: 1px solid #dcdee0;
   
   &.is-disabled {
     color: #c5c5c5;
@@ -86,11 +88,14 @@ const showPopover = ref(false);
   }
   
   .value-text {
+    padding: 6px 12px;
+    border: 1px solid #dcdee0;
+    width: 100%;
+    height: 100%;
     color: #8d8d8d;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-right: 4px;
   }
   
   .question-icon {
@@ -106,6 +111,7 @@ const showPopover = ref(false);
   }
 
   .popover-content {
+    width: 100%;
     padding: 8px 20px;
   }
 }

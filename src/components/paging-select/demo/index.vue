@@ -7,6 +7,7 @@
     :api="loadData"
     immediate
     :optionSetting="{label: 'name', id: 'id'}"
+    style="width: 300px;"
   >
   </fl-paging-select>
 </template>

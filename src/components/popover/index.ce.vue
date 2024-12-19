@@ -8,6 +8,7 @@
     <div 
       v-show="visible" 
       class="popover-content"
+      style="width: 100%;"
       :class="[placement, adjustedClass]"
       ref="contentRef"
     >

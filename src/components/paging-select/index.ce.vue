@@ -471,7 +471,6 @@ defineExpose({
 }
 
 .pc-item {
-  width: 300px;
   cursor: pointer;
   color: #606266;
   font-size: 14px;
