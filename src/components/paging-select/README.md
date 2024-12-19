@@ -6,8 +6,8 @@
 - checkbox
 - radio √
 - radio-group √
-- load-more
+- load-more √
 - icon √
 - button √
 - loading
-- scroll
+- scroll √
