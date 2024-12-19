@@ -17,7 +17,8 @@
       <div
         v-for="item in dataList"
         :key="item[keySetting['id']]"
-        class="pc-item"
+        :class="['pc-item', { active: currentSelectIds.includes(item[keySetting['id']]) }]"
+        @click="pcItemSelect(item)"
       >
         {{ item[keySetting['label']] }}
       </div>
@@ -128,6 +129,17 @@ function usePageInfo() {
     currentPage: 1,
     total: 0,
   }
+}
+
+/** pc端选项选中 */
+function pcItemSelect(item: any) {
+  if (props.multiple) {
+    
+  } else {
+    currentSelectIds.value = item[keySetting.value['id']]
+  }
+  onSelectItem(item);
+  onComfirm();
 }
 
 const props = defineProps({
@@ -362,6 +374,7 @@ function onLoadMore() {
 
 /** 获取数据 */
 const getData = async () => {
+  if (!props.api) return console.warn('PagingSelect组件请传入api');
   // 加载状态结束
   loading.value = true;
   const res = await props.api({ ...pageInfo, [props.remoteKey]: keyword.value });
@@ -460,10 +473,14 @@ defineExpose({
 .pc-item {
   width: 300px;
   cursor: pointer;
-
-  padding: 6px;
+  color: #606266;
+  font-size: 14px;
+  padding: 6px 12px;
   &:hover {
-    background-color: #e0e0e0;
+    background-color: #f5f7fa;
+  }
+  &.active {
+    color: #1890FF;
   }
 }
 </style>

@@ -122,7 +122,7 @@ const handleClick = () => {
   &-content {
     position: absolute;
     background: white;
-    padding: 10px;
+    padding: 10px 0;
     border-radius: 4px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     z-index: 1000;

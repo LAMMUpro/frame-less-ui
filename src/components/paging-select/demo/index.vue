@@ -8,7 +8,6 @@
     immediate
     :optionSetting="{label: 'name', id: 'id'}"
   >
-
   </fl-paging-select>
 </template>
 
