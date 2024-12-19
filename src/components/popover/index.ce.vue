@@ -1,5 +1,6 @@
 <template>
-  <div class="popover-container" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  <slot v-if="disabled"></slot>
+  <div v-else class="popover-container" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <div class="popover-trigger" ref="triggerRef" @click="handleClick">
       <slot></slot>
     </div>
@@ -36,6 +37,10 @@ const props = defineProps({
     type: String,
     default: 'top',
     validator: (value: string) => ['top', 'bottom', 'left', 'right'].includes(value)
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
 

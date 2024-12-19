@@ -1,18 +1,30 @@
 <template>
-  <fl-input-placeholder
-    :class="otherProps.class"
-    :style="otherProps.style"
-    v-if="props.showPopup === null"
-    :id="props.id"
-    :labelForUser="(labelForUser as string)"
-    :disabled="props.disabled"
-    :clearable="props.clearable"
-    :isShowQuesIcon="!!props.id && !props.label"
-    :placeholderForNotSelect="props.placeholderForNotSelect"
-    @click="!props.disabled && (isShowPopup=!isShowPopup)"
-    @clear="clearAllSelect"
-  ></fl-input-placeholder>
+  <fl-popover trigger="click" placement="bottom" :disabled="isMobile()">
+    <fl-input-placeholder
+      :class="otherProps.class"
+      :style="otherProps.style"
+      v-if="props.showPopup === null"
+      :id="props.id"
+      :labelForUser="(labelForUser as string)"
+      :disabled="props.disabled"
+      :clearable="props.clearable"
+      :isShowQuesIcon="!!props.id && !props.label"
+      :placeholderForNotSelect="props.placeholderForNotSelect"
+      @click="!props.disabled && (isShowPopup=!isShowPopup)"
+      @clear="clearAllSelect"
+    ></fl-input-placeholder>
+    <div slot="popover-content">
+      <div
+        v-for="item in dataList"
+        :key="item[keySetting['id']]"
+        class="pc-item"
+      >
+        {{ item[keySetting['label']] }}
+      </div>
+    </div>
+  </fl-popover>
   <fl-popup
+    v-if="isMobile()"
     round
     position="bottom"
     class="h-85%"
@@ -105,8 +117,10 @@ import '../button';
 import '../tag';
 import '../radio';
 import '../radio-group';
+import '../popover';
 // import LoadMore from '@/components/LoadMore/index.vue';
 import { useAttrs } from 'vue';
+import { isMobile } from '@/utils';
 
 function usePageInfo() {
   return {
@@ -440,6 +454,16 @@ defineExpose({
 
   .confirm-button {
     flex-grow: 2;
+  }
+}
+
+.pc-item {
+  width: 300px;
+  cursor: pointer;
+
+  padding: 6px;
+  &:hover {
+    background-color: #e0e0e0;
   }
 }
 </style>
