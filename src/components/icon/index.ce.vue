@@ -1,7 +1,7 @@
 <template>
   <span
     :class="[
-      'icon iconfont',
+      'icon fl-iconfont',
       `fl-icon-${props.name}`,
       {
         'is-loading': props.loading

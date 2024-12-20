@@ -90,10 +90,10 @@ export default defineConfig({
         
         const compNameList = fs.readdirSync('./src/components/');
 
-        /** 生成import './components/popover';import './components/qr-code'; 这样的内容到/npm/esm/index.js */
+        /** 生成import './iconfont/font-face.css';import './components/popover';import './components/qr-code'; 这样的内容到/npm/esm/index.js */
         const content = compNameList.reduce((str, compName) => {
           return str + `import './components/${compName}';\n`;
-        }, '')
+        }, `import './iconfont/font-face.css';\n`)
 
         fs.writeFileSync(path.resolve(__dirname, './npm/esm/index.js'), content);
         fs.writeFileSync(path.resolve(__dirname, './npm/cjs/index.js'), content);

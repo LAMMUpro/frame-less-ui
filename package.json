@@ -14,7 +14,7 @@
   ],
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --force",
     "build": "cross-env output=js yarn vite build",
     "new:comp": "ts-node scripts/newVueComponent.ts",
     "docs": "cd ./docs && yarn dev"
