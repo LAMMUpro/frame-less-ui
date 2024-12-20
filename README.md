@@ -118,6 +118,7 @@ git config core.ignorecase false # 在项目根目录中执行
 
 ## 发版
 ```sh
+// 需切换到此目录下才能发
 cd ./npm
 // 切换回官方镜像源
 npm config set registry https://registry.npmjs.com
