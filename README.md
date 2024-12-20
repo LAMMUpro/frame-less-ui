@@ -129,5 +129,7 @@ npm config set registry https://registry.npmmirror.com
 ```
 
 ## 常见问题
-使用`import styles from './index.module.scss';`的语法会导致在`/dist/assets/`下生成`.css资源，由于没有.html入口，所以这个资源目前是用不到的`
+1. 使用`import styles from './index.module.scss';`的语法会导致在`/dist/assets/`下生成`.css资源，由于没有.html入口，所以这个资源目前是用不到的`
 
+2. web component需要从shadow dom外引入@font-face
+> 例如字体图标的iconfont.css需要把@font-face提到单独的font-face.css

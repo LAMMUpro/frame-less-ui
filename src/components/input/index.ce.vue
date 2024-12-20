@@ -157,6 +157,7 @@ defineExpose({
 
 
 <style lang="scss">
+@import url('@/styles/common.scss');
 .fl-input {
   position: relative;
   display: inline-flex;

@@ -409,6 +409,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
+@import url('@/styles/common.scss');
 .popup-header {
   display: flex;
   justify-content: center;

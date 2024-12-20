@@ -48,3 +48,12 @@ src/assets/iconfont/*
 !src/assets/iconfont/iconfont.woff
 !src/assets/iconfont/iconfont.woff2
 !src/assets/iconfont/iconfont.css
+!src/assets/iconfont/font-face.css
+
+# iconfont目录除了.ttf/.woff/.woff2文件
+public/iconfont/*
+!public/iconfont/iconfont.ttf
+!public/iconfont/iconfont.woff
+!public/iconfont/iconfont.woff2
+!public/iconfont/iconfont.css
+!public/iconfont/font-face.css

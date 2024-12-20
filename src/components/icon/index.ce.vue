@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts" setup>
+
 interface IconProps {
   /** 
    * 图标名称
@@ -68,7 +69,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import '@/styles/common.scss';
+@import url('@/styles/common.scss');
 
 .fl-icon {
   display: inline-flex;
