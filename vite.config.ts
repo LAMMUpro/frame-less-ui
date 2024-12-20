@@ -88,7 +88,13 @@ export default defineConfig({
         // ./README.md => ./npm/README.md
         fs.writeFileSync(path.resolve(__dirname, './npm/README.md'), fs.readFileSync(path.resolve(__dirname, './README2npm.md'), 'utf-8'));
         
-        const content = `import './components/popover';\nimport './components/qr-code';\nimport './components/tree';\nimport './components/tree-item';\n`;
+        const compNameList = fs.readdirSync('./src/components/');
+
+        /** 生成import './components/popover';import './components/qr-code'; 这样的内容到/npm/esm/index.js */
+        const content = compNameList.reduce((str, compName) => {
+          return str + `import './components/${compName}';\n`;
+        }, '')
+
         fs.writeFileSync(path.resolve(__dirname, './npm/esm/index.js'), content);
         fs.writeFileSync(path.resolve(__dirname, './npm/cjs/index.js'), content);
       }
