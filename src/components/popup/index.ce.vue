@@ -121,7 +121,7 @@ defineExpose({
   }
   
   &__content {
-    padding: 16px;
+    margin: 16px;
     max-height: 70vh;
     overflow-y: auto;
   }

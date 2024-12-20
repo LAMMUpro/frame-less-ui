@@ -1,13 +1,17 @@
 body {
   display: flex;
+  overflow: hidden;
+  margin: 0;
 }
 
 body > .aside-nav {
-  width: 150px;
+  width: 140px;
+  flex-shrink: 0;
 }
 
 body > .content {
   flex: 1;
+  overflow: hidden;
 }
 
 body > .content > .title {

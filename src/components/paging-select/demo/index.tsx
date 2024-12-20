@@ -10,7 +10,7 @@ import '@/renderAsideNav.tsx';
 function ReactApp() {
 	return (
 		<div>
-      <fl-paging-select></fl-paging-select>
+
 		</div>
 	);
 }

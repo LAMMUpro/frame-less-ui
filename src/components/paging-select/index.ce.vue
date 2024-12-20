@@ -41,25 +41,27 @@
       <span class="popup-title">{{ props.title }}</span>
     </div>
     <div class="popup-container">
-      <!-- 搜索框 -->
-      <div class="search-wrapper">
-        <div class="search-input" v-if="props.isShowSearchBar">
-          <input type="text" style="width: 100%; line-height: 1.5rem; padding-left: 8px;" placeholder="请输入关键词进行搜索">
+      <div class="sticky">
+        <!-- 搜索框 -->
+        <div class="search-wrapper">
+          <div class="search-input" v-if="props.isShowSearchBar">
+            <input type="text" style="width: 100%; line-height: 1.5rem; padding-left: 8px;" placeholder="请输入关键词进行搜索">
+          </div>
         </div>
-      </div>
-      <!-- 当前选中 -->
-      <div v-if="props.multiple" class="selected-items">
-        <span>当前选中：{{ currentSelectIds.length }}项目, 查看详情</span>
-        <div>
-          <fl-tag type="primary" class="tag-item" v-for="(id, index) in currentSelectIds" :key="index">{{ id }}</fl-tag>
+        <!-- 当前选中 -->
+        <div v-if="props.multiple" class="selected-items">
+          <span>当前选中：{{ currentSelectIds.length }}项目, 查看详情</span>
+          <div>
+            <fl-tag type="primary" class="tag-item" v-for="(id, index) in currentSelectIds" :key="index">{{ id }}</fl-tag>
+          </div>
         </div>
-      </div>
-      <div v-else class="single-select">
-        <span class="select-label">
-          <span>当前选中：</span>
-          <fl-tag v-if="currentSelectIds[0]" plain type="primary" size="medium" closeable @close="deleteSelectItem(0)">{{ currentSelectLables[0] || currentSelectIds[0] }}</fl-tag>
-          <span v-else>无</span>
-        </span>
+        <div v-else class="single-select">
+          <span class="select-label">
+            <span>当前选中：</span>
+            <fl-tag v-if="currentSelectIds[0]" plain type="primary" size="medium" closeable @close="deleteSelectItem(0)">{{ currentSelectLables[0] || currentSelectIds[0] }}</fl-tag>
+            <span v-else>无</span>
+          </span>
+        </div>
       </div>
       <div class="content-wrapper">
         <div
@@ -421,7 +423,15 @@ defineExpose({
 .popup-container {
   height: 100%;
   display: flex;
+  position: relative;
   flex-direction: column;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
 }
 
 .search-wrapper {
@@ -438,8 +448,7 @@ defineExpose({
 }
 
 .single-select {
-  padding: 0 1rem;
-  padding-top: 0.25rem;
+  padding: 0.25rem 1rem;
   text-align: left;
 }
 
