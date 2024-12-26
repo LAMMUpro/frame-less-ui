@@ -1,5 +1,6 @@
 <template>
   <fl-popover trigger="click" placement="bottom" :disabled="isMobile()">
+    <div>{{ !props.immediate }}</div>
     <fl-input-placeholder
       :class="otherProps.class"
       :style="otherProps.style"
@@ -14,6 +15,8 @@
       @clear="clearAllSelect"
     ></fl-input-placeholder>
     <div slot="popover-content" style="height: 260px; overflow-y: scroll;">
+      <div>{{ dataList[0] }}</div>
+      <div>{{ props.optionSetting }}</div>
       <div
         v-for="item in dataList"
         :key="item[keySetting['id']]"
@@ -114,7 +117,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch, useSlots, type PropType } from 'vue';
+import { ref, computed, onMounted, watch, useSlots, PropType, getCurrentInstance } from 'vue';
 import '../input-placeholder';
 import '../popup';
 import '../button';
@@ -206,6 +209,11 @@ const props = defineProps({
     type: Object as PropType<Partial<ArrayItemSetting>>,
     default: () => ({})
   },
+  /** 选项数据配置项 */
+  optionSettings: {
+    type: String,
+    default: "4545"
+  },
 
   /**
    * 一些显示/隐藏配置
@@ -248,6 +256,8 @@ const emit = defineEmits<{
   (e: 'change', value: any | Array<any> | undefined, selectedItem?: any | Array<any> | undefined): void
 }>();
 
+console.log('props.optionSetting', props.optionSetting)
+
 const otherProps = useAttrs();
 
 /** 选项配置 */
@@ -270,6 +280,10 @@ const isShowPopup = ref(false);
 function close() {
   isShowPopup.value = false;
 }
+
+watch(() => props.api, () => {
+  console.log('api变化了', props.api)
+})
 
 /** 搜索关键词 */
 const keyword = ref('');
@@ -372,6 +386,7 @@ function deleteSelectItem(index: number) {
 /** 加载更多数据 */
 function onLoadMore() {
   pageInfo.currentPage += 1;
+  console.log('....')
   getData();
 }
 
@@ -381,6 +396,7 @@ const getData = async () => {
   // 加载状态结束
   loading.value = true;
   const res = await props.api({ ...pageInfo, [props.remoteKey]: keyword.value });
+  console.log('res',res)
   loading.value = false;
   if (res.success) {
     const result = res.data.list;
@@ -400,11 +416,19 @@ const getData = async () => {
 
 onMounted(()=>{
   /** 如果immediate为true，则马上发送请求 */
-  if (props.immediate) getData();
+  // if (props.immediate) getData();
 })
 
+const inited = ref(false);
+
+function init() {
+  /** 如果immediate为true，则马上发送请求 */
+  if (props.immediate) getData();
+  inited.value = true;
+}
+
 defineExpose({
-  
+  init,
 })
 </script>
 

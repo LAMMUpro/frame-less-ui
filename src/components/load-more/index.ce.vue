@@ -1,8 +1,8 @@
 <template>
   <div class="load-more" ref="obserView">
-    <span v-if="props.loading">{{ props.loadingContent }} <van-loading /></span>
+    <span v-if="props.loading">{{ props.loadingContent }} </span>
     <span v-else-if="props.noMoreData">{{ props.noMoreContent }}</span>
-    <span v-else @click="getData" class="pointer">{{ props.normalContent }}</span>
+    <span v-else @click="autoGetData" class="pointer">{{ props.normalContent }}</span>
   </div>
 </template>
 
@@ -69,7 +69,7 @@ function getData() {
 
 onMounted(() => {
   if (props.autoLoad) {
-    getData();
+    autoGetData();
   }
   registerEvent()
 })

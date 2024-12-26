@@ -22,8 +22,8 @@
       "default": "./esm/index.js"
     },
     "./*": {
-      "types": "./types/components/*.d.ts",
-      "default": "./esm/components/*.js"
+      "types": "./types/components/*/index.d.ts",
+      "default": "./esm/components/*/index.js"
     }
   },
   "dependencies": {

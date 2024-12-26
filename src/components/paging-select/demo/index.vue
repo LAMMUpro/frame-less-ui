@@ -1,6 +1,6 @@
 <template>
   <div>
-    <fl-paging-select
+    <!-- <fl-paging-select
       :id="info.id"
       @update-id="info.id = $event.detail[0]"
       :label="info.name"
@@ -10,10 +10,9 @@
       :optionSetting="{label: 'name', id: 'id'}"
       style="width: 300px;"
     >
-    </fl-paging-select>
+    </fl-paging-select> -->
     <div>{{ info }}</div>
   </div>
-  
 </template>
 
 <script setup>
