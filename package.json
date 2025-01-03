@@ -16,6 +16,8 @@
   "scripts": {
     "dev": "vite --force",
     "build": "cross-env output=js yarn vite build",
+    "build:vue2": "yarn vite build --config ./vite.config.vue2.ts",
+    "build:all": "yarn build & yarn build:vue2",
     "new:comp": "ts-node scripts/newVueComponent.ts",
     "docs": "cd ./docs && yarn dev"
   },
@@ -29,6 +31,9 @@
     "@types/node": "^20.11.20",
     "@types/qrcode": "^1.5.5",
     "@vitejs/plugin-vue": "^4.6.2",
+    "@vitejs/plugin-legacy": "4.1.1",
+    "@vitejs/plugin-vue2": "^2.3.1",
+    "vue2fless": "0.7.16",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "react": "18.3.1",
@@ -43,7 +48,8 @@
   },
   "workspaces": {
     "packages": [
-      "docs"
+      "docs",
+      "dependences/vitejs-plugin-vue2fless"
     ],
     "nohoist": [
       "docs/*"

@@ -1,8 +1,14 @@
 <template>
-    <h1>fl-button for vue2</h1>
-  <fl-button
-    :type="type"
-  ></fl-button>
+  <div>
+    <h2>fl-button for vue</h2>
+    <fl-button
+      ref="buttonRef"
+      :type="type"
+      v-model="this.type"
+    >
+      <slot></slot>
+    </fl-button>
+  </div>
 </template>
 <script>
 import './index';
@@ -15,8 +21,12 @@ export default {
       type: 'danger'
     }
   },
+  created() {
+    console.log('createdt', this.$refs['buttonRef'])
+  },
   mounted() {
-    
+    console.log('mounted', this.$refs['buttonRef'])
+    this.$refs['buttonRef']?._onMounted?.();
   },
   methods: {
     // ==================================== 一、逻辑类 ====================================

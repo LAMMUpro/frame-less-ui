@@ -131,8 +131,14 @@ const handleClick = (evt: MouseEvent) => {
   emit('click', evt);
 }
 
+/** onMounted用于平替onMounted */
+async function _onMounted() {
+  console.log('>>> button _onMounted')
+}
+
 defineExpose({
-  handleClick
+  _onMounted,
+  handleClick,
 })
 </script>
 

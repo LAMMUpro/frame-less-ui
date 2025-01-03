@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import * as fs from 'fs';
 import path from "path";
-import vue from '@vitejs/plugin-vue';
+import vue3Plugin from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 // 产物压缩相关
-import terser from '@rollup/plugin-terser';
+// import terser from '@rollup/plugin-terser';
 
 /** 
  * yarn vite启动时生成一个缓存文件存组件列表
@@ -67,7 +67,6 @@ const entryFiles: {[key: string]: string} = {};
 export default defineConfig({
   resolve: {
     alias: {
-      '@sb': path.resolve(__dirname, '.storybook'),
       '@': path.resolve(__dirname, 'src'),
     }
   },
@@ -79,7 +78,7 @@ export default defineConfig({
     open: '/src/components/qr-code/demo/index.html',
   },
 	plugins: [
-    vue({
+    vue3Plugin({
       template: {
         compilerOptions: {
           isCustomElement: (tag) => tag.startsWith('fl-')
@@ -88,7 +87,7 @@ export default defineConfig({
             && !tag.endsWith('-react')
         }
       },
-      exclude: /.vue2.vue/,
+      exclude: /wrap\.vue2\.vue/,
     }),
     dts({
       // 指定使用的 tsconfig.json 文件
@@ -139,8 +138,8 @@ export default defineConfig({
         compNameList.forEach(compName => {
           const vue2File = path.resolve(__dirname, `./src/components/${compName}/wrap.vue2.vue`);
           if (fs.existsSync(vue2File)) {
-            fs.writeFileSync(path.resolve(__dirname, `./npm/esm/components/${compName}/warp.vue2.vue`), fs.readFileSync(vue2File, 'utf-8'));
-            fs.writeFileSync(path.resolve(__dirname, `./npm/cjs/components/${compName}/warp.vue2.vue`), fs.readFileSync(vue2File, 'utf-8'));
+            fs.writeFileSync(path.resolve(__dirname, `./npm/esm/components/${compName}/wrap.vue2.vue`), fs.readFileSync(vue2File, 'utf-8'));
+            fs.writeFileSync(path.resolve(__dirname, `./npm/cjs/components/${compName}/wrap.vue2.vue`), fs.readFileSync(vue2File, 'utf-8'));
           }
         })
 
