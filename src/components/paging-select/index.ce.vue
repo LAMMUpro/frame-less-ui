@@ -114,7 +114,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch, useSlots, PropType, getCurrentInstance } from 'vue';
+import { ref, computed, watch, useSlots, PropType, getCurrentInstance } from 'vue';
 import '../input-placeholder';
 import '../popup';
 import '../button';
@@ -410,7 +410,7 @@ const getData = async () => {
   }
 };
 
-/** onMounted用于平替onMounted */
+/** 用于平替onMounted */
 async function _onMounted() {
   console.log('>>> paging-select _onMounted')
   /** 如果immediate为true，则马上发送请求 */

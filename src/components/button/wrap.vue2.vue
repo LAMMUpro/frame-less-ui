@@ -21,11 +21,7 @@ export default {
       type: 'danger'
     }
   },
-  created() {
-    console.log('createdt', this.$refs['buttonRef'])
-  },
   mounted() {
-    console.log('mounted', this.$refs['buttonRef'])
     this.$refs['buttonRef']?._onMounted?.();
   },
   methods: {

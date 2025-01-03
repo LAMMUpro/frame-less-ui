@@ -131,7 +131,7 @@ const handleClick = (evt: MouseEvent) => {
   emit('click', evt);
 }
 
-/** onMounted用于平替onMounted */
+/** 用于平替onMounted */
 async function _onMounted() {
   console.log('>>> button _onMounted')
 }
