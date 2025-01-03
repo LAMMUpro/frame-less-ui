@@ -32,6 +32,7 @@ export default function FlPagingSelect(props: {
     <fl-paging-select
       ref={pagingSelectRef}
       label={props.label}
+      {...props}
       style={{ width: '300px' }}
     >
     </fl-paging-select>

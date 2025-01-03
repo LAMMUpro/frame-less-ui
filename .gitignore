@@ -50,3 +50,6 @@ public/iconfont/*
 !public/iconfont/iconfont.woff2
 !public/iconfont/iconfont.css
 !public/iconfont/font-face.css
+
+
+vite.config.ts.timestamp-*

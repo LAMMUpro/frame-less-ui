@@ -1,20 +1,20 @@
-// import type { App } from 'vue';
-import PagingSelect from './paging-select/wrap.vue3.vue';
+// // import type { App } from 'vue';
+// import PagingSelect from './paging-select/wrap.vue3.vue';
 
-// const components = [PagingSelect];
+// // const components = [PagingSelect];
 
-// function install(app: App) {
-//   components.forEach((component) => {
-//     app.use(component);
-//   });
-// }
+// // function install(app: App) {
+// //   components.forEach((component) => {
+// //     app.use(component);
+// //   });
+// // }
 
-// export { install };
+// // export { install };
 
-export {
-  PagingSelect
-};
-
-// export default {
-//   install,
+// export {
+//   PagingSelect
 // };
+
+// // export default {
+// //   install,
+// // };

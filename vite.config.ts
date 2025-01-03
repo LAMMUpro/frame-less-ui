@@ -23,6 +23,45 @@ const outputMode: 'react' | 'js' | 'vue' = process.env.output as any || 'js';
 /** 输出路径前缀 */
 const outputDir = outputMode === 'js' ? '' : `${outputMode}/`;
 
+/**
+  * 打包入口文件
+  * 扫描/src/components目录下的所有组件, 生成入口文件
+  * 规则：
+  * 1. components下的目录
+  * 2. components下的目录下存在index.ts文件
+  * @return { '目标路径': '源路径' } 例如：{'components/button/vue3': `./src/components/button/wrap.vue3.vue`}
+  */
+const entryFiles: {[key: string]: string} = {};
+
+/** 
+ * 找到所有需要打包的文件
+ * 包括各个组件的入口文件以及vue2/vue3/react包装组件
+ */
+(function getEntryFiles() {
+  fs.readdirSync('./src/components')
+    .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
+    .forEach(componentName => {
+      /** 存在组件入口文件/src/components/${componentName}/index.ts */
+      if (fs.existsSync(path.join('./src/components', componentName, 'index.ts'))) {
+        entryFiles[`components/${componentName}/index`] = `./src/components/${componentName}/index.ts`;
+        /** 存在vue3入口文件/src/components/${componentName}/wrap.vue3.vue */
+        if (fs.existsSync(path.join('./src/components', componentName, 'wrap.vue3.vue'))) {
+          entryFiles[`components/${componentName}/vue3`] = `./src/components/${componentName}/wrap.vue3.vue`;
+        }
+        /** 存在react入口文件/src/components/${componentName}/wrap.react.vue */
+        if (fs.existsSync(path.join('./src/components', componentName, 'wrap.react.tsx'))) {
+          entryFiles[`components/${componentName}/react`] = `./src/components/${componentName}/wrap.react.tsx`;
+        }
+        /** 存在vue2入口文件/src/components/${componentName}/wrap.vue2.vue */
+        if (fs.existsSync(path.join('./src/components', componentName, 'wrap.vue2.vue'))) {
+          entryFiles[`components/${componentName}/vue2`] = `./src/components/${componentName}/wrap.vue2.vue`;
+        }
+      } else {
+        console.warn('>>>', '组件入口文件不存在', `./src/components/${componentName}/index.ts`);
+      }
+    })
+})();
+
 // [vite](https://vitejs.dev/config/)
 // [rollup](https://rollupjs.org/configuration-options/)
 export default defineConfig({
@@ -106,11 +145,15 @@ export default defineConfig({
   build: {
     // sourcemap: true,
     lib: {
-      // 入口文件
-      entry: [
-        path.resolve(__dirname, 'src/components/entry.vue3.ts'),
-        path.resolve(__dirname, 'src/components/entry.react.ts')
-      ],
+      /**
+       * 如果不配这里，各组件的wrap.react.tsx/wrap.vue3.vue/wrap.vue2.vue不会被打包
+       * 但这里只需要一个空的入口文件???
+       */
+      entry: path.resolve(__dirname, 'src/components/index.ts'),
+      // [
+      //   // path.resolve(__dirname, 'src/components/entry.vue3.ts'),
+      //   path.resolve(__dirname, 'src/components/entry.react.ts')
+      // ],
       // // 输出格式
       // formats: ['es'],
       // // 输出文件名
@@ -118,25 +161,8 @@ export default defineConfig({
       //   `${format === 'es' ? 'esm' : 'cjs'}/vue3.${format === 'es' ? 'mjs' : 'js'}`,
     },
     rollupOptions: {
-      /** 动态入口, 动态名称!!! */
-      input: {
-        ...Object.fromEntries(
-          fs.readdirSync('./src/components')
-            .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
-            .map(componentName => {
-              return [
-                `components/${componentName}/index`,
-                `./src/components/${componentName}/index.ts`
-              ]
-            }).filter(item => item.length).filter(item => {
-              const exist = fs.existsSync(item[1]);
-              if (!exist) console.warn('>>>', '组件入口文件不存在', item[1]);
-              return exist;
-            })
-        ),
-        'components/paging-select/vue3': `./src/components/paging-select/wrap.vue3.vue`,
-        'components/paging-select/react': `./src/components/paging-select/wrap.react.tsx`,
-      },
+      /** 打包入口文件 */
+      input: entryFiles,
       output: [
         {
           format: 'esm',
