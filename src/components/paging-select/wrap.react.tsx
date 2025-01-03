@@ -25,7 +25,7 @@ export default function FlPagingSelect(props: {
     pagingSelectRef.current.immediate = props.immediate;
   }, [props.immediate])
   useEffect(() => {
-    console.log('instance', pagingSelectRef.current.init?.())
+    pagingSelectRef.current._onMounted?.();
   }, [])
 
   return <>

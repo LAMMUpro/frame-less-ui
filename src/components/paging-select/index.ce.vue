@@ -1,6 +1,5 @@
 <template>
   <fl-popover trigger="click" placement="bottom" :disabled="isMobile()">
-    <div>{{ !props.immediate }}</div>
     <fl-input-placeholder
       :class="otherProps.class"
       :style="otherProps.style"
@@ -15,8 +14,6 @@
       @clear="clearAllSelect"
     ></fl-input-placeholder>
     <div slot="popover-content" style="height: 260px; overflow-y: scroll;">
-      <div>{{ dataList[0] }}</div>
-      <div>{{ props.optionSetting }}</div>
       <div
         v-for="item in dataList"
         :key="item[keySetting['id']]"
@@ -386,7 +383,7 @@ function deleteSelectItem(index: number) {
 /** 加载更多数据 */
 function onLoadMore() {
   pageInfo.currentPage += 1;
-  console.log('....')
+  console.log('>>> onLoadMore')
   getData();
 }
 
@@ -396,7 +393,6 @@ const getData = async () => {
   // 加载状态结束
   loading.value = true;
   const res = await props.api({ ...pageInfo, [props.remoteKey]: keyword.value });
-  console.log('res',res)
   loading.value = false;
   if (res.success) {
     const result = res.data.list;
@@ -414,21 +410,15 @@ const getData = async () => {
   }
 };
 
-onMounted(()=>{
-  /** 如果immediate为true，则马上发送请求 */
-  // if (props.immediate) getData();
-})
-
-const inited = ref(false);
-
-function init() {
+/** onMounted用于平替onMounted */
+async function _onMounted() {
+  console.log('>>> paging-select _onMounted')
   /** 如果immediate为true，则马上发送请求 */
   if (props.immediate) getData();
-  inited.value = true;
 }
 
 defineExpose({
-  init,
+  _onMounted,
 })
 </script>
 

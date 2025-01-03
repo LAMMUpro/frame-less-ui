@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import path from "path";
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
+// 产物压缩相关
+import terser from '@rollup/plugin-terser';
 
 /** 
  * yarn vite启动时生成一个缓存文件存组件列表
@@ -88,7 +90,7 @@ export default defineConfig({
         // ./README.md => ./npm/README.md
         fs.writeFileSync(path.resolve(__dirname, './npm/README.md'), fs.readFileSync(path.resolve(__dirname, './README2npm.md'), 'utf-8'));
         
-        const compNameList = fs.readdirSync('./src/components/');
+        const compNameList = fs.readdirSync('./src/components/').filter(fileName => fs.statSync(path.join('./src/components', fileName)).isDirectory());
 
         /** 生成import './iconfont/font-face.css';import './components/popover';import './components/qr-code'; 这样的内容到/npm/esm/index.js */
         const content = compNameList.reduce((str, compName) => {
@@ -99,26 +101,42 @@ export default defineConfig({
         fs.writeFileSync(path.resolve(__dirname, './npm/cjs/index.js'), content);
       }
     },
+    // terser(),
   ],
   build: {
     // sourcemap: true,
-    // minify: 'terser',
+    lib: {
+      // 入口文件
+      entry: [
+        path.resolve(__dirname, 'src/components/entry.vue3.ts'),
+        path.resolve(__dirname, 'src/components/entry.react.ts')
+      ],
+      // // 输出格式
+      // formats: ['es'],
+      // // 输出文件名
+      // fileName: (format) =>
+      //   `${format === 'es' ? 'esm' : 'cjs'}/vue3.${format === 'es' ? 'mjs' : 'js'}`,
+    },
     rollupOptions: {
       /** 动态入口, 动态名称!!! */
-      input: Object.fromEntries(
-        fs.readdirSync('./src/components')
-          .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
-          .map(componentName => {
-            return [
-              `components/${componentName}`,
-              `./src/components/${componentName}/index.ts`
-            ]
-          }).filter(item => item.length).filter(item => {
-            const exist = fs.existsSync(item[1]);
-            if (!exist) console.warn('>>>', '组件入口文件不存在', item[1]);
-            return exist;
-          })
-      ),
+      input: {
+        ...Object.fromEntries(
+          fs.readdirSync('./src/components')
+            .filter(item => fs.statSync(path.join('./src/components', item)).isDirectory())
+            .map(componentName => {
+              return [
+                `components/${componentName}/index`,
+                `./src/components/${componentName}/index.ts`
+              ]
+            }).filter(item => item.length).filter(item => {
+              const exist = fs.existsSync(item[1]);
+              if (!exist) console.warn('>>>', '组件入口文件不存在', item[1]);
+              return exist;
+            })
+        ),
+        'components/paging-select/vue3': `./src/components/paging-select/wrap.vue3.vue`,
+        'components/paging-select/react': `./src/components/paging-select/wrap.react.tsx`,
+      },
       output: [
         {
           format: 'esm',
@@ -133,6 +151,7 @@ export default defineConfig({
           paths: {
             'vue': 'vue3fless',
           },
+          // plugins: [terser()],
         },
         {
           format: 'esm',
@@ -147,9 +166,10 @@ export default defineConfig({
           paths: {
             'vue': 'vue3fless',
           },
+          // plugins: [terser()],
         }
       ],
-      external: ['vue', 'vue3fless']
+      external: ['vue', 'vue3fless', 'react']
     }
   }
 });

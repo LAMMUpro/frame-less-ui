@@ -1,6 +1,6 @@
 {
   "name": "frame-less-ui",
-  "version": "1.0.9-alpha.8",
+  "version": "1.0.9-alpha.9",
   "description": "frame-less-ui, 一个跨框架的轻量前端ui组件库",
   "author": "lammu",
   "keywords": [
@@ -24,6 +24,14 @@
     "./*": {
       "types": "./types/components/*/index.d.ts",
       "default": "./esm/components/*/index.js"
+    },
+    "./vue3/*": {
+      "types": "./types/components/*/index.vue3.vue.d.ts",
+      "default": "./esm/components/*/vue3.js"
+    },
+    "./react/*": {
+      "types": "./types/components/*/index.d.ts",
+      "default": "./esm/components/*/react.js"
     }
   },
   "dependencies": {
