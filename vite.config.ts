@@ -35,7 +35,7 @@ const entryFiles: {[key: string]: string} = {};
 
 /** 
  * 找到所有需要打包的文件
- * 包括各个组件的入口文件以及vue2/vue3/react包装组件
+ * 包括各个组件的入口文件以及vue3/react包装组件(vue2包装组件不能打包!!!)
  */
 (function getEntryFiles() {
   fs.readdirSync('./src/components')
@@ -52,10 +52,10 @@ const entryFiles: {[key: string]: string} = {};
         if (fs.existsSync(path.join('./src/components', componentName, 'wrap.react.tsx'))) {
           entryFiles[`components/${componentName}/react`] = `./src/components/${componentName}/wrap.react.tsx`;
         }
-        /** 存在vue2入口文件/src/components/${componentName}/wrap.vue2.vue */
-        if (fs.existsSync(path.join('./src/components', componentName, 'wrap.vue2.vue'))) {
-          entryFiles[`components/${componentName}/vue2`] = `./src/components/${componentName}/wrap.vue2.vue`;
-        }
+        // /** 存在vue2入口文件/src/components/${componentName}/wrap.vue2.vue */
+        // if (fs.existsSync(path.join('./src/components', componentName, 'wrap.vue2.vue'))) {
+        //   entryFiles[`components/${componentName}/vue2`] = `./src/components/${componentName}/wrap.vue2.vue`;
+        // }
       } else {
         console.warn('>>>', '组件入口文件不存在', `./src/components/${componentName}/index.ts`);
       }
@@ -87,7 +87,8 @@ export default defineConfig({
             && !tag.endsWith('-v2')
             && !tag.endsWith('-react')
         }
-      }
+      },
+      exclude: /.vue2.vue/,
     }),
     dts({
       // 指定使用的 tsconfig.json 文件
@@ -119,10 +120,13 @@ export default defineConfig({
     },
     /** 
      * 打包后复制文件
-     * 复制.npmignore到npm目录下
+     * package.json
+     * README.md
+     * /components/各组件/wrap.vue2.vue
+     * 生成/esm/index.js, /cjs/index.js
      */
     {
-      name: 'move-npmignore',
+      name: 'move-file-after-build',
       closeBundle() {        
         // ./package2npm.json => ./npm/package.json
         fs.writeFileSync(path.resolve(__dirname, './npm/package.json'), fs.readFileSync(path.resolve(__dirname, './package2npm.json'), 'utf-8'));
@@ -131,7 +135,19 @@ export default defineConfig({
         
         const compNameList = fs.readdirSync('./src/components/').filter(fileName => fs.statSync(path.join('./src/components', fileName)).isDirectory());
 
-        /** 生成import './iconfont/font-face.css';import './components/popover';import './components/qr-code'; 这样的内容到/npm/esm/index.js */
+        /** 复制wrap.vue2.vue */
+        compNameList.forEach(compName => {
+          const vue2File = path.resolve(__dirname, `./src/components/${compName}/wrap.vue2.vue`);
+          if (fs.existsSync(vue2File)) {
+            fs.writeFileSync(path.resolve(__dirname, `./npm/esm/components/${compName}/warp.vue2.vue`), fs.readFileSync(vue2File, 'utf-8'));
+            fs.writeFileSync(path.resolve(__dirname, `./npm/cjs/components/${compName}/warp.vue2.vue`), fs.readFileSync(vue2File, 'utf-8'));
+          }
+        })
+
+        /**
+         * 生成/esm/index.js, /cjs/index.js
+         * import './iconfont/font-face.css';import './components/popover';import './components/qr-code'; 这样的内容到/npm/esm/index.js
+         */
         const content = compNameList.reduce((str, compName) => {
           return str + `import './components/${compName}';\n`;
         }, `import './iconfont/font-face.css';\n`)
@@ -176,6 +192,7 @@ export default defineConfig({
           },
           paths: {
             'vue': 'vue3fless',
+            'vue2': 'vue2fless',
           },
           // plugins: [terser()],
         },
@@ -191,11 +208,12 @@ export default defineConfig({
           },
           paths: {
             'vue': 'vue3fless',
+            'vue2': 'vue2fless',
           },
           // plugins: [terser()],
         }
       ],
-      external: ['vue', 'vue3fless', 'react']
+      external: ['vue', 'vue3fless', 'vue2', 'vue2fless', 'react']
     }
   }
 });

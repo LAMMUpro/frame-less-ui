@@ -32,10 +32,15 @@
     "./react/*": {
       "types": "./types/components/*/index.d.ts",
       "default": "./esm/components/*/react.js"
+    },
+    "./vue2/*": {
+      "types": "./types/components/*/index.d.ts",
+      "default": "./esm/components/*/vue2.js"
     }
   },
   "dependencies": {
     "qrcode": "^1.5.3",
-    "vue3fless": "0.5.13"
+    "vue3fless": "0.5.13",
+    "vue2fless": "0.7.16"
   }
 }
