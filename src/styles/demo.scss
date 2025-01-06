@@ -1,6 +1,7 @@
 body {
   display: flex;
   overflow: hidden;
+  height: 100vh;
   margin: 0;
 }
 
@@ -11,7 +12,8 @@ body > .aside-nav {
 
 body > .content {
   flex: 1;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 body > .content > .title {
