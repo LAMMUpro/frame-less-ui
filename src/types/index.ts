@@ -39,3 +39,13 @@ export namespace RadioSpace {
   }
 }
 
+/** 提取所有可选属性的键 */
+type OptionalKeys<T> = {
+  [K in keyof T]: undefined extends T[K] ? K : never;
+}[keyof T];
+
+/** 过滤掉 never 和 undefined，确保结果是合法的属性键 */
+type ValidKeys<T> = Exclude<OptionalKeys<T>, undefined>;
+
+/** 通过PropsType提取出DefaultPropsType */
+export type PickDefaultPropsType<T> = Required<Pick<T, ValidKeys<T>>>
