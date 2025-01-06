@@ -7,6 +7,8 @@
 		"checkJs": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
+    
+    "strictNullChecks": true,
 
     /** 支持装饰器 不然@property()爆红 */
     "experimentalDecorators": true,
