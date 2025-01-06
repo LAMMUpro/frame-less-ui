@@ -15,7 +15,7 @@ import dts from 'vite-plugin-dts';
   
   if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
   
-  fs.writeFileSync(file, `export const componentNameList = ${JSON.stringify(fs.readdirSync('./src/components/'))};`);
+  fs.writeFileSync(file, `export const componentNameList = ${JSON.stringify(fs.readdirSync('./src/components/').filter(item => fs.statSync(path.join('./src/components', item)).isDirectory()))};`);
 })();
 
 /** 输出模式 */
