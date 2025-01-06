@@ -19,7 +19,7 @@
       ref="input"
       :type="type"
       class="fl-input__inner"
-      :value="modelValue"
+      :value="props.modelValue"
       :placeholder="placeholder"
       :disabled="disabled"
       :readonly="readonly"
@@ -38,7 +38,7 @@
 
     <!-- 清除按钮 -->
     <span
-      v-if="clearable && modelValue"
+      v-if="clearable && props.modelValue"
       class="fl-input__clear"
       @click="handleClear"
     >
@@ -49,47 +49,12 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
+import { PropsType, defaultProps } from './utils.ts';
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    default: ''
-  },
-  type: {
-    type: String,
-    default: 'text'
-  },
-  placeholder: {
-    type: String,
-    default: '请输入'
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  readonly: {
-    type: Boolean,
-    default: false
-  },
-  clearable: {
-    type: Boolean,
-    default: false
-  },
-  maxlength: {
-    type: Number,
-    default: undefined
-  },
-  size: {
-    type: String,
-    default: 'default',
-    validator: (value: string) => {
-      return ['large', 'default', 'small'].includes(value)
-    }
-  }
-})
+const props = withDefaults(defineProps<PropsType>(), defaultProps);
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
+  (e: 'update-model-value', value: string): void
   (e: 'change', value: string): void
   (e: 'input', value: string): void
   (e: 'focus', event: FocusEvent): void
@@ -113,7 +78,7 @@ onMounted(() => {
 // 处理输入
 const handleInput = (event: Event) => {
   const value = (event.target as HTMLInputElement).value
-  emit('update:modelValue', value)
+  emit('update-model-value', value)
   emit('input', value)
 }
 
@@ -142,13 +107,19 @@ const handleKeydown = (event: KeyboardEvent) => {
 
 // 处理清除
 const handleClear = () => {
-  emit('update:modelValue', '')
+  emit('update-model-value', '')
   emit('clear')
   input.value?.focus()
 }
 
+/** 用于平替onMounted */
+async function _onMounted() {
+  console.log('>>> input _onMounted')
+}
+
 // 暴露方法
 defineExpose({
+  _onMounted,
   focus: () => input.value?.focus(),
   blur: () => input.value?.blur(),
   select: () => input.value?.select()
