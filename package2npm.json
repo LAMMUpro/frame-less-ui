@@ -26,7 +26,7 @@
       "default": "./esm/components/*/index.js"
     },
     "./vue3/*": {
-      "types": "./types/components/*/index.vue3.vue.d.ts",
+      "types": "./types/components/*/wrap.vue3.vue.d.ts",
       "default": "./esm/components/*/vue3.js"
     },
     "./react/*": {

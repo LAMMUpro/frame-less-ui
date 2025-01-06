@@ -91,7 +91,7 @@ export default defineConfig({
     }),
     dts({
       // 指定使用的 tsconfig.json 文件
-      tsconfigPath: './tsconfig.json',
+      tsconfigPath: './tsconfig-build.json',
       // 是否将 .vue 文件生成 .d.ts 文件
       insertTypesEntry: true,
       // 指定类型声明文件的输出目录
