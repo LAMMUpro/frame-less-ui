@@ -81,10 +81,12 @@ export default defineConfig({
     vue3Plugin({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith('fl-')
-            && !tag.endsWith('-v3')
-            && !tag.endsWith('-v2')
-            && !tag.endsWith('-react')
+          isCustomElement: (tag) =>
+            tag.startsWith('micro-app') ||
+            (tag.startsWith('fl-') &&
+              !tag.endsWith('-v3') &&
+              !tag.endsWith('-v2') &&
+              !tag.endsWith('-react')),
         }
       },
       exclude: /wrap\.vue2\.vue/,
