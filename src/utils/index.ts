@@ -1,3 +1,4 @@
+import { Ref } from 'vue';
 
 
 /**
@@ -111,4 +112,22 @@ export function copyText(text: string, success?: () => void, fail?: (res: string
 export function isMobile() {
   const pattern = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i;
   return pattern.test(navigator?.userAgent || '');
+}
+
+/** 
+ * 用于继承/传递组件暴露的方法(for wrap.vue3.vue)
+ * 优先从exposeObj取，这样就可覆盖原有的方法
+ */
+export function generateVue3ExposeObj(instance: Ref<HTMLElement>, exposeObj?: { [key: string | symbol]: Function }) {
+  return new Proxy(
+    {},
+    {
+      get(_, key) {
+        return exposeObj?.[key] || instance.value?.[key];
+      },
+      has(_, key) {
+        return key in (exposeObj || {}) || key in (instance.value || {});
+      },
+    }
+  );
 }
