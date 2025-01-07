@@ -1,6 +1,10 @@
 <template>
   <div class="" style="">
     <div>
+      <FlButtonV3 @click="console.log">按钮V3</FlButtonV3>
+    </div>
+
+    <div>
       <fl-button type="primary">主要按钮</fl-button>
       <fl-button type="success">成功按钮</fl-button>
       <fl-button type="warning">警告按钮</fl-button>
@@ -41,6 +45,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import FlButtonV3 from '../wrap.vue3.vue';
 
 const loading = ref(false);
 
