@@ -10,15 +10,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, useAttrs, useSlots } from 'vue';
+import { ref, onMounted, useSlots, nextTick } from 'vue';
 import { PropsTypeV3, defaultPropsV3} from './utils.ts';
+import { generateVue3ExposeObj } from '@/utils/index.ts';
 import './index';
 
 const props = withDefaults(defineProps<PropsTypeV3>(), defaultPropsV3);
 
 const slots = useSlots();
-
-const otherProps = useAttrs();
 
 const emit = defineEmits<{
   // 覆盖/拓展组件事件
@@ -28,22 +27,13 @@ const emit = defineEmits<{
 const ceInstance = ref();
 
 onMounted(()=>{
-  ceInstance.value?._onMounted?.();
+  /** 需要延迟才能访问实例方法 */
+  nextTick(() => ceInstance.value?._onMounted?.());
 })
 
-defineExpose(
-  new Proxy(
-    {},
-    {
-      get(_, key) {
-        return ceInstance.value?.[key];
-      },
-      has(_, key) {
-        return key in (ceInstance.value || {});
-      },
-    }
-  ),
-)
+defineExpose(generateVue3ExposeObj(ceInstance, {
+  // 覆盖/拓展组件方法
+}))
 </script>
 
 <style lang="scss" scoped>
