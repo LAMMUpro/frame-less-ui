@@ -120,9 +120,9 @@ async function _onMounted() {
 // 暴露方法
 defineExpose({
   _onMounted,
-  focus: () => input.value?.focus(),
-  blur: () => input.value?.blur(),
-  select: () => input.value?.select()
+  // focus: () => input.value?.focus(),
+  // blur: () => input.value?.blur(),
+  // select: () => input.value?.select(),
 })
 </script>
 
