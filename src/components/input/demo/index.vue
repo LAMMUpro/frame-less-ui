@@ -2,9 +2,9 @@
   <div class="input-demo">
     <!-- FlInputV3 -->
     <div class="demo-item">
-      <h3>FlInputV3:{{ value }}</h3>
+      <h3>FlInputV3:{{ mValue }}</h3>
       <fl-input-v3
-        v-model="value"
+        v-model="mValue"
         :clearable="true"
         placeholder="请输入内容a"
         @change="handleChange" />
@@ -12,8 +12,8 @@
 
     <!-- 基础输入框 -->
     <div class="demo-item">
-      <h3>基础输入框:{{ value }}</h3>
-      <fl-input :modelValue="value" @update-model-value="value = $event.detail[0]" placeholder="请输入内容" @change="handleChange" />
+      <h3>基础输入框:{{ mValue }}</h3>
+      <fl-input :modelValue="mValue" @update-model-value="mValue = $event.detail[0]" placeholder="请输入内容" @change="handleChange" />
     </div>
 
     <!-- 禁用状态 -->
@@ -67,16 +67,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import "../../icon";
 import FlInputV3 from '../wrap.vue3.vue';
 
-const value = ref('')
+const mValue = ref('')
 const clearableValue = ref('')
 const password = ref('')
 
+
+onMounted(() => {
+
+})
+
 const handleChange = (val: string) => {
-  console.log('输入值变更:', val)
+  // console.log('输入值变更:', val)
 }
 </script>
 

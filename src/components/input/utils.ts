@@ -35,7 +35,7 @@ export const defaultProps: PickDefaultPropsType<PropsType> = {
   readonly: false,
   clearable: false,
   size: 'default',
-  maxlength: 0,
+  maxlength: undefined,
 }
 
 /** 默认属性Vue3 */
