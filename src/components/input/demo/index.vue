@@ -7,7 +7,8 @@
         v-model="mValue"
         :clearable="true"
         placeholder="请输入内容a"
-        @change="handleChange" />
+        @change="handleChange"
+      />
     </div>
 
     <!-- 基础输入框 -->
@@ -81,7 +82,7 @@ onMounted(() => {
 })
 
 const handleChange = (val: string) => {
-  // console.log('输入值变更:', val)
+  console.log('input change:', val)
 }
 </script>
 

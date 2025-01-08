@@ -43,3 +43,22 @@ export const defaultPropsV3: PickDefaultPropsType<PropsTypeV3> = {
   ...defaultProps,
   placeholder: '请输入-v3',
 }
+
+
+///////////////////////////////// 事件 ///////////////////////////////
+/** 事件类型定义 */
+export interface EmitType {
+  (e: 'update-model-value', value: string): void
+  (e: 'change', value: string): void
+  (e: 'input', value: string): void
+  (e: 'focus', event: FocusEvent): void
+  (e: 'blur', event: FocusEvent): void
+  (e: 'clear'): void
+}
+
+/** 事件类型定义vue3 */
+export interface EmitTypeV3 extends EmitType {
+  // 覆盖/拓展组件事件
+  (e: 'update:modelValue', value: string | number, b: number): void
+}
+

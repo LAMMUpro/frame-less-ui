@@ -131,3 +131,14 @@ export function generateVue3ExposeObj(instance: Ref<HTMLElement>, exposeObj?: { 
     }
   );
 }
+
+/** 
+ * vue3处理web component事件参数
+ */
+export function handleEvent(event: CustomEvent): Array<any> {
+  if (Object.prototype.toString.call(event?.detail) === '[object Array]') {
+    return event?.detail;
+  } else {
+    return [];
+  }
+}

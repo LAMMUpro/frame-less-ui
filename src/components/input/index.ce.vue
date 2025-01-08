@@ -49,18 +49,11 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { PropsType, defaultProps } from './utils.ts';
+import { EmitType, PropsType, defaultProps } from './utils.ts';
 
 const props = withDefaults(defineProps<PropsType>(), defaultProps);
 
-const emit = defineEmits<{
-  (e: 'update-model-value', value: string): void
-  (e: 'change', value: string): void
-  (e: 'input', value: string): void
-  (e: 'focus', event: FocusEvent): void
-  (e: 'blur', event: FocusEvent): void
-  (e: 'clear'): void
-}>()
+const emit = defineEmits<EmitType>()
 
 const input = ref<HTMLInputElement>()
 const hasPrefix = ref(false)

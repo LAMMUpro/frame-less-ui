@@ -1,7 +1,12 @@
 <template>
   <fl-input
-    v-bind="{...props}"
-    @update-model-value="emit('update:modelValue', $event.detail[0])"
+    v-bind="props"
+    @update-model-value="emit('update:modelValue', ...handleEvent($event))"
+    @change="emit('change', ...handleEvent($event))"
+    @input="emit('input', ...handleEvent($event))"
+    @focus="emit('focus', ...handleEvent($event))"
+    @blur="emit('blur', ...handleEvent($event))"
+    @clear="emit('clear', ...handleEvent($event))"
     ref="ceInstance"
   >
     <div v-for="(_, slotName) in slots" :key="slotName" :slot="slotName === 'default' ? '' : slotName">
@@ -12,18 +17,15 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, useSlots, nextTick } from 'vue';
-import { PropsTypeV3, defaultPropsV3} from './utils.ts';
-import { generateVue3ExposeObj } from '@/utils/index.ts';
+import { EmitTypeV3, PropsTypeV3, defaultPropsV3 } from './utils.ts';
+import { generateVue3ExposeObj, handleEvent } from '@/utils/index.ts';
 import './index';
 
 const props = withDefaults(defineProps<PropsTypeV3>(), defaultPropsV3);
 
 const slots = useSlots();
 
-const emit = defineEmits<{
-  // 覆盖/拓展组件事件
-  (e: 'update:modelValue', value: string | number): void
-}>();
+const emit = defineEmits<EmitTypeV3>();
 
 /** 自定义组件实例 */
 const ceInstance = ref();
