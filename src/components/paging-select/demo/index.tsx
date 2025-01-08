@@ -4,7 +4,7 @@ import { createApp } from 'vue';
 import Vue3App from './index.vue';
 import '@/styles/demo.scss';
 import '@/renderAsideNav.tsx';
-import FlPS from '../index.react'
+import FlPS from '../wrap.react'
 
 function api() {
   function generateId() {
