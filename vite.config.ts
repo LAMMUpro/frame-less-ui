@@ -191,10 +191,10 @@ export default defineConfig({
           manualChunks: {
             'qrcode': ['qrcode'],
           },
-          paths: {
-            'vue': 'vue3fless',
-            'vue2': 'vue2fless',
-          },
+          // paths: {
+          //   'vue': 'vue3fless',
+          //   'vue2': 'vue2fless',
+          // },
           // plugins: [terser()],
         },
         {
@@ -207,14 +207,14 @@ export default defineConfig({
           manualChunks: {
             'qrcode': ['qrcode'],
           },
-          paths: {
-            'vue': 'vue3fless',
-            'vue2': 'vue2fless',
-          },
+          // paths: {
+          //   'vue': 'vue3fless',
+          //   'vue2': 'vue2fless',
+          // },
           // plugins: [terser()],
         }
       ],
-      external: ['vue', 'vue3fless', 'vue2', 'vue2fless', 'react']
+      // external: ['vue', 'vue3fless', 'vue2', 'vue2fless', 'react']
     }
   }
 });
