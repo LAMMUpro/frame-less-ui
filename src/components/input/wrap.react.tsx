@@ -1,17 +1,18 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, type FC } from 'react';
-import { ExposeTypeReact, PropsTypeReact } from './utils';
+import { ExposeType, ExposeTypeReact, PropsType, PropsTypeReact } from './utils';
 import './index';
 
-export default forwardRef(function FlInput(props: PropsTypeReact, ref: any) {
-  const ceInstance = useRef();
+export default forwardRef<ExposeTypeReact, PropsTypeReact>(function FlInput(props, ref) {
+
+  const ceInstance = useRef<PropsType & ExposeType & HTMLElement>();
 
   useEffect(() => {
     ceInstance.current!.modelValue = props.modelValue;
   }, [props.modelValue])
 
   useEffect(() => {
-    const fn = (event: CustomEvent) => {
-      props.onUpdateModelValue(...event.detail);
+    const fn = (event: Event) => {
+      props.onUpdateModelValue(...(event as CustomEvent<[any]>).detail);
     }
     ceInstance.current?.addEventListener('update-model-value', fn);
     return () => {
@@ -32,12 +33,14 @@ export default forwardRef(function FlInput(props: PropsTypeReact, ref: any) {
   }, []);
   
   return <>
+    {/* @ts-ignore */}
     <fl-input
       {...props}
       ref={ceInstance}
     >
       {props.Prefix && <div slot="prefix">{props.Prefix}</div>}
       {props.Suffix && <div slot="suffix">{props.Suffix}</div>}
+    {/* @ts-ignore */}
     </fl-input>
   </>
 }) as any as FC<PropsTypeReact>

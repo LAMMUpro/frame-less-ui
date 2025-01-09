@@ -4,7 +4,7 @@ import { createApp } from 'vue';
 import Vue3App from './index.vue';
 import '@/styles/demo.scss';
 import '@/renderAsideNav.tsx';
-import FlPS from '../wrap.react'
+import FlPagingSelect from '../wrap.react'
 
 function api() {
   function generateId() {
@@ -48,102 +48,17 @@ function ReactApp() {
     name: '上海华耀公司有限公司',
   })
 
-  const selectRef = useRef();
-
-  function test() {
-    console.log('selectRef', selectRef)
-  }
-
-  useEffect(() => {
-    // selectRef.current.api = api;
-    // selectRef.current.optionSetting = { label: 'name', id: 'id' };
-    window.ddd = selectRef.current;
-    console.log('selectRef', selectRef.current)
-  }, [])
-
-  const El = createElement('fl-paging-select', {
-    id: info.id,
-    label: info.name,
-    immediate: true,
-    optionSetting: { label: 'name', id: 'id' },
-    api,
-  })
-
-  console.log('El', El)
-
 	return (
 		<div>
-      {/* <div>
-        666
-        <MyWrap a={1232}></MyWrap>
-      </div> */}
-      <FlPS
+      <FlPagingSelect
         id={info.id}
         label={info.name}
-
         optionSetting={{ label: 'name', id: 'id' }}
         api={api}
-      ></FlPS>
-      {/* {
-        El
-      } */}
-      {/* <fl-paging-select
-        ref={selectRef}
-        id={info.id}
-        label={info.name}
-        immediate
-        optionSetting={{ label: 'name', id: 'id' }}
-        style={{ width: '300px' }}
-      >
-      </fl-paging-select> */}
-      <button onClick={test}>点击</button>
+        immediate={false}
+      ></FlPagingSelect>
 		</div>
 	);
-}
-
-class MyWrap extends Component {
-  constructor() {
-    super();
-    this.state = {
-      info: {
-        id: '4',
-        name: '上海华耀公司有限公司',
-      },
-      api,
-    }
-    this.aaa = createRef();
-    this.bbb = createRef();
-  }
-  componentWillMount() {
-    console.log('this', this.bbb)
-  }
-  componentDidMount() {
-    this.bbb.current.api = this.state.api;
-    this.bbb.current.optionSetting = { label: 'name', id: 'id' };
-
-    setTimeout(() => {
-      this.setState({
-        api: () => {}
-      })
-      setTimeout(() => {
-        this.bbb.current.api = this.state.api;
-      }, 500)
-
-    }, 1000)
-  }
-  render() {
-    return <div ref={this.aaa}>
-      <fl-paging-select
-        ref={this.bbb}
-        id={this.state.info.id}
-        label={this.state.info.name}
-        immediate
-        option-setting={"{ label: 'name', id: 'id' }"}
-        style={{ width: '300px' }}
-      >
-      </fl-paging-select>
-    </div>
-  }
 }
 
 createRoot(document.getElementById('react')).render(<ReactApp />);

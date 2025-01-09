@@ -125,6 +125,7 @@ import '../popover';
 import '../load-more';
 import { useAttrs } from 'vue';
 import { isMobile } from '@/utils';
+import { EmitType, PropsType, defaultProps } from './utils';
 
 function usePageInfo() {
   return {
@@ -145,115 +146,9 @@ function pcItemSelect(item: any) {
   onComfirm();
 }
 
-const props = defineProps({
-  /** 通过此变量来控制弹窗显示 */
-  showPopup: {
-    type: Boolean,
-    default: null,
-  },
-  /** 双向绑定的值 */
-  id: {
-    type: [String, Number, Array],
-    default: ''
-  },
-  /** 值对应的名称 */
-  label: {
-    type: [String, Number, Array],
-    default: ''
-  },
-  /** 请求数据函数 */
-  api: {
-    type: Function as PropType<(...args: any) => Promise<ApiResult<ApiResultList>>>,
-    required: true
-  },
-  /** 是否立即执行请求 */
-  immediate: {
-    type: Boolean,
-    default: false,
-  },
-  /** 请求参数 */
-  requestParams: {
-    type: Object,
-    default: () => ({})
-  },
-  /** 处理 options 函数，函数逻辑不可更改原来 options 长度 */
-  patchOptions: {
-    type: Function as PropType<(options: BaseObj<any>[]) => BaseObj<any>[]>,
-    default: (options: BaseObj<any>[]) => options
-  },
-  /** 是否多选 */
-  multiple: {
-    type: Boolean,
-    default: false
-  },
-  /** 外部是否可以清除选中值 */
-  clearable: {
-    type: Boolean,
-    default: true
-  },
-  /** 关键词搜索对应的字段，默认为keyword */
-  remoteKey: {
-    type: String,
-    default: 'keyword'
-  },
-  
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  /** 选项数据配置项 */
-  optionSetting: {
-    type: Object as PropType<Partial<ArrayItemSetting>>,
-    default: () => ({})
-  },
-  /** 选项数据配置项 */
-  optionSettings: {
-    type: String,
-    default: "4545"
-  },
+const props = withDefaults(defineProps<PropsType>(), defaultProps as any);
 
-  /**
-   * 一些显示/隐藏配置
-   */
-  /** 是否显示搜索框 */
-  isShowSearchBar: {
-    type: Boolean,
-    default: true,
-  },
-  /** 是否显示新增数据按钮 */
-  isShowInsertRecordBtn: {
-    type: Boolean,
-    default: false,
-  },
-
-  /**
-   * 一些文案配置
-   */
-  /** 选择器占位字符串 */
-  placeholderForNotSelect: {
-    type: String,
-    default: '点击选择'
-  },
-  /** 搜索框占位字符串 */
-  placeholderForSearchBar: {
-    type: String,
-    default: '请输入关键词进行搜索'
-  },
-  /** 弹窗标题 */
-  title: {
-    type: String,
-    default: '选择器',
-  },
-});
-
-const emit = defineEmits<{
-  (e: 'update-show-popup', value: boolean): void
-  (e: 'update-id', value: any): void
-  (e: 'update-label', value: any): void
-  (e: 'change', value: any | Array<any> | undefined, selectedItem?: any | Array<any> | undefined): void
-}>();
-
-console.log('props.optionSetting', props.optionSetting)
+const emit = defineEmits<EmitType>();
 
 const otherProps = useAttrs();
 
@@ -277,10 +172,6 @@ const isShowPopup = ref(false);
 function close() {
   isShowPopup.value = false;
 }
-
-watch(() => props.api, () => {
-  console.log('api变化了', props.api)
-})
 
 /** 搜索关键词 */
 const keyword = ref('');

@@ -1,40 +1,43 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type FC, forwardRef, useImperativeHandle } from 'react';
+import { ExposeType, ExposeTypeReact, PropsType, PropsTypeReact } from './utils';
 import './index';
 
-export default function FlPagingSelect(props: {
-  id: string
-  label: string
-  api: Function
-  immediate?: boolean
-  optionSetting: {
-    label: string
-    id: string
-  }
-}) {
-  const pagingSelectRef = useRef();
+export default forwardRef<ExposeTypeReact, PropsTypeReact>(function FlPagingSelect(props, ref) {
+
+  const ceInstance = useRef<PropsType & ExposeType>();
+
   useEffect(() => {
-    pagingSelectRef.current.api = props.api;
+    ceInstance.current.api = props.api;
   }, [props.api])
   useEffect(() => {
-    pagingSelectRef.current.optionSetting = props.optionSetting;
+    ceInstance.current.optionSetting = props.optionSetting;
   }, [props.optionSetting])
   useEffect(() => {
-    pagingSelectRef.current.id = props.id;
+    ceInstance.current.id = props.id;
   }, [props.id])
   useEffect(() => {
-    pagingSelectRef.current.immediate = props.immediate;
+    ceInstance.current.immediate = props.immediate;
   }, [props.immediate])
   useEffect(() => {
-    pagingSelectRef.current._onMounted?.();
+    ceInstance.current._onMounted?.();
   }, [])
 
+  useImperativeHandle(ref, () => {
+    const expose: ExposeTypeReact = {
+      
+    };
+    return expose;
+  }, []);
+
   return <>
+    {/* @ts-ignore */}
     <fl-paging-select
-      ref={pagingSelectRef}
+      ref={ceInstance}
       label={props.label}
       {...props}
       style={{ width: '300px' }}
     >
+    {/* @ts-ignore */}
     </fl-paging-select>
   </>
-}
+})
