@@ -113,7 +113,9 @@ async function _onMounted() {
 // 暴露方法
 defineExpose<ExposeType>({
   _onMounted,
-  focus: () => input.value?.focus(),
+  focus() {
+    input.value?.focus();
+  },
   // blur: () => input.value?.blur(),
   // select: () => input.value?.select(),
 })

@@ -26,6 +26,11 @@ export interface PropsTypeV3 extends PropsType {
 
 }
 
+/** 属性定义React(包括事件) */
+export interface PropsTypeReact extends PropsType {
+  onUpdateModelValue: (value: string | number) => void
+}
+
 ///////////////////////////////// 属性默认值 ///////////////////////////////
 /** 默认属性 */
 export const defaultProps: PickDefaultPropsType<PropsType> = {
@@ -71,5 +76,10 @@ export interface ExposeType {
 
 /** 方法类型定义vue3 */
 export interface ExposeTypeV3 extends Omit<ExposeType, '_onMounted'> {
+  // 覆盖/拓展组件方法
+}
+
+/** 方法类型定义react */
+export interface ExposeTypeReact extends Omit<ExposeType, '_onMounted'> {
   // 覆盖/拓展组件方法
 }
