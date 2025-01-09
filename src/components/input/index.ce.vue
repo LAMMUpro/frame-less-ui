@@ -24,6 +24,8 @@
       :disabled="disabled"
       :readonly="readonly"
       :maxlength="maxlength"
+      @compositionstart="handleCompositionStart"
+      @compositionend="handleCompositionEnd"
       @input="handleInput"
       @change="handleChange"
       @focus="handleFocus"
@@ -68,8 +70,23 @@ onMounted(() => {
   }
 })
 
+/** 是否正在输入(处于中间态，未确认，不需要触发input事件) */
+let isComposing = false;
+
+const handleCompositionStart = (event: CompositionEvent) => {
+  isComposing = true
+}
+
+const handleCompositionEnd = (event: CompositionEvent) => {
+  if (isComposing) {
+    isComposing = false
+    handleInput(event)
+  }
+}
+
 // 处理输入
 const handleInput = (event: Event) => {
+  if (isComposing) return
   const value = (event.target as HTMLInputElement).value
   emit('update-model-value', value)
   emit('input', value)
@@ -78,6 +95,7 @@ const handleInput = (event: Event) => {
 // 处理变更
 const handleChange = (event: Event) => {
   const value = (event.target as HTMLInputElement).value
+  console.log('value', value)
   emit('change', value)
 }
 
