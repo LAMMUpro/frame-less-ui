@@ -124,8 +124,8 @@ import '../radio-group';
 import '../popover';
 import '../load-more';
 import { useAttrs } from 'vue';
-import { isMobile } from '@/utils';
-import { EmitType, PropsType, defaultProps } from './utils';
+import { isMobile } from '@/utils/index.ts';
+import { EmitType, PropsType, defaultProps } from './utils.ts';
 
 function usePageInfo() {
   return {
@@ -146,7 +146,8 @@ function pcItemSelect(item: any) {
   onComfirm();
 }
 
-const props = withDefaults(defineProps<PropsType>(), defaultProps as any);
+// @ts-ignore
+const props = withDefaults(defineProps<PropsType>(), defaultProps);
 
 const emit = defineEmits<EmitType>();
 
