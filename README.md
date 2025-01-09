@@ -55,6 +55,8 @@ node版本: `node`v16.18.0
 
 包管理器: `yarn`v1.22.19
 
+内置vue版本： 3.5.1以上!
+
 ## 相关技术
 
 基本原理: webcomponent
