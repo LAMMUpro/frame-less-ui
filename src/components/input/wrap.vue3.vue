@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, useSlots, nextTick } from 'vue';
-import { EmitTypeV3, PropsTypeV3, defaultPropsV3 } from './utils.ts';
+import { EmitTypeV3, ExposeTypeV3, PropsTypeV3, defaultPropsV3 } from './utils.ts';
 import { generateVue3ExposeObj, handleEvent } from '@/utils/index.ts';
 import './index';
 
@@ -35,8 +35,9 @@ onMounted(()=>{
   nextTick(() => ceInstance.value?._onMounted?.());
 })
 
-defineExpose(generateVue3ExposeObj(ceInstance, {
+defineExpose(generateVue3ExposeObj<ExposeTypeV3>(ceInstance, {
   // 覆盖/拓展组件方法
+  
 }))
 </script>
 

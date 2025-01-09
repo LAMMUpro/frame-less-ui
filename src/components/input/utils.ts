@@ -62,3 +62,14 @@ export interface EmitTypeV3 extends EmitType {
   (e: 'update:modelValue', value: string | number, b: number): void
 }
 
+///////////////////////////////// 方法 ///////////////////////////////
+/** 方法类型定义 */
+export interface ExposeType {
+  _onMounted: () => Promise<void>
+  focus: () => void
+}
+
+/** 方法类型定义vue3 */
+export interface ExposeTypeV3 extends Omit<ExposeType, '_onMounted'> {
+  // 覆盖/拓展组件方法
+}

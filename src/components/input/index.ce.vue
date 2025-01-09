@@ -49,7 +49,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import { EmitType, PropsType, defaultProps } from './utils.ts';
+import { EmitType, ExposeType, PropsType, defaultProps } from './utils.ts';
 
 const props = withDefaults(defineProps<PropsType>(), defaultProps);
 
@@ -111,9 +111,9 @@ async function _onMounted() {
 }
 
 // 暴露方法
-defineExpose({
+defineExpose<ExposeType>({
   _onMounted,
-  // focus: () => input.value?.focus(),
+  focus: () => input.value?.focus(),
   // blur: () => input.value?.blur(),
   // select: () => input.value?.select(),
 })

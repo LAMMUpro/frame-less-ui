@@ -118,7 +118,7 @@ export function isMobile() {
  * 用于继承/传递组件暴露的方法(for wrap.vue3.vue)
  * 优先从exposeObj取，这样就可覆盖原有的方法
  */
-export function generateVue3ExposeObj(instance: Ref<HTMLElement>, exposeObj?: { [key: string | symbol]: Function }) {
+export function generateVue3ExposeObj<T>(instance: Ref<HTMLElement>, exposeObj?: Partial<T>): T {
   return new Proxy(
     {},
     {
@@ -129,7 +129,7 @@ export function generateVue3ExposeObj(instance: Ref<HTMLElement>, exposeObj?: { 
         return key in (exposeObj || {}) || key in (instance.value || {});
       },
     }
-  );
+  ) as any;
 }
 
 /** 
