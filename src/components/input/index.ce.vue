@@ -95,7 +95,6 @@ const handleInput = (event: Event) => {
 // 处理变更
 const handleChange = (event: Event) => {
   const value = (event.target as HTMLInputElement).value
-  console.log('value', value)
   emit('change', value)
 }
 
