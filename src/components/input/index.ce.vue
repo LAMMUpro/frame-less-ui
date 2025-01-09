@@ -4,14 +4,14 @@
     :class="{
       'is-disabled': disabled,
       'is-readonly': readonly,
-      'has-prefix': hasPrefix,
-      'has-suffix': hasSuffix,
+      'has-prefix': slots.prefix,
+      'has-suffix': slots.suffix,
       [`fl-input--${size}`]: size
     }"
   >
     <!-- 前缀图标 -->
     <span class="fl-input__prefix">
-      <slot name="prefix"></slot>
+      <slot name="prefix" @slotchange="slotchange($event, 'prefix')"></slot>
     </span>
 
     <!-- 输入框 -->
@@ -35,7 +35,7 @@
 
     <!-- 后缀图标 -->
     <span class="fl-input__suffix">
-      <slot name="suffix"></slot>
+      <slot name="suffix" @slotchange="slotchange($event, 'suffix')"></slot>
     </span>
 
     <!-- 清除按钮 -->
@@ -50,25 +50,30 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, shallowReactive } from 'vue'
 import { EmitType, ExposeType, PropsType, defaultProps } from './utils.ts';
 
 const props = withDefaults(defineProps<PropsType>(), defaultProps);
 
 const emit = defineEmits<EmitType>()
 
-const input = ref<HTMLInputElement>()
-const hasPrefix = ref(false)
-const hasSuffix = ref(false)
+const slots = shallowReactive<{[key: string]: any}>({});
 
-// 检查是否有前缀和后缀插槽
-onMounted(() => {
-  const el = input.value?.parentElement
-  if (el) {
-    hasPrefix.value = !!el.querySelector('[slot="prefix"]')
-    hasSuffix.value = !!el.querySelector('[slot="suffix"]')
+/** 处理插槽 */
+function slotchange(event: CustomEvent, slotName: string) {
+  const children = (event.target as any)?.assignedNodes().filter(
+    (node: HTMLElement) =>
+      node.nodeType === Node.ELEMENT_NODE ||
+      (node.nodeType === Node.TEXT_NODE && node.textContent?.trim())
+  )
+  if (children.length) {
+    slots[slotName] = {};
+  } else {
+    delete slots[slotName];
   }
-})
+}
+
+const input = ref<HTMLInputElement>()
 
 /** 是否正在输入(处于中间态，未确认，不需要触发input事件) */
 let isComposing = false;

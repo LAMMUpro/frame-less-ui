@@ -36,6 +36,8 @@ export default forwardRef(function FlInput(props: PropsTypeReact, ref: any) {
       {...props}
       ref={ceInstance}
     >
+      {props.Prefix && <div slot="prefix">{props.Prefix}</div>}
+      {props.Suffix && <div slot="suffix">{props.Suffix}</div>}
     </fl-input>
   </>
 }) as any as FC<PropsTypeReact>

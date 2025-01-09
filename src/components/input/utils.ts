@@ -1,4 +1,5 @@
 import { PickDefaultPropsType } from '@/types/index.ts'
+import { FC } from 'react'
 
 ///////////////////////////////// 属性定义 ///////////////////////////////
 /** 属性定义 */
@@ -26,9 +27,14 @@ export interface PropsTypeV3 extends PropsType {
 
 }
 
-/** 属性定义React(包括事件) */
+/** 属性定义React(包括事件/插槽) */
 export interface PropsTypeReact extends PropsType {
-  onUpdateModelValue: (value: string | number) => void
+  /** modelValue改变事件 */
+  onUpdateModelValue?: (value: any) => void
+  /** 前缀插槽, 传入组件 */
+  Prefix: any
+  /** 尾缀插槽, 传入组件 */
+  Suffix: any
 }
 
 ///////////////////////////////// 属性默认值 ///////////////////////////////

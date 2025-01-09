@@ -1,109 +1,79 @@
 <template>
-  <div class="input-demo">
-    <!-- FlInputV3 -->
-    <div class="demo-item">
-      <h3>FlInputV3:{{ mValue }}</h3>
-      <fl-input-v3
-        v-model="mValue"
-        :clearable="true"
-        placeholder="请输入内容a"
-        @change="handleChange"
-      />
-    </div>
-
+  <div class="">
     <!-- 基础输入框 -->
     <div class="demo-item">
-      <h3>基础输入框:{{ mValue }}</h3>
-      <fl-input :modelValue="mValue" @update-model-value="mValue = $event.detail[0]" placeholder="请输入内容" @change="handleChange" />
+      <h3>基础输入框</h3>
+      <fl-input-v3 v-model="formInfo.value2"/>
     </div>
 
     <!-- 禁用状态 -->
     <div class="demo-item">
       <h3>禁用状态</h3>
-      <fl-input disabled placeholder="禁用状态" />
+      <fl-input-v3 v-model="formInfo.value3" disabled placeholder="禁用状态" />
     </div>
 
     <!-- 可清空输入框 -->
     <div class="demo-item">
       <h3>可清空输入框</h3>
-      <fl-input clearable v-model="clearableValue" placeholder="可清空">
-        <span slot="prefix">
-          <fl-icon name="xiala-"></fl-icon>
-        </span>
-        <span slot="suffix">
-          <fl-icon name="zuo-"></fl-icon>
-        </span>
-      </fl-input>
+      <fl-input-v3 v-model="formInfo.value4" clearable />
     </div>
 
     <!-- 密码输入框 -->
     <div class="demo-item">
       <h3>密码输入框</h3>
-      <fl-input type="password" v-model="password" placeholder="请输入密码" />
+      <fl-input-v3 v-model="formInfo.value5" type="password" placeholder="请输入密码" />
     </div>
 
     <!-- 不同尺寸 -->
     <div class="demo-item">
       <h3>不同尺寸</h3>
       <div class="size-wrapper">
-        <fl-input size="large" placeholder="大型输入框" />
-        <fl-input placeholder="默认尺寸" />
-        <fl-input size="small" placeholder="小型输入框" />
+        <fl-input-v3 v-model="formInfo.value6" size="large" placeholder="大型输入框" />
+        <fl-input-v3 v-model="formInfo.value7" placeholder="默认尺寸" />
+        <fl-input-v3 v-model="formInfo.value8" size="small" placeholder="小型输入框" />
       </div>
     </div>
 
     <!-- 前缀后缀 -->
     <div class="demo-item">
       <h3>前缀后缀</h3>
-      <fl-input clearable>
-        <span slot="prefix">
+      <fl-input-v3 v-model="formInfo.value9" clearable>
+        <template #prefix>
           <fl-icon name="xiala-"></fl-icon>
-        </span>
-        <span slot="suffix">
+        </template>
+        <template #suffix>
           <fl-icon name="zuo-"></fl-icon>
-        </span>
-      </fl-input>
+        </template>
+      </fl-input-v3>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import "../../icon";
 import FlInputV3 from '../wrap.vue3.vue';
 
-const mValue = ref('')
-const clearableValue = ref('')
-const password = ref('')
-
-
-onMounted(() => {
-
+const formInfo = reactive({
+  value1: '',
+  value2: '',
+  value3: '',
+  value4: '点击右侧可清空输入框',
+  value5: '',
+  value6: '',
+  value7: '',
+  value8: '',
+  value9: '',
 })
-
-const handleChange = (val: string) => {
-  console.log('input change:', val)
-}
 </script>
 
 <style lang="scss" scoped>
-.input-demo {
-  padding: 20px;
+.demo-item {
+  margin-bottom: 0px;
+}
 
-  .demo-item {
-    margin-bottom: 24px;
-
-    h3 {
-      margin-bottom: 16px;
-      font-size: 16px;
-      color: #333;
-    }
-  }
-
-  .size-wrapper {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-  }
+.size-wrapper {
+  display: flex;
+  gap: 6px;
 }
 </style>
