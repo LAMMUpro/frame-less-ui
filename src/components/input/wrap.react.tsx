@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, type FC } from 'react';
 import { ExposeTypeReact, PropsTypeReact } from './utils';
 import './index';
 
@@ -6,17 +6,21 @@ export default forwardRef(function FlInput(props: PropsTypeReact, ref: any) {
   const ceInstance = useRef();
 
   useEffect(() => {
-    ceInstance.current.modelValue = props.modelValue;
+    ceInstance.current!.modelValue = props.modelValue;
   }, [props.modelValue])
 
   useEffect(() => {
-    ceInstance.current.addEventListener('update-model-value', (event: CustomEvent) => {
+    const fn = (event: CustomEvent) => {
       props.onUpdateModelValue(...event.detail);
-    })
+    }
+    ceInstance.current?.addEventListener('update-model-value', fn);
+    return () => {
+      ceInstance.current?.removeEventListener('update-model-value', fn);
+    }
   }, [props.onUpdateModelValue])
 
   useEffect(() => {
-    ceInstance.current._onMounted?.();
+    ceInstance.current?._onMounted?.();
   }, [])
 
   useImperativeHandle(ref, (): ExposeTypeReact => {
@@ -34,4 +38,4 @@ export default forwardRef(function FlInput(props: PropsTypeReact, ref: any) {
     >
     </fl-input>
   </>
-})
+}) as any as FC<PropsTypeReact>

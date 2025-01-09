@@ -30,11 +30,11 @@
       "default": "./esm/components/*/vue3.js"
     },
     "./react/*": {
-      "types": "./types/components/*/index.d.ts",
+      "types": "./types/components/*/wrap.react.d.ts",
       "default": "./esm/components/*/react.js"
     },
     "./vue2/*": {
-      "types": "./types/components/*/index.d.ts",
+      "types": "./types/components/*/wrap.vue3.vue.d.ts",
       "default": "./esm/components/*/vue2.js"
     }
   },
