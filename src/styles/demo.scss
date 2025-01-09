@@ -14,6 +14,7 @@ body > .content {
   flex: 1;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding-bottom: 14px;
 }
 
 body > .content > .title {
@@ -40,4 +41,14 @@ body > .content > .title {
 #vue3 > * > .divide {
   margin: 20px 0;
   border-bottom: 2px dashed rgb(170, 170, 170);
+}
+
+#origin,
+#react,
+#vue3 {
+  padding: 0 8px;
+}
+
+h3 {
+  margin: 6px 0;
 }
