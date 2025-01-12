@@ -1,61 +1,65 @@
 # frame-less-ui组件库
 
+<p align="center">
+  <a href="https://www.npmjs.org/package/frame-less-ui">
+    <img src="https://img.shields.io/npm/v/frame-less-ui.svg" />
+  </a>
+  <a href="https://github.com/frame-less-ui/frame-less-ui">
+    <img src="https://img.shields.io/badge/node-%20%3E=%2016-47c219" />
+  </a>
+  <a href="https://npmcharts.com/compare/frame-less-ui?minimal=true">
+    <img src="https://img.shields.io/npm/dm/frame-less-ui.svg" />
+  </a>
+  <br>
+</p>
+
 ## 介绍
 
 一个跨`框架`的前端`业务组件库`, 支持原生/vue3/vue2/react.
 
 ### 特性
 
-- ✅ 无框架绑定, html原生支持, 所以也支持Vue2/Vue3/React/Angular/JQuery等框架...
+- 🐻 web component原生支持, 天然跨框架
+- ⚡️ 组件使用vue3语法开发, 学习成本低
+- ✅ vue3/vue2/react定制化用法, 更符合潮流
 - 🧙‍ 组件按需导入、按需加载
 - 🔋 核心依赖可复用
-- 🐎 首次加载快, 只加载button只需加载(20 + 10)kb依赖
 - 🍃 vitepress文档
-- 🐻 xxx
 - 🥃 xxx
-- ⚡️ xxx
 - 👀 xxx
 
-## 快速开始
+## 参与开发
 
-xxxxxxxxxxxxxxxx
-
-**安装yarn**
-
+环境要求
 ```sh
-npm i -g yarn
-```
-
-**项目调试**
-
-```sh
-git clone https://github.com/LAMMUpro/frame-less-ui.git
-
-cd ./frame-less-ui
-
-# 配置生效
-yarn
-
-# vite启动项目
-yarn dev 
-
-# 启动文档项目
-yarn docs 
-```
-
-## 常用接口
-
-**[组件调试(html/react/vue)](http://localhost:5173/src/components/button/demo/index.html) button组件调试👈**
-
-**[组件文档👈](http://localhost:6008/) 需先运行`yarn storybook`**
-
-## 默认开发环境
-
 node版本: `node`v16.18.0
 
 包管理器: `yarn`v1.22.19
 
 内置vue版本： 3.5.1以上!
+```
+
+
+```sh
+# 获取项目
+git clone https://github.com/LAMMUpro/frame-less-ui.git
+# 进入项目目录
+cd ./frame-less-ui
+# 安装yarn, 如果没有的话
+npm i -g yarn
+# 安装依赖
+yarn
+# 调试项目
+yarn dev
+# 调试文档
+yarn docs 
+```
+
+## 常用链接
+
+**[组件调试(html/react/vue)](http://localhost:5173/src/components/input/demo/index.html) input组件调试👈**
+
+**[组件文档👈](http://localhost:5151/) 需先运行`yarn docs`**
 
 ## 相关技术
 
@@ -67,7 +71,6 @@ node版本: `node`v16.18.0
 
 文档系统: vitepress
 
-
 ## 目录结构
 ```SH
 docs # vitepress项目
@@ -75,15 +78,19 @@ src
   - components # fl组件
     - [xxx]
       - demo 
-        - index.html # 组件测试 （yarn vite后访问 http://127.0.0.1:5173/src/components/counter/demo/index.html）
+        - index.html # 组件测试 （yarn vite后访问 http://localhost:5173/src/components/input/demo/index.html）
         - index.tsx # 组件测试（react环境）
         - index.vue # 组件测试（vue环境）
       - index.ce.vue # vue组件源码
       - index.ts # 组件打包入口文件（注册自定义组件）
-  - types # ts类型
+      - utils.ts # 组件工具
+      - wrap.react.tsx # react包装用法
+      - wrap.vue2.tsx # vue2包装用法
+      - wrap.vue3.tsx # vue3包装用法
   - global.d.ts # 注册组件ts类型（vue3）
 package2npm.json # 发布到npm的package.json
-vite.config.ts # vite配置
+vite.config.ts # vite配置(用于打包组件库/wrap.vue3/wrap.react)
+vite.config.vue2.ts # vite配置(用于打包wrap.vue2)
 ```
 
 ## 开发规范
