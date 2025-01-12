@@ -39,7 +39,6 @@ node版本: `node`v16.18.0
 内置vue版本： 3.5.1以上!
 ```
 
-
 ```sh
 # 获取项目
 git clone https://github.com/LAMMUpro/frame-less-ui.git
@@ -52,7 +51,9 @@ yarn
 # 调试项目
 yarn dev
 # 调试文档
-yarn docs 
+yarn docs
+# 打包
+yarn build:all
 ```
 
 ## 常用链接
