@@ -94,6 +94,12 @@ vite.config.ts # vite配置(用于打包组件库/wrap.vue3/wrap.react)
 vite.config.vue2.ts # vite配置(用于打包wrap.vue2)
 ```
 
+## 组件库原理
+
+1. vue3支持将.vue文件编译成web component组件(建议使用vue3.5.2以上版本,支持的特性更多)
+   
+2. 目前web component原生的功能不够齐全, 比如说vue3的作用域插槽在web component是用不了的, 但是有解决方案, 给每个组件用各自的框架包装一层, 就可以增强web component, 所以每个组件下面都有`wrap.vue3.vue` / `wrap.vue2.vue` / `wrap.react.tsx`
+
 ## 开发规范
 
 - 文件名不要有空格！！！
