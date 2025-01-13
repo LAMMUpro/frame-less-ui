@@ -75,7 +75,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     /** 默认打开某页面 */
-    open: '/src/components/qr-code/demo/index.html',
+    open: '/src/components/paging-select/demo/index.html',
   },
 	plugins: [
     vue3Plugin({
