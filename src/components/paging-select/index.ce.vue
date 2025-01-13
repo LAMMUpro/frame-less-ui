@@ -1,19 +1,27 @@
 <template>
-  <fl-popover trigger="click" placement="bottom" :disabled="isMobile()">
-    <fl-input-placeholder
-      :class="otherProps.class"
-      :style="otherProps.style"
-      v-if="props.showPopup === null"
-      :id="props.id"
-      :labelForUser="(labelForUser as string)"
-      :disabled="props.disabled"
-      :clearable="props.clearable"
-      :isShowQuesIcon="!!props.id && !props.label"
-      :placeholderForNotSelect="props.placeholderForNotSelect"
-      @click="!props.disabled && (isShowPopup=!isShowPopup)"
-      @clear="clearAllSelect"
-    ></fl-input-placeholder>
-    <div slot="popover-content" style="height: 260px; overflow-y: scroll;">
+  <el-popover
+    trigger="click"
+    width="300px"
+    :teleported="false"
+  >
+    <!-- 触发器 -->
+    <template #reference>
+      <fl-input-placeholder
+        :class="otherProps.class"
+        :style="otherProps.style"
+        v-if="props.showPopup === null"
+        :id="props.id"
+        :labelForUser="(labelForUser as string)"
+        :disabled="props.disabled"
+        :clearable="props.clearable"
+        :isShowQuesIcon="!!props.id && !props.label"
+        :placeholderForNotSelect="props.placeholderForNotSelect"
+        @click="!props.disabled && (isShowPopup=!isShowPopup)"
+        @clear="clearAllSelect"
+      ></fl-input-placeholder>
+    </template>
+    <!-- 弹出内容 -->
+    <div style="height: 260px; overflow-y: scroll;">
       <div
         v-for="item in dataList"
         :key="item[keySetting['id']]"
@@ -24,7 +32,7 @@
       </div>
       <fl-load-more class="py-1!" :autoLoad="!props.immediate" :loading="loading" :noMoreData="isNoMoreData" @getData="onLoadMore" normalContent="点击加载更多"/>
     </div>
-  </fl-popover>
+  </el-popover>
   <fl-popup
     v-if="isMobile()"
     round
@@ -126,6 +134,7 @@ import '../load-more';
 import { useAttrs } from 'vue';
 import { isMobile } from '@/utils/index.ts';
 import { EmitType, PropsType, defaultProps } from './utils.ts';
+import { ElPopover } from 'element-plus';
 
 function usePageInfo() {
   return {
@@ -317,6 +326,8 @@ defineExpose({
 
 <style lang="scss">
 @import '@/styles/common.scss';
+
+@import 'element-plus/theme-chalk/el-popover.css';
 
 .popup-header {
   display: flex;
