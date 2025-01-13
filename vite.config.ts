@@ -65,6 +65,13 @@ const entryFiles: {[key: string]: string} = {};
 // [vite](https://vitejs.dev/config/)
 // [rollup](https://rollupjs.org/configuration-options/)
 export default defineConfig({
+  // css: {
+  //   preprocessorOptions: {
+  //     scss: {
+  //       api: 'modern-compiler'
+  //     }
+  //   }
+  // },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

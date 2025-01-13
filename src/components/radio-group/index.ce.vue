@@ -59,7 +59,7 @@ provide('radio-group-value', radioGroup);
 </script>
 
 <style lang="scss">
-@import url('@/styles/common.scss');
+@use '@/styles/common.scss';
 .fl-radio-group {
   display: inline-block;
 }

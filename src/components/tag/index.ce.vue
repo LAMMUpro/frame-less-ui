@@ -88,7 +88,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import url('@/styles/common.scss');
+@use '@/styles/common.scss';
 .fl-tag {
   display: inline-flex;
   justify-content: center;

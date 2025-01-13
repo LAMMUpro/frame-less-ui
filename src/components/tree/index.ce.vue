@@ -41,7 +41,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import url('@/styles/common.scss');
+@use '@/styles/common.scss';
 .fl-tree {
   padding: 8px;
 }
