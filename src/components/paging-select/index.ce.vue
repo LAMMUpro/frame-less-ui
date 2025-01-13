@@ -1,5 +1,4 @@
 <template>
-  <ElButton type="danger">element</ElButton>
   <fl-popover trigger="click" placement="bottom" :disabled="isMobile()">
     <fl-input-placeholder
       :class="otherProps.class"
@@ -127,8 +126,6 @@ import '../load-more';
 import { useAttrs } from 'vue';
 import { isMobile } from '@/utils/index.ts';
 import { EmitType, PropsType, defaultProps } from './utils.ts';
-import { ElButton } from 'element-plus';
-import 'element-plus/theme-chalk/base.css';
 
 function usePageInfo() {
   return {
@@ -320,7 +317,6 @@ defineExpose({
 
 <style lang="scss">
 @use '@/styles/common.scss';
-@use 'element-plus/theme-chalk/el-button.css';
 
 .popup-header {
   display: flex;
