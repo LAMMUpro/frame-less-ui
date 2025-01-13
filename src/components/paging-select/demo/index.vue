@@ -1,22 +1,21 @@
 <template>
   <div>
-    <!-- <fl-paging-select
-      :id="info.id"
-      @update-id="info.id = $event.detail[0]"
-      :label="info.name"
-      @update-label="info.name = $event.detail[0]"
-      :api="api"
-      immediate
-      :optionSetting="{label: 'name', id: 'id'}"
-      style="width: 300px;"
-    >
-    </fl-paging-select> -->
     <div>{{ info }}</div>
+    <fl-paging-select-v3
+      immediate
+      style="width: 300px;"
+      v-model:id="info.id"
+      v-model:label="info.name"
+      :api="api"
+      :optionSetting="{label: 'name', id: 'id'}"
+    >
+    </fl-paging-select-v3>
   </div>
 </template>
 
 <script setup>
 import { reactive, ref } from 'vue';
+import FlPagingSelectV3 from '../wrap.vue3.vue';
 
 const info = reactive({
   id: '4',

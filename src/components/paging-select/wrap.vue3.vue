@@ -1,18 +1,18 @@
 <template>
-  <div>
-    <h1>fl-paging-select for vue3</h1>
-    <fl-paging-select
-      ref="compRef"
-      :api="props.api"
-      :requestParams="props.requestParams"
-      :optionSetting="props.optionSetting"
-      v-bind="otherProps"
-    ></fl-paging-select>
-  </div>
+  <fl-paging-select
+    :api="props.api"
+    :requestParams="props.requestParams"
+    :optionSetting="props.optionSetting"
+    @update-id="emit('update:id', ...handleEvent($event))"
+    @update-label="emit('update:label', ...handleEvent($event))"
+    ref="ceInstance"
+  ></fl-paging-select>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, useAttrs } from 'vue';
+import { ref, computed, onMounted, useAttrs, nextTick } from 'vue';
+import { EmitTypeV3, ExposeTypeV3, PropsTypeV3, defaultPropsV3 } from './utils.ts';
+import { generateVue3ExposeObj, handleEvent } from '@/utils/index.ts';
 import './index';
 
 const props = defineProps({
@@ -31,17 +31,21 @@ const props = defineProps({
   },
 })
 
-const otherProps = useAttrs();
+const emit = defineEmits<EmitTypeV3>();
 
-const compRef = ref();
+/** 自定义组件实例 */
+const ceInstance = ref();
 
 onMounted(()=>{
-  compRef.value?._onMounted?.();
+  /** 需要延迟才能访问实例方法 */
+  nextTick(() => ceInstance.value?._onMounted?.());
 })
 
-defineExpose({
+
+defineExpose(generateVue3ExposeObj<ExposeTypeV3>(ceInstance, {
+  // 覆盖/拓展组件方法
   
-})
+}))
 </script>
 
 <style lang="scss" scoped>

@@ -92,7 +92,8 @@ export interface EmitType {
 /** 事件类型定义vue3 */
 export interface EmitTypeV3 extends EmitType {
   // 覆盖/拓展组件事件
-  (e: 'update:modelValue', value: string | number, b: number): void
+  (e: 'update:id', value: any): void
+  (e: 'update:label', value: any): void
 }
 
 ///////////////////////////////// 方法 ///////////////////////////////
