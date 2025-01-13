@@ -69,7 +69,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@use '@/styles/common.scss';
+@import '@/styles/common.scss';
 
 .fl-icon {
   display: inline-flex;

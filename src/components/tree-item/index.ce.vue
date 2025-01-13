@@ -79,7 +79,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@use '@/styles/common.scss';
+@import '@/styles/common.scss';
 .fl-tree-item {
   &__content {
     display: flex;

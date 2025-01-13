@@ -52,7 +52,7 @@ const handleInput = (event: Event) => {
 </script>
 
 <style lang="scss">
-@use '@/styles/common.scss';
+@import '@/styles/common.scss';
 .fl-radio {
   display: flex;
   align-items: center;

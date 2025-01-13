@@ -21,6 +21,6 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@use '@/styles/common.scss';
+@import '@/styles/common.scss';
 
 </style>

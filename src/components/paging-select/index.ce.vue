@@ -316,7 +316,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@use '@/styles/common.scss';
+@import '@/styles/common.scss';
 
 .popup-header {
   display: flex;

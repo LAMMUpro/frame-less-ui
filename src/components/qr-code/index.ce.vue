@@ -100,8 +100,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@use '@/styles/common.scss';
-@use '@/styles/common.scss';
+@import '@/styles/common.scss';
+@import '@/styles/common.scss';
 
 .#{$prefix}-qr-code {
   display: inline-block;
