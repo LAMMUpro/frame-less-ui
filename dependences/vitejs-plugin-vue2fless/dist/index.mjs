@@ -21,7 +21,6 @@ function tryRequire(id, from) {
 }
 
 function parseVueRequest(id) {
-  console.log('ididid', id)
   const [filename, rawQuery] = id.split(`?`, 2);
   const query = Object.fromEntries(new URLSearchParams(rawQuery));
   // if (query.vue)
@@ -1096,7 +1095,6 @@ function vuePlugin(rawOptions = {}) {
     async transform(code, id, opt) {
       const ssr = opt?.ssr === true;
       const { filename, query } = parseVueRequest(id);
-      console.log('query',query)
       if (query.raw) {
         return;
       }
