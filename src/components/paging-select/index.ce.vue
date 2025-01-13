@@ -140,7 +140,7 @@ function pcItemSelect(item: any) {
   if (props.multiple) {
     
   } else {
-    currentSelectIds.value = item[keySetting.value['id']]
+    currentSelectIds.value = [item[keySetting.value['id']]]
   }
   onSelectItem(item);
   onComfirm();
@@ -250,6 +250,7 @@ function onSelectItem(_item: any) {
 
 /** 确定选中 */
 function onComfirm() {
+  console.log('currentSelectIds.value', currentSelectIds.value)
   emit('update-id', props.multiple ? currentSelectIds.value : currentSelectIds.value[0]);
   emit('change', props.multiple ? currentSelectIds.value : currentSelectIds.value[0], props.multiple ? currentSelectItems.value : currentSelectItems.value[0]);
   labelForUser.value = props.multiple ? currentSelectItems.value.map(item => item[keySetting.value['label']]).join(',') : currentSelectLables.value[0];
