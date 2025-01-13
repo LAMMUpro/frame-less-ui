@@ -3,14 +3,14 @@
 # serveless缓存
 .s 
 # 编译产物
-build 
+./build 
 # 编译产物
-build_* 
+./build_* 
 # 编译产物
-dist
-esm
-cjs
-npm
+./dist
+./esm
+./cjs
+./npm
 # 第三方包
 node_modules 
 # yarn版本锁定
