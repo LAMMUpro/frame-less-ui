@@ -13,8 +13,8 @@ export default forwardRef<ExposeTypeReact, PropsTypeReact>(function FlPagingSele
     ceInstance.current.optionSetting = props.optionSetting;
   }, [props.optionSetting])
   useEffect(() => {
-    ceInstance.current.id = props.id;
-  }, [props.id])
+    ceInstance.current.value = props.value;
+  }, [props.value])
   useEffect(() => {
     ceInstance.current.immediate = props.immediate;
   }, [props.immediate])

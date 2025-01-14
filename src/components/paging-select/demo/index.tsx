@@ -51,7 +51,7 @@ function ReactApp() {
 	return (
 		<div>
       <FlPagingSelect
-        id={info.id}
+        value={info.id}
         label={info.name}
         optionSetting={{ label: 'name', id: 'id' }}
         api={api}
