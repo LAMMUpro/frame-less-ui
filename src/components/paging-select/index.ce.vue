@@ -3,6 +3,7 @@
     trigger="click"
     width="300px"
     :teleported="false"
+    :disabled="isMobile()"
   >
     <!-- 触发器 -->
     <template #reference>
@@ -38,7 +39,7 @@
     round
     position="bottom"
     class="h-85%"
-    :model-value="isShowPopup"
+    :modelValue="isShowPopup"
     @update-model-value="isShowPopup = $event.detail[0]"
     closeable
     @close="close()"

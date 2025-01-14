@@ -8,8 +8,7 @@
       v-model:label="info.name"
       :api="api"
       :optionSetting="{label: 'name', id: 'id'}"
-    >
-    </fl-paging-select-v3>
+    ></fl-paging-select-v3>
   </div>
 </template>
 
