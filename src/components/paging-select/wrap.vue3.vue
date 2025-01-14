@@ -3,7 +3,7 @@
     :api="props.api"
     :requestParams="props.requestParams"
     :optionSetting="props.optionSetting"
-    @update-id="emit('update:id', ...handleEvent($event))"
+    @update-value="emit('update:value', ...handleEvent($event))"
     @update-label="emit('update:label', ...handleEvent($event))"
     :id="compUID"
   ></fl-paging-select>
