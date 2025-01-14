@@ -84,7 +84,7 @@ export const defaultPropsV3: PickDefaultPropsType<PropsTypeV3> = {
 /** 事件类型定义 */
 export interface EmitType {
   (e: 'update-show-popup', value: boolean): void
-  (e: 'update-id', value: any): void
+  (e: 'update-value', value: any): void
   (e: 'update-label', value: any): void
   (e: 'change', value: any | Array<any> | undefined, selectedItem?: any | Array<any> | undefined): void
 }
@@ -92,7 +92,7 @@ export interface EmitType {
 /** 事件类型定义vue3 */
 export interface EmitTypeV3 extends EmitType {
   // 覆盖/拓展组件事件
-  (e: 'update:id', value: any): void
+  (e: 'update:value', value: any): void
   (e: 'update:label', value: any): void
 }
 

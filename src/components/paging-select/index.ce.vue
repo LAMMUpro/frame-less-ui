@@ -260,7 +260,7 @@ function onSelectItem(_item: any) {
 /** 确定选中 */
 function onComfirm() {
   console.log('currentSelectIds.value', currentSelectIds.value)
-  emit('update-id', props.multiple ? currentSelectIds.value : currentSelectIds.value[0]);
+  emit('update-value', props.multiple ? currentSelectIds.value : currentSelectIds.value[0]);
   emit('change', props.multiple ? currentSelectIds.value : currentSelectIds.value[0], props.multiple ? currentSelectItems.value : currentSelectItems.value[0]);
   labelForUser.value = props.multiple ? currentSelectItems.value.map(item => item[keySetting.value['label']]).join(',') : currentSelectLables.value[0];
   emit('update-label', props.multiple ? currentSelectLables.value : currentSelectLables.value[0]);
@@ -270,7 +270,7 @@ function onComfirm() {
 /** 从外部清除所有选中 */
 function clearAllSelect() {
   labelForUser.value = '';
-  emit('update-id', '');
+  emit('update-value', '');
   emit('update-label', '');
   emit('change', props.multiple ? [] : undefined, props.multiple ? [] : undefined);
 }
