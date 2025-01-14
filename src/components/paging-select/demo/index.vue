@@ -4,7 +4,7 @@
     <fl-paging-select-v3
       immediate
       style="width: 300px;"
-      v-model:id="info.id"
+      v-model:value="info.id"
       v-model:label="info.name"
       :api="api"
       :optionSetting="{label: 'name', id: 'id'}"

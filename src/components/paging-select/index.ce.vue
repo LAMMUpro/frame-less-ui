@@ -10,11 +10,11 @@
         :class="otherProps.class"
         :style="otherProps.style"
         v-if="props.showPopup === null"
-        :id="props.id"
+        :id="props.value"
         :labelForUser="(labelForUser as string)"
         :disabled="props.disabled"
         :clearable="props.clearable"
-        :isShowQuesIcon="!!props.id && !props.label"
+        :isShowQuesIcon="!!props.value && !props.label"
         :placeholderForNotSelect="props.placeholderForNotSelect"
         @click="!props.disabled && (isShowPopup=!isShowPopup)"
         @clear="clearAllSelect"
@@ -81,7 +81,7 @@
             <fl-checkbox
               class="py-2"
               :name="item[keySetting['id']]"
-              :title-class="[{'bg-blue': item[keySetting['id']] === props.id }]"
+              :title-class="[{'bg-blue': item[keySetting['id']] === props.value }]"
               v-for="(item, index) in dataList"
               :key="item[keySetting['id']]"
               @click="onSelectItem(item)"
@@ -99,7 +99,7 @@
             <fl-radio
               class="py-2"
               :value="item[keySetting['id']]"
-              :title-class="[{'bg-blue': item[keySetting['id']] === props.id }]"
+              :title-class="[{'bg-blue': item[keySetting['id']] === props.value }]"
               v-for="(item, index) in dataList"
               :key="item[keySetting['id']]"
               @click="onSelectItem(item)"
@@ -207,7 +207,7 @@ watch(() => keyword.value, () => {
  */
 watch(() => isShowPopup.value, () => {
   if (isShowPopup.value) {
-    currentSelectIds.value = props.multiple ? props.id as Array<string> : [props.id] as Array<string>;
+    currentSelectIds.value = props.multiple ? props.value as Array<string> : [props.value] as Array<string>;
     currentSelectLables.value = props.multiple ? props.label as Array<string> : [props.label] as Array<string>;
     currentSelectItems.value = [];
     
@@ -303,7 +303,7 @@ const getData = async () => {
 
     /** 单选 未传label */
     if (!props.multiple && currentSelectIds.value[0] && !currentSelectLables.value[0]) {
-      const item = result.find(item => item[keySetting.value['id']] == props.id);
+      const item = result.find(item => item[keySetting.value['id']] == props.value);
       if (item) {
         currentSelectLables.value[0] = item[keySetting.value['label']];
         currentSelectItems.value[0] = JSON.parse(JSON.stringify(item));

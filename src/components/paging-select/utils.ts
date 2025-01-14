@@ -7,7 +7,7 @@ export interface PropsType {
   /** 通过此变量来控制弹窗显示 */
   showPopup?: boolean | null
   /** 绑定值，可双向绑定 */
-  id: string | number | Array<any>
+  value: string | number | Array<any>
   /** 值对应的名称 */
   label?: string | number | Array<any>
   /** 请求数据函数 */
