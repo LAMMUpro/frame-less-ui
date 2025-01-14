@@ -22,7 +22,7 @@ import { generateVue3ExposeObj, handleEvent } from '@/utils/index.ts';
 import './index';
 
 /** 组件id, 使用id查询示例, 代替useTemplateRef */
-const compUID = '__flcomp' + useId();
+const compUID = '__flcomp_' + useId();
 
 const props = withDefaults(defineProps<PropsTypeV3>(), defaultPropsV3);
 
