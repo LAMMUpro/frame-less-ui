@@ -41,5 +41,6 @@ defineExpose({
 
 @import '@/styles/element-plus-base.scss';
 @import 'element-plus/theme-chalk/el-popover.css';
-
+// 不引入这个箭头会不出现
+@import 'element-plus/theme-chalk/el-popper.css';
 </style>
