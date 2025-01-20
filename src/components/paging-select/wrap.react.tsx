@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC, forwardRef, useImperativeHandle } from 'react';
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { ExposeType, ExposeTypeReact, PropsType, PropsTypeReact } from './utils';
 import './index';
 
@@ -32,10 +32,8 @@ export default forwardRef<ExposeTypeReact, PropsTypeReact>(function FlPagingSele
   return <>
     {/* @ts-ignore */}
     <fl-paging-select
-      ref={ceInstance}
-      label={props.label}
       {...props}
-      style={{ width: '300px' }}
+      ref={ceInstance}
     >
     {/* @ts-ignore */}
     </fl-paging-select>

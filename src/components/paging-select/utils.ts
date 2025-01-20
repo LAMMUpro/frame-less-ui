@@ -1,5 +1,4 @@
 import { PickDefaultPropsType } from '@/types/index.ts'
-import { FC } from 'react'
 
 ///////////////////////////////// 属性定义 ///////////////////////////////
 /** 属性定义 */
