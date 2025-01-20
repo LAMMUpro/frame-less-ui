@@ -22,7 +22,7 @@
       ></fl-input-placeholder>
     </template>
     <!-- 弹出内容 -->
-    <div style="height: 260px; overflow-y: scroll;">
+    <fl-scroll height="260px">
       <div
         v-for="item in dataList"
         :key="item[keySetting['id']]"
@@ -32,7 +32,7 @@
         {{ item[keySetting['label']] }}
       </div>
       <fl-load-more class="py-1!" :autoLoad="!props.immediate" :loading="loading" :noMoreData="isNoMoreData" @getData="onLoadMore" normalContent="点击加载更多"/>
-    </div>
+    </fl-scroll>
   </el-popover>
   <fl-popup
     v-if="isMobile()"
@@ -132,6 +132,7 @@ import '../radio';
 import '../radio-group';
 import '../popover';
 import '../load-more';
+import '../scroll';
 import { useAttrs } from 'vue';
 import { isMobile } from '@/utils/index.ts';
 import { EmitType, PropsType, defaultProps } from './utils.ts';
