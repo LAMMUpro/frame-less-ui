@@ -328,6 +328,8 @@ defineExpose({
 <style lang="scss">
 @import '@/styles/common.scss';
 
+@import '@/styles/element-plus-base.scss';
+
 @import 'element-plus/theme-chalk/el-popover.css';
 
 .popup-header {
