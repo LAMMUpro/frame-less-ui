@@ -1,14 +1,13 @@
 <template>
-  <div class="fl-scroll">
-    Scroll组件
-  </div>
+  <el-scrollbar>
+    <slot></slot>
+  </el-scrollbar>
 </template>
 
 <script lang="ts" setup>
 import { useAttrs } from 'vue';
 import { EmitType, PropsType, defaultProps } from './utils.ts';
-// 如果需要用到el-popover组件，则需要手动引入
-// import { ElPopover } from 'element-plus';
+import { ElScrollbar } from 'element-plus';
 
 // @ts-ignore
 const props = withDefaults(defineProps<PropsType>(), defaultProps);
@@ -30,8 +29,7 @@ defineExpose({
 <style lang="scss">
 @import '@/styles/common.scss';
 
-// 如果需要用到el-popover组件，则需要手动引入这两个样式文件
-// @import '@/styles/element-plus-base.scss';
-// @import 'element-plus/theme-chalk/el-popover.css';
+@import '@/styles/element-plus-base.scss';
+@import 'element-plus/theme-chalk/el-scrollbar.css';
 
 </style>
