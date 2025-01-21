@@ -5,60 +5,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue';
-import QRCode, { QRCodeErrorCorrectionLevel } from "qrcode";
+import { ref, computed, useAttrs, watch, nextTick } from 'vue';
+import QRCode from "qrcode";
+import { EmitType, PropsType, defaultProps } from './utils.ts';
 
-const props = defineProps({
-  /**
-   * 二维码内容
-   */
-  text: {
-    type: String,
-    required: true
-  },
-  /**
-   * 二维码宽度
-   */
-  width: {
-    type: Number,
-    default: 200
-  },
-  /**
-   * 二维码暗色
-   */
-  darkColor: {
-    type: String,
-    default: '#000000ff'
-  },
-  /**
-   * 二维码亮色
-   */
-  lightColor: {
-    type: String,
-    default: '#ffffffff'
-  },
-  /**
-   * 二维码纠错级别
-   */
-  errorLevel: {
-    type: String as () => QRCodeErrorCorrectionLevel,
-    default: 'M',
-    validator: (value: string) => ['L', 'M', 'Q', 'H'].includes(value)
-  },
-  /**
-   * 二维码边距
-   */
-  margin: {
-    type: Number,
-    default: 0
-  }
-})
+// @ts-ignore
+const props = withDefaults(defineProps<PropsType>(), defaultProps);
 
-const emit = defineEmits<{
-  (e: 'error', data: any): void
-  (e: 'updated'): void
-  (e: 'update-text', text: string): void
-}>();
+const emit = defineEmits<EmitType>();
+
+const otherProps = useAttrs();
 
 watch(() => props.text, () => {
   if (props.text) {
@@ -94,7 +50,13 @@ function draw(str?: string) {
   });
 }
 
+/** 用于平替onMounted */
+async function _onMounted() {
+  console.log('>>> qr-code _onMounted')
+}
+
 defineExpose({
+  _onMounted,
   draw,
 })
 </script>
