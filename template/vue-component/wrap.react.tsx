@@ -2,7 +2,7 @@ import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { ExposeType, ExposeTypeReact, PropsType, PropsTypeReact } from './utils';
 import './index';
 
-export default forwardRef<ExposeTypeReact, PropsTypeReact>(function FlPagingSelect(props, ref) {
+export default forwardRef<ExposeTypeReact, PropsTypeReact>(function FlCompTemp(props, ref) {
 
   const ceInstance = useRef<PropsType & ExposeType>();
 
