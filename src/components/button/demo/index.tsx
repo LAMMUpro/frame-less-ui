@@ -5,13 +5,15 @@ import '@/styles/demo.scss';
 import '@/renderAsideNav.tsx';
 import "../../icon/index";
 
+import FlButton from '../wrap.react';
+
 /**
  * react实例
  */
 function ReactApp() {
 	return (
 		<div>
-      <fl-button></fl-button>
+      <FlButton>react按钮</FlButton>
 		</div>
 	);
 }
