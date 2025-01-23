@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import path from "path";
 import vue3Plugin from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
+
 // 产物压缩相关
 // import terser from '@rollup/plugin-terser';
 
@@ -197,6 +198,7 @@ export default defineConfig({
           /** 分包配置 */
           manualChunks: {
             'qrcode': ['qrcode'],
+            // 'react': ['react', 'react-dom'],
           },
           // paths: {
           //   'vue': 'vue3fless',
@@ -205,7 +207,7 @@ export default defineConfig({
           // plugins: [terser()],
         },
         {
-          format: 'esm',
+          format: 'cjs',
           dir: 'npm/cjs',
           entryFileNames: outputDir + "[name].js",
           chunkFileNames: outputDir + "deps/[name].[hash].js",
@@ -221,6 +223,8 @@ export default defineConfig({
           // plugins: [terser()],
         }
       ],
+      // 不能打包react，不然打包产物用不了
+      external: ['react', 'react-dom'],
       // external: ['vue', 'vue3fless', 'vue2', 'vue2fless', 'react']
     }
   }
