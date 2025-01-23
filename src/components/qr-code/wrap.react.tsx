@@ -8,7 +8,7 @@ export default forwardRef<ExposeTypeReact, PropsTypeReact>(function FlQrCode(pro
 
   useEffect(() => {
     const fn = (event: Event) => {
-      props.onUpdateText(...(event as CustomEvent<[any]>).detail);
+      props.onUpdateText?.(...(event as CustomEvent<[any]>).detail);
     }
     ceInstance.current?.addEventListener('update-text', fn);
     return () => {

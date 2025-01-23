@@ -47,10 +47,12 @@ export interface PropsTypeV3 extends PropsType {
 
 /** 属性定义React(包括事件/插槽) */
 export interface PropsTypeReact extends PropsType {
-  /** id改变事件 */
-  onUpdateId?: (value: any) => void
+  /** value改变事件 */
+  onUpdateValue?: (value: any) => void
   /** label改变事件 */
   onUpdateLabel?: (value: any) => void
+  /** item改变事件 */
+  onChange?: (value: any) => void
 }
 
 ///////////////////////////////// 属性默认值 ///////////////////////////////

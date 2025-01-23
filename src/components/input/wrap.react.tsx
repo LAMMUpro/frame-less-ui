@@ -12,7 +12,7 @@ export default forwardRef<ExposeTypeReact, PropsTypeReact>(function FlInput(prop
 
   useEffect(() => {
     const fn = (event: Event) => {
-      props.onUpdateModelValue(...(event as CustomEvent<[any]>).detail);
+      props.onUpdateModelValue?.(...(event as CustomEvent<[any]>).detail);
     }
     ceInstance.current?.addEventListener('update-model-value', fn);
     return () => {
