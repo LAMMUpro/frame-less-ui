@@ -133,6 +133,24 @@ export function generateVue3ExposeObj<T>(instance: Ref<HTMLElement | null>, expo
 }
 
 /** 
+ * 用于继承/传递组件暴露的方法(for wrap.vue2.vue)
+ * 优先从exposeObj取，这样就可覆盖原有的方法
+ */
+export function generateVue2ExposeObj<T>(that: any, exposeObj: Partial<T>, refName: string = 'ceInstance'): Partial<T> {
+  return new Proxy(
+    {},
+    {
+      get(_, key) {
+        return exposeObj?.[key] || that?.$refs?.[refName]?.[key];
+      },
+      has(_, key) {
+        return key in (exposeObj || {}) || key in (that?.$refs?.[refName] || {});
+      },
+    }
+  ) as any;
+}
+
+/** 
  * vue3处理web component事件参数
  */
 export function handleEvent(event: CustomEvent): Array<any> {

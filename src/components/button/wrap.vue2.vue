@@ -7,6 +7,7 @@
 </template>
 <script>
 import { defaultPropsV2 } from '@/components/button/utils.ts';
+import { generateVue2ExposeObj } from '@/utils/index.ts';
 import './index';
 
 export default {
@@ -14,6 +15,10 @@ export default {
   props: {},
   data() {
     return {
+      expose: generateVue2ExposeObj(this, {
+        // 覆盖/拓展组件方法
+
+      }),
       defaultPropsV2,
     }
   },
