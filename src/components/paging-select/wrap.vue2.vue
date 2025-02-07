@@ -2,6 +2,8 @@
   <fl-paging-select
     ref="ceInstance"
     v-bind="{ ...defaultPropsV2, ...$attrs }"
+    @update-value="$emit('update:value', ...handleEvent($event))"
+    @update-label="$emit('update:label', ...handleEvent($event))"
   >
     <div v-for="(_, slotName) in $slots" :key="slotName" :slot="slotName === 'default' ? '' : slotName">
       <slot :name="slotName"></slot>
@@ -10,6 +12,7 @@
 </template>
 <script>
 import { defaultPropsV2 } from '@/components/paging-select/utils.ts';
+import { handleEvent } from '@/utils/index.ts';
 import './index';
 
 export default {
@@ -56,6 +59,7 @@ export default {
     this.$refs['ceInstance']?._onMounted?.();
   },
   methods: {
+    handleEvent,
     // 调用内部组件的方法
     callOriginalMethod(methodName, ...args) {
       this.$refs['ceInstance']?.[methodName]?.(...args);

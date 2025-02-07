@@ -1,4 +1,5 @@
-import { PickDefaultPropsType } from '@/types/index.ts'
+import { PickDefaultPropsType } from '@/types/index.ts';
+import { handleVue2DefaultProps } from '@/utils/index.ts';
 import { QRCodeErrorCorrectionLevel } from "qrcode";
 
 ///////////////////////////////// 属性定义 ///////////////////////////////
@@ -20,6 +21,11 @@ export interface PropsType {
 
 /** 属性定义Vue3 */
 export interface PropsTypeV3 extends PropsType {
+
+}
+
+/** 属性定义Vue2 */
+export interface PropsTypeV2 extends PropsType {
 
 }
 
@@ -45,6 +51,10 @@ export const defaultPropsV3: PickDefaultPropsType<PropsTypeV3> = {
   ...defaultProps,
 }
 
+/** 默认属性Vue2 */
+export const defaultPropsV2: PickDefaultPropsType<PropsTypeV2> = handleVue2DefaultProps({
+  ...defaultProps,
+})
 
 ///////////////////////////////// 事件 ///////////////////////////////
 /** 事件类型定义 */
