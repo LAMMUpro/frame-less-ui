@@ -1,5 +1,8 @@
 <template>
-  <fl-button ref="ceInstance" v-bind="{ ...defaultPropsV2, ...$attrs }">
+  <fl-button
+    ref="ceInstance"
+    v-bind="{ ...defaultPropsV2, ...$attrs }"
+  >
     <div v-for="(_, slotName) in $slots" :key="slotName" :slot="slotName === 'default' ? '' : slotName">
       <slot :name="slotName"></slot>
     </div>
@@ -7,7 +10,6 @@
 </template>
 <script>
 import { defaultPropsV2 } from '@/components/button/utils.ts';
-import { generateVue2ExposeObj } from '@/utils/index.ts';
 import './index';
 
 export default {
