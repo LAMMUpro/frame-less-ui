@@ -67,6 +67,15 @@ export function toCamelCase(str: string) {
 }
 
 /**
+ * 驼峰命名法转短横线命名法
+ * @Example toKebabCase('startTime') => 'start-time'
+ */
+export function toKebabCase(str: string) {
+  if (!str) return str;
+  return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+/**
  * 短横线命名法转帕斯卡命名法
  * @Example toCamelCase('start-time') => 'StartTime'
  */
@@ -159,4 +168,16 @@ export function handleEvent(event: CustomEvent): Array<any> {
   } else {
     return [];
   }
+}
+
+/**
+ * 处理默认属性key，驼峰命名转短横线命名（html默认不区分大小写，使用v-bind的方式绑定属性可能会出现问题）
+ * @param obj 
+ */
+export function handleVue2DefaultProps(obj: {[key:string]: any}): any {
+  const result = {};
+  Object.keys(obj).forEach(key => {
+    result[toKebabCase(key)] = obj[key];
+  })
+  return result;
 }

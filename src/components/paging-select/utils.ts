@@ -1,4 +1,5 @@
-import { PickDefaultPropsType } from '@/types/index.ts'
+import { PickDefaultPropsType } from '@/types/index.ts';
+import { handleVue2DefaultProps } from '@/utils/index.ts';
 
 ///////////////////////////////// 属性定义 ///////////////////////////////
 /** 属性定义 */
@@ -45,6 +46,11 @@ export interface PropsTypeV3 extends PropsType {
 
 }
 
+/** 属性定义Vue2 */
+export interface PropsTypeV2 extends PropsType {
+
+}
+
 /** 属性定义React(包括事件/插槽) */
 export interface PropsTypeReact extends PropsType {
   /** value改变事件 */
@@ -78,8 +84,14 @@ export const defaultProps: PickDefaultPropsType<PropsType> = {
 /** 默认属性Vue3 */
 export const defaultPropsV3: PickDefaultPropsType<PropsTypeV3> = {
   ...defaultProps,
+  placeholderForNotSelect: '点击选择(vue3)',
 }
 
+/** 默认属性Vue2 */
+export const defaultPropsV2: PickDefaultPropsType<PropsTypeV2> = handleVue2DefaultProps({
+  ...defaultProps,
+  placeholderForNotSelect: '点击选择(vue2.381222)',
+})
 
 ///////////////////////////////// 事件 ///////////////////////////////
 /** 事件类型定义 */

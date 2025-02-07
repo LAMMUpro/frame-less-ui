@@ -1,8 +1,6 @@
 <template>
   <fl-paging-select
-    :api="props.api"
-    :requestParams="props.requestParams"
-    :optionSetting="props.optionSetting"
+    v-bind="props"
     @update-value="emit('update:value', ...handleEvent($event))"
     @update-label="emit('update:label', ...handleEvent($event))"
     :id="compUID"
@@ -18,21 +16,7 @@ import './index';
 /** 组件id, 使用id查询示例, 代替useTemplateRef */
 const compUID = '__flcomp_v3_' + useId();
 
-const props = defineProps({
-  api: {
-    type: Function,
-    required: true,
-  },
-  requestParams: {
-    type: Object,
-    default: () => ({})
-  },
-  /** 选项数据配置项 */
-  optionSetting: {
-    type: Object,
-    default: () => ({})
-  },
-})
+const props = withDefaults(defineProps<PropsTypeV3>(), defaultPropsV3);
 
 const emit = defineEmits<EmitTypeV3>();
 
