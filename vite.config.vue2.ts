@@ -53,10 +53,13 @@ const entryFiles: {[key: string]: string} = {};
     })
 })();
 
-console.log('entryFiles', entryFiles)
-
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   plugins: [
     vue2Plugin({
       template: {
@@ -87,11 +90,6 @@ export default defineConfig({
       }
     },
   ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'npm/esm'),
-    },
-  },
   build: {
     emptyOutDir: false,
     // sourcemap: true,
