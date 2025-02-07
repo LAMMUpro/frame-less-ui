@@ -15,10 +15,6 @@ export default {
   props: {},
   data() {
     return {
-      expose: generateVue2ExposeObj(this, {
-        // 覆盖/拓展组件方法
-
-      }),
       defaultPropsV2,
     }
   },
@@ -26,7 +22,10 @@ export default {
     this.$refs['ceInstance']?._onMounted?.();
   },
   methods: {
-
+    // 调用内部组件的方法
+    callOriginalMethod(methodName, ...args) {
+      this.$refs['ceInstance']?.[methodName]?.(...args);
+    },
   },
 }
 </script>
