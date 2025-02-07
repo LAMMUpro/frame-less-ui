@@ -98,6 +98,11 @@ export interface PropsTypeV3 extends PropsType {
 
 }
 
+/** 属性定义Vue2 */
+export interface PropsTypeV2 extends PropsType {
+
+}
+
 /** 属性定义React(包括事件/插槽) */
 export interface PropsTypeReact extends PropsType {
   // /** id改变事件 */
@@ -119,6 +124,12 @@ export const defaultProps: PickDefaultPropsType<PropsType> = {
 /** 默认属性Vue3 */
 export const defaultPropsV3: PickDefaultPropsType<PropsTypeV3> = {
   ...defaultProps,
+}
+
+/** 默认属性Vue2 */
+export const defaultPropsV2: PickDefaultPropsType<PropsTypeV2> = {
+  ...defaultProps,
+  type: 'danger',
 }
 
 

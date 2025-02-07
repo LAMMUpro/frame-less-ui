@@ -1,16 +1,12 @@
 <template>
-  <div>
-    <h2>fl-button for vue</h2>
-    <fl-button
-      ref="buttonRef"
-      :type="type"
-      v-model="this.type"
-    >
-      <slot></slot>
-    </fl-button>
-  </div>
+  <fl-button ref="ceInstance" v-bind="{ ...defaultPropsV2, ...$attrs }">
+    <div v-for="(_, slotName) in $slots" :key="slotName" :slot="slotName === 'default' ? '' : slotName">
+      <slot :name="slotName"></slot>
+    </div>
+  </fl-button>
 </template>
 <script>
+import { defaultPropsV2 } from '@/components/button/utils.ts';
 import './index';
 
 export default {
@@ -18,11 +14,11 @@ export default {
   props: {},
   data() {
     return {
-      type: 'danger'
+      defaultPropsV2,
     }
   },
   mounted() {
-    this.$refs['buttonRef']?._onMounted?.();
+    this.$refs['ceInstance']?._onMounted?.();
   },
   methods: {
 
