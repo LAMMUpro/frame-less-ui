@@ -2,6 +2,7 @@
   <el-popover
     trigger="click"
     width="300px"
+    v-model:visible="isPopoverShow"
     :teleported="false"
     :disabled="isMobile()"
   >
@@ -155,6 +156,9 @@ function pcItemSelect(item: any) {
   }
   onSelectItem(item);
   onComfirm();
+  if (!props.multiple) {
+    isPopoverShow.value = false;
+  }
 }
 
 // @ts-ignore
@@ -177,7 +181,10 @@ function todo() {
   alert('待开发');
 }
 
-/** 是否显示弹窗 */
+/** 是否显示弹窗(pc端) */
+const isPopoverShow = ref(false);
+
+/** 是否显示弹窗(移动端) */
 const isShowPopup = ref(false);
 
 /** 关闭弹窗 */
@@ -261,11 +268,11 @@ function onSelectItem(_item: any) {
 
 /** 确定选中 */
 function onComfirm() {
-  console.log('currentSelectIds.value', currentSelectIds.value)
   emit('update-value', props.multiple ? currentSelectIds.value : currentSelectIds.value[0]);
   emit('change', props.multiple ? currentSelectIds.value : currentSelectIds.value[0], props.multiple ? currentSelectItems.value : currentSelectItems.value[0]);
   labelForUser.value = props.multiple ? currentSelectItems.value.map(item => item[keySetting.value['label']]).join(',') : currentSelectLables.value[0];
   emit('update-label', props.multiple ? currentSelectLables.value : currentSelectLables.value[0]);
+
   close();
 }
 
