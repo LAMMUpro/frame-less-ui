@@ -12,6 +12,7 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
+  base: '/fl-docs',
   /** vite相关配置 */
   vite: {
     server: {
